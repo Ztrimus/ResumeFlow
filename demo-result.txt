@@ -1,0 +1,39 @@
+Job Title:
+Software Engineer (Summer 2024 Internship)
+
+Keywords:
+Software Engineer, Internship, Summer 2024, Motorola Solutions, Champaign, IL, full stack software development, application development, front-end development, React/Angular/Flutter, data storage and retrieval, SQL, NoSQL, Graph databases, GraphQL, REST APIs, Python, GO, JavaScript, cloud computing, microservices-based application development, container-based software deployment, Agile practices, industry standard, University of Illinois Urbana-Champaign, Bachelor's or Master's degree, December 2024 graduation, US Citizen, permanent resident, MS student with work authorization, F1 Visa on CPT, Microsoft Azure
+
+Job Purpose:
+The Software Engineer intern will work on all aspects of software application development, including front-end and back-end development, data storage and retrieval, and cloud-based devops pipeline development. They will utilize various technologies such as React, Angular, Flutter, SQL, NoSQL, GraphQL, REST APIs, Python, GO, JavaScript, and Microsoft Azure.
+
+Job Duties and Responsibilities:
+
+- Develop front-end applications using frameworks such as React, Angular, or Flutter
+- Implement data storage and retrieval using SQL, NoSQL, and Graph databases
+- Design and develop GraphQL and REST APIs
+- Work with backend tech stacks based on Python, GO, and JavaScript
+- Develop cloud-based devops pipelines for software deployment and orchestration
+- Collaborate with a team to plan, implement, and deliver products and services using Agile practices
+- Utilize microservices-based software architecture and containerization
+- Apply cloud-based DevOps methodologies and processes
+- Demonstrate strong communication and problem-solving skills throughout the development process
+
+Required Qualifications:
+
+- Currently pursuing a Bachelor's or Master's degree in Software Engineering (CS, CS+, CE) at the University of Illinois Urbana-Champaign
+- Expected graduation on or after December 2024
+- US Citizen, permanent resident, or MS student with work authorization (F1 Visa on CPT accepted only for masters-level students)
+
+Preferred Qualifications:
+
+- Experience with front-end frameworks such as React, Angular, or Flutter
+- Proficiency in HTML and CSS
+- Knowledge of Node.js
+- Familiarity with SQL and NoSQL databases
+- Experience with Python-based backend tech stacks
+- Understanding of cloud devops, especially on Microsoft Azure
+- Previous experience working in a team using Agile practices
+- Familiarity with microservices-based software architecture and containerization
+- Proficiency in cloud-based devops methodologies and processes
+- Excellent communication and problem-solving skills
