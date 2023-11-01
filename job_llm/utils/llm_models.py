@@ -11,16 +11,24 @@ import openai
 
 class ChatGPT:
     def __init__(self, openai_api_key, system_prompt):
-        self.system_prompt = system_prompt
+        self.system_prompt = {"role": "system", "content": system_prompt}
         openai.api_key = openai_api_key
     
     def get_response(self, prompt):
-        completion = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messaages = [{"role":"user", "content": "what is parameter of moon"}]
-        )   
+        user_prompt = {"role": "user", "content": prompt}
 
-        print(completion)
+        try:
+            completion = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages = [self.system_prompt, user_prompt]
+            )   
+
+            response = completion.choices[0].message
+            content = response["content"].strip()
+            
+            return content
+        except Exception as e:
+            print(e)
 
 class Llama2:
     def __init__(self, hf_token, system_prompt):
