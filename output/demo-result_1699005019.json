@@ -1,0 +1,24 @@
+{
+  "title": "Software Engineer (Summer 2024 Internship)",
+  "job-link":"https://www.linkedin.com/jobs/view/3749167580",
+  "keywords": ["Software Engineer", "Internship", "Motorola Solutions", "Champaign, IL", "Full stack software developer", "Front-end development", "React", "Angular", "Flutter", "Data storage", "SQL", "NoSQL", "Graph databases", "GraphQL", "REST APIs", "Python", "GO", "JavaScript", "Cloud computing", "Microservices-based application development", "Container-based software deployment", "Agile practices", "Cloud DevOps", "Microsoft Azure"],
+  "purpose": "To work on all aspects of application development during the summer internship",
+  "duties_responsibilities": [
+    "Front-end development using frameworks such as React, Angular, and Flutter",
+    "Data storage and retrieval using SQL, NoSQL, and Graph databases",
+    "Building GraphQL and REST APIs",
+    "Developing backend tech stacks using Python, GO, and JavaScript",
+    "Creating cloud-based DevOps pipelines"
+  ],
+  "required_qualifications": [
+    "Currently pursuing a Bachelor's or Master's degree in Software Engineering (CS, CS+, CE) at the University of Illinois Urbana-Champaign",
+    "Expected graduation on or after December 2024",
+    "Must be a US Citizen, permanent resident, or be an MS student with work authorization (F1 Visa on CPT accepted only for masters-level students)"
+  ],
+  "preferred_qualifications": [
+    "Experience with team software development using Agile practices",
+    "Knowledge of microservices-based software architecture and containerization",
+    "Familiarity with cloud-based DevOps methodologies and processes",
+    "Strong communication and problem-solving skills"
+  ]
+}
