@@ -35,3 +35,4 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
 ## Bugs :
 
 ## Limitation and Further growth : 
+- https://blog.apify.com/talk-to-your-website-with-large-language-models/

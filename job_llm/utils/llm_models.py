@@ -7,6 +7,7 @@ Developer Email: zinjadsaurabh1997@gmail.com
 Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 -----------------------------------------------------------------------
 '''
+import json
 import openai
 
 class ChatGPT:
@@ -25,8 +26,9 @@ class ChatGPT:
 
             response = completion.choices[0].message
             content = response["content"].strip()
+            content_json = json.loads(content)
             
-            return content
+            return content_json
         except Exception as e:
             print(e)
 
