@@ -1,0 +1,5 @@
+# TODO: Remove this file. we are using poetry package manager now. 
+# refer to pyproject.toml to know about which package we using.
+# TODO: To install other packages you just have to do ```poetry install```
+# TODO: to install new packages you have to do ```poetry add <package_name>``` instead of pip install <package_name>
+openai
