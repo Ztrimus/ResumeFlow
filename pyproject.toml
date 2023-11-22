@@ -11,6 +11,8 @@ requests = "^2.31.0"
 beautifulsoup4 = "^4.12.2"
 openai = "^0.28.1"
 pyproject-toml = "^0.0.10"
+fpdf = "^1.7.2"
+pypdf2 = "^3.0.1"
 
 
 [tool.poetry.group.dev.dependencies]

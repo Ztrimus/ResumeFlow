@@ -31,11 +31,12 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
 1. Prerequisites
     - Python - 3.10.12
     - OpenAI API key
-2. Install [Poetry package](https://python-poetry.org/docs/basic-usage/) (dependency management and packaging tool)
+2. Create python environment (`python -m venv .env` or conda or etc.)
+3. Install [Poetry package](https://python-poetry.org/docs/basic-usage/) (dependency management and packaging tool)
     ```bash
     > pip install poetry
     ```
-3. Install all required packages. Refer [pyproject.toml](./pyproject.toml) or [poetry.lock](./poetry.lock) for list of packages.
+4. Install all required packages. Refer [pyproject.toml](./pyproject.toml) or [poetry.lock](./poetry.lock) for list of packages.
     ```bash
     > poetry install
     ```
