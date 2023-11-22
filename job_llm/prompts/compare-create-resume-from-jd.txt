@@ -1,9 +1,0 @@
-This is my resume:
-```
-<<  RESUME >>
-```
-
-This is the Job Description:
-```
-<< DESCRIPTION >>
-```
