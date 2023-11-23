@@ -240,20 +240,25 @@
   "certifications": [
     {
       "name": "Deep Learning Specialization",
-      "by": "DeepLearning.AI, Coursera Inc."
+      "by": "DeepLearning.AI, Coursera Inc.",
+      "link": "https://www.coursera.org/account/accomplishments/specialization/G3WPNWRYX628"
     },
     {
       "name": "MLOps for AI Engineers and Data Scientists",
-      "by": "Omdena Inc."
+      "by": "Omdena Inc.",
+      "link": "https://drive.google.com/file/d/1fh4AEscb0P82nfoaA-muWMzmFngzyk2g/view"
     },
-    { "name": "Microsoft Azure Fundamentals", "by": "Udemy." },
+    { "name": "Microsoft Azure Fundamentals", "by": "Udemy.",
+    "link": "https://www.udemy.com/certificate/UC-37e943d1-e7f7-4d27-a1e4-e799aef7013b/" },
     {
       "name": "Server-side Backend Development",
-      "by": "The Hong Kong University of Science and Technology."
+      "by": "The Hong Kong University of Science and Technology.",
+      "link": "https://www.coursera.org/account/accomplishments/verify/TYMQX23D4HRQ"
     },
     {
       "name": "Front-End Web UI Frameworks and Tools",
-      "by": "The Hong Kong University of Science and Technology."
+      "by": "The Hong Kong University of Science and Technology.",
+      "link": "https://www.coursera.org/account/accomplishments/verify/TW8MA6MEXSCZ"
     }
   ],
   "achievements": [

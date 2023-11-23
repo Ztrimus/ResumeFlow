@@ -44,7 +44,6 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
 ## Resources 
 
 ## References
-- https://blog.apify.com/talk-to-your-website-with-large-language-models/
 
 ## Bugs :
 
