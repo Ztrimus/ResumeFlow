@@ -15,7 +15,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from utils.auto_apply_model import AutoApplyModel
 from config import OPENAI_API_KEY
-from utils.utils import read_json, write_file, write_json, job_doc_name, save_log
+from utils.utils import read_json, write_file, write_json, job_doc_name, save_log, text_to_pdf
 
 print("Starting Auto Apply Pipeline...")
 job_url = "https://careers.eisneramper.com/en/career-opportunities/2301/software-developer-consulting-internship-summer-2024-baton-rouge/?ref=Simplify"
@@ -40,3 +40,6 @@ print("Generating Cover Letter...")
 cover_letter = autoApply.generate_cover_letter(job_details, user_data)
 cover_letter_path = os.path.join(output_dir, f"{doc_name}_cv.txt")
 write_file(cover_letter_path, cover_letter)
+text_cv_to_pdf = input("Want cover letter as PDF? (y/n): ")
+if text_cv_to_pdf.strip().lower() == "y":
+    text_to_pdf(cover_letter, cover_letter_path.replace(".txt", ".pdf"))

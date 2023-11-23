@@ -10,7 +10,6 @@ Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 import os
 import sys
 
-from src.utils.utils import measure_execution_time
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -18,6 +17,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import json
 from utils.llm_models import ChatGPT
 from utils.data_extraction import get_url_content
+from utils.utils import measure_execution_time
 
 class AutoApplyModel:
     def __init__(self, openai_key: str):

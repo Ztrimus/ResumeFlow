@@ -40,10 +40,15 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
     ```bash
     > poetry install
     ```
+5. If you are on linux you also need to install following thing to convert latex to pdf.
+    ```bash
+    > sudo apt-get install texlive-latex-base texlive-fonts-recommended texlive-fonts-extra
+    ```
 
 ## Resources 
 
 ## References
+- https://www.overleaf.com/latex/templates/jakes-resume-anonymous/cstpnrbkhndn
 
 ## Bugs :
 

@@ -1,20 +1,11 @@
+import os
 import time
 import json
+import shutil
 from fpdf import FPDF
 from datetime import datetime
-
-def text_to_pdf(text: str, file_path: str):
-    """Converts the given text to a PDF and saves it to the specified file path.
-
-    Args:
-        text (str): The text to be converted to PDF.
-        file_path (str): The file path where the PDF will be saved.
-    """
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", size=12)
-    pdf.multi_cell(0, 10, txt=text)
-    pdf.output(file_path)
+import aspose.pdf as pdf
+import subprocess
 
 def write_file(file_path, data):
     """Writes the given data to the specified file.
@@ -84,3 +75,49 @@ def measure_execution_time(func):
         print(f"Function {func.__name__} took {execution_time:.4f} seconds to execute")
         return result
     return wrapper
+
+def text_to_pdf(text: str, file_path: str):
+    """Converts the given text to a PDF and saves it to the specified file path.
+
+    Args:
+        text (str): The text to be converted to PDF.
+        file_path (str): The file path where the PDF will be saved.
+    """
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+    pdf.multi_cell(0, 10, txt=text)
+    pdf.output(file_path)
+
+def tex_to_pdf(tex_file_path: str, pdf_file_path: str):
+    # Call pdflatex to convert LaTeX to PDF
+    subprocess.run(['pdflatex', tex_file_path])
+
+    # Move the PDF file to the specified file path
+    shutil.copyfile(tex_file_path.replace(".tex", "pdf"), pdf_file_path)
+
+    for file_type in [".aux", ".log", ".out", ".pdf"]:
+        file_path = tex_file_path.replace(".tex", file_type)
+        if os.path.exists(file_path):
+            os.remove(file_path)
+
+def tex_to_pdf_aspose(tex_file_path: str, pdf_file_path: str):
+    """Converts the given LaTeX file to a PDF file.
+
+    Args:
+        tex_file_path (str): The file path of the LaTeX file.
+        pdf_file_path (str): The file path where the PDF file will be saved.
+    """
+    # Create an instance of TeXLoadOptions class
+    load_options = pdf.TeXLoadOptions()
+
+    # Load the input LaTeX file with the Document class
+    doc = pdf.Document(tex_file_path, load_options)
+
+    # Convert the LaTeX file to a PDF file
+    doc.save(pdf_file_path)
+
+if __name__ == "__main__":
+    tex_file_path = "logs/resume.tex"
+    pdf_file_path = "logs/resume.pdf"
+    tex_to_pdf(tex_file_path, pdf_file_path)
