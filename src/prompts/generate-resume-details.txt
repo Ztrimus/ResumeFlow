@@ -1,0 +1,69 @@
+I will provide a job description and my work information in JSON format.
+Your task is to analyze and match my information with the job's requirements.
+Then, you need to create the best possible resume in JSON format to align my information with the job description.
+
+following these instructions for writing work or projects experience only:
+1. Write all bullets in the format: 'Did X by doing Y accomplish Z'.
+2. Each bullet should have a quantitative impact.
+3. Choose STRONG action verbs that showcase soft skills.
+
+Please ensure that all output is in JSON format and can be easily serialized into JSON.
+
+JSON should in following format:
+{
+  "name": "",
+  "personal_information": {
+    "phone_no": "",
+    "email": "",
+    "media": {
+      "linkedin": "",
+      "github": ""
+    }
+  },
+  "education": [
+    {
+      "degree": "",
+      "university": "",
+      "from": "",
+      "to": "",
+      "grade": "",
+      "coursework": []
+    },
+    So on ...
+  ],
+  "technical_skills": [
+    {
+      "name": "",
+      "skills": []
+    },
+    So on ...
+  ],
+  "work_experience": [
+    {
+      "role": "",
+      "company": "",
+      "from": "",
+      "to": "",
+      "description": []
+    },
+    So on ...
+  ],
+  "project_experience": [
+    {
+      "name": "",
+      "type": "",
+      "link": "",
+      "from": "",
+      "to": "",
+      "description": []
+    },
+    So on ...
+  ],
+  "certifications": [
+    {"name": "", "by": "", link: ""},
+    So on ...
+  ],
+  "achievements": []
+}
+
+Give complete response even if json is long. don't cut off. continue giving response till all json data returned.
