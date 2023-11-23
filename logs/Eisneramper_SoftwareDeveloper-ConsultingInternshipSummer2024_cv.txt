@@ -1,0 +1,18 @@
+Dear [Hiring Manager's Name],
+
+I am writing to express my strong interest in the position of Software Developer - Consulting Internship Summer 2024 at EisnerAmper. With my background in software development, strong analytical skills, and experience in crafting production-ready ML architectures and full-stack software solutions, I believe I am an ideal candidate for this role.
+
+In my 4+ years of industrial experience, I have gained expertise in gathering requirements, designing systems, and assisting in the development and testing processes. I have successfully supported software development projects through requirement gathering, project planning, and system documentation. I have also collaborated with project managers to define project vision, organize tasks, and track progress. My experience includes contributing to reporting and custom IT projects, where I performed software development testing and participated in software testing, including Quality Assurance and Quality Control.
+
+I possess a Bachelor's degree in Engineering, with a focus on computer science, and I am currently pursuing a Master's degree in Computer Science from Arizona State University. My coursework has equipped me with a solid foundation in programming languages such as Python, JavaScript, C#, and C++, as well as expertise in data science and cloud technologies. I am experienced in working with technologies such as Databricks, PySpark, TensorFlow, AWS, Docker, and Git.
+
+Furthermore, I have a deep understanding of Agile software development cycles and possess the ability to work in a dynamic, fast-paced, and continuously changing environment. Throughout my career, I have demonstrated excellent communication skills in both business and technical environments.
+
+I have attached my resume for your review, which provides more detailed information about my skills, experiences, and achievements. Additionally, you can find more about my work and projects on my LinkedIn profile: [LinkedIn Profile URL]. Feel free to explore my GitHub repository: [GitHub Repository URL] to get a deeper insight into my coding abilities.
+
+I am thrilled about the opportunity to contribute to EisnerAmper's mission of helping clients meet current challenges and positioning them for future success. The combination of my professional expertise, innovative mindset, and commitment to client satisfaction aligns perfectly with EisnerAmper's way of working.
+
+I would welcome the opportunity to discuss how my skills and experiences can benefit EisnerAmper's software development projects further. Thank you for considering my application. I look forward to the possibility of contributing to your team.
+
+Sincerely,
+Saurabh Bhausaheb Zinjad
