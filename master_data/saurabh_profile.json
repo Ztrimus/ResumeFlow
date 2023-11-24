@@ -1,13 +1,20 @@
 {
   "name": "Saurabh Bhausaheb Zinjad",
-  "personal_information": {
-    "phone_no": "+1 480 913 5544",
-    "email": "saurabhzinjad@asu.edu",
-    "media": {
-      "linkedin": "https://www.linkedin.com/in/saurabhzinjad/",
-      "github": "https://github.com/Ztrimus"
-    }
+  "summary": "Versatile and self-driven professional with 4+ years of industrial experience in crafting production-ready ML Architecture and full-stack softwares through coherent analysis, and relentless focus on efficient solutions with meticulous execution.",
+  "phone-no": "+1 480 913 5544",
+  "email": "saurabhzinjad@asu.edu",
+  "media": {
+    "linkedin": "linkedin.com/in/saurabhzinjad",
+    "github": "github.com/Ztrimus",
+    "devpost": "devpost.com/Ztrimus",
+    "medium": "ztrimus.medium.com",
+    "leetcode": "leetcode.com/Ztrimus",
+    "dagshub": "https://dagshub.com/Ztrimus",
+    "kaggle": "https://www.kaggle.com/ztrimus",
+    "instagram": "https://www.instagram.com/saurabh_zinjad/"
   },
+  "cover-letter-guideline": [
+  ],
   "education": [
     {
       "degree": "Masters of Science in Computer Science",
@@ -27,7 +34,7 @@
       "from": "July 2015",
       "to": "June 2019",
       "grade": "8.53/10",
-      "coursework": [
+      "classes": [
         "Data Structure and Algorithms",
         "Object Oriented Programming",
         "Operating System",
@@ -40,7 +47,7 @@
       ]
     }
   ],
-  "technical_skills": [
+  "skill-section": [
     {
       "name": "Programming Languages",
       "skills": [
@@ -98,7 +105,7 @@
       ]
     }
   ],
-  "work_experience": [
+  "work": [
     {
       "role": "Senior Machine Learning Engineer",
       "company": "Tiger Analytics, Bangalore, India",
@@ -106,7 +113,7 @@
       "to": "July 2023",
       "description": [
         "Spearheaded development of Interactive Dashboards, Constraint-based ML Models, Web App, Data & CI/CD pipelines and Comprehensive Documentation for MSP Value Optimization in Petcare sector with a team of 8 analysts.",
-        "Developed MLCORE product (end-to-end MLOps platform) by implementing research ideas, organizing through prototyping, backend API Implementation and Integrating it with numerous cloud services, attracting an additional four significant clients."
+        "Developed MLCORE product (end-to-end MLOps platform) by implementing research ideas, organizing through prototyping, backend API Implementation and Integrating it with numerous cloud services, attracting an additional four significant clients."  
       ]
     },
     {
@@ -115,8 +122,8 @@
       "from": "January 2020",
       "to": "June 2022",
       "description": [
-        "Engineered 10+ RESTful APIs Architecture and Distributed services; Designed 30+ low-latency responsive UI/UX application features with high-quality web architecture; Managed and optimized large-scale Databases.",
-        "Initiated and Designed a standardized solution for dynamic forms generation, with customizable CSS capabilities feature, which reduces development time by 8x; Led and collaborated with a 12 member cross-functional team."
+        "Engineered 10+ RESTful APIs Architecture and Distributed services; Designed 30+ low-latency responsive UI/UX application features with high-quality web architecture; Managed and optimized large-scale Databases.",  
+        "Initiated and Designed a standardized solution for dynamic forms generation, with customizable CSS capabilities feature, which reduces development time by 8x; Led and collaborated with a 12 member cross-functional team."  
       ]
     },
     {
@@ -141,7 +148,7 @@
       ]
     }
   ],
-  "project_experience": [
+  "projects": [
     {
       "name": "Search Engine for All file types - Sunhack Hackathon - Meta & Amazon Sponsored",
       "type": "Hackathon",
@@ -152,7 +159,7 @@
         "Converted and stored every file type data as vector embeddings, ensuring low-latency search capabilities.",
         "Used Machine Learning techniques such as BERT, OCR, ResNet50, and Image Captioning to parse Image features.",
         "Contributed to Elasticsearch implementation for blazing-fast search responses, with millisecond response times.",
-        "Led Python FAST API and angular development, providing efficient data access and retrieval."
+        "Led Python FAST API and angular development, providing efficient data access and retrieval."    
       ]
     },
     {
@@ -162,7 +169,7 @@
       "from": "13 Oct 2023",
       "to": "15 Oct 2023",
       "description": [
-        "Led SouL LLM Brews to 1st runner-up position in the 'Prompt Engineering Hackathon for Humanities.'",
+        "Led SouL LLM Brews to 1st runner-up position in the \"Prompt Engineering Hackathon for Humanities.\"",
         "Demonstrated a creative mindset in problem-solving, going beyond technical constraints.",
         "Crafted an AI persona, LLM Brews, to explore LLM's capabilities and create innovative collaborations between humans and machines.",
         "Spearheaded the exploration of AI storytelling tools, including ChatGPT, Bing Chat, Google Bard, Jasper.ai, Writesonic, etc.",
@@ -195,7 +202,7 @@
       "from": "December 2018",
       "to": "February 2019",
       "description": [
-        "Conducted in-depth Exploratory Data Analysis (EDA) and utilized data visualization techniques for comprehensive stock market analysis. Implemented a range of statistical and ML models on diverse time-series stocks to extract insights and predictions. Improved performance by 27% on the 'clustering and diversification analysis'."
+        "Conducted in-depth Exploratory Data Analysis (EDA) and utilized data visualization techniques for comprehensive stock market analysis. Implemented a range of statistical and ML models on diverse time-series stocks to extract insights and predictions. Improved performance by 27% on the “clustering and diversification analysis”."  
       ]
     },
     {
@@ -216,7 +223,7 @@
       "to": "February 2019",
       "description": [
         "Researched and optimized existing emotion detection approaches by combining CNN and LSTM networks. Discovered emotion-affecting attributes in voice by analyzing audio signal features-MFCC, ZCR, Pitch, and Chroma.",
-        "Compressed audio data using an Autoencoder technique to avoid data loss. Due to this, we were able to boost the accuracy of the speech model by 31%. Used tools like PyTorch, Librosa, puAudioAnalysis, and Tensorboard."
+        "Compressed audio data using an Autoencoder technique to avoid data loss. Due to this, we were able to boost the accuracy of the speech model by 31%. Used tools like PyTorch, Librosa, puAudioAnalysis, and Tensorboard."  
       ]
     },
     {
@@ -226,7 +233,7 @@
       "from": "August 2018",
       "to": "January 2019",
       "description": [
-        "Developed a Custom Animal Identification and Classification model using Faster R-CNN architecture to identify animals and their habitats in a simulated environment, which Integrated it into the Firebird V ATMEGA2560 Robot (we tailored it to put animals into a habitat). Optimized the 'Region Proposal Network' component resulting in 35% decrease in processing time."
+        "Developed a Custom Animal Identification and Classification model using Faster R-CNN architecture to identify animals and their habitats in a simulated environment, which Integrated it into the Firebird V ATMEGA2560 Robot (we tailored it to put animals into a habitat). Optimized the \"Region Proposal Network\" component resulting in 35% decrease in processing time."    
       ]
     }
   ],
@@ -241,11 +248,8 @@
       "by": "Omdena Inc.",
       "link": "https://drive.google.com/file/d/1fh4AEscb0P82nfoaA-muWMzmFngzyk2g/view"
     },
-    {
-      "name": "Microsoft Azure Fundamentals",
-      "by": "Udemy.",
-      "link": "https://www.udemy.com/certificate/UC-37e943d1-e7f7-4d27-a1e4-e799aef7013b/"
-    },
+    { "name": "Microsoft Azure Fundamentals", "by": "Udemy.",
+    "link": "https://www.udemy.com/certificate/UC-37e943d1-e7f7-4d27-a1e4-e799aef7013b/" },
     {
       "name": "Server-side Backend Development",
       "by": "The Hong Kong University of Science and Technology.",
@@ -258,11 +262,11 @@
     }
   ],
   "achievements": [
-    "1st runner-up in 'Prompt Engineering Hackathon 2023 for Humanities'",
-    "Received the 'Extra Miller - 2021' award at Winjit Technologies for outstanding performance.",
-    "President of Machine Learning Club: Led a team of 20 people in a project and was awarded 'Best Project of the Year.'",
+    "1st runner-up in “Prompt Engineering Hackathon 2023 for Humanities”",
+    "Received the 'Extra Miller - 2021' award at Winjit Technologies for outstanding performance. ",
+    "President of Machine Learning Club: Led a team of 20 people in a project and was awarded \"Best Project of the Year.\"",
     "Finalist in E-yantra Robotics Competition 2018 - IITB.",
-    "Dance Section's Head of PICT Art Circle: Best dance choreography for Winning 'Firodiya theater competition 2019.'",
+    "Dance Section's Head of PICT Art Circle: Best dance choreography for Winning \"Firodiya theater competition 2019.\"",
     "Performed in multiple award-winning state-level drama competitions and received the best-organized team prize thrice.",
     "An active member of the NSS (National Community Service Group in PICT) in 2016."
   ]
