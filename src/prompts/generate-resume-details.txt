@@ -1,0 +1,74 @@
+I will provide a job description and my work information in JSON format.
+Your task is to analyze and match my information with the job's requirements.
+Then, you need to create the best possible resume in JSON format to align my information with the job description.
+
+following these instructions:
+- for work or projects, Write all bullets in the format: 'Did X by doing Y accomplish Z'.
+- Each bullet should have a quantitative impact.
+- Choose STRONG action verbs that showcase soft skills.
+- Be truthful and objective to the experience listed in the CV
+- Be specific rather than general
+- Rewrite job highlight items using STAR methodology (but do not mention STAR explicitly)
+- Fix spelling and grammar errors
+- Writte to express not impress
+- Articulate and don't be flowery
+- Prefer active voice over passive voice
+- Do not include a summary about the candidate
+
+Please ensure that all output is in JSON format and can be easily serialized into JSON.
+
+JSON should in following format:
+{
+  "name": "",
+  "personal": {
+    "phone": "",
+    "email": "",
+    "github": "",
+    "linkedin": ""
+  },
+  "education": [
+    {
+      "degree": "",
+      "university": "",
+      "from": "",
+      "to": "",
+      "grade": "",
+      "coursework": []
+    },
+    So on ...
+  ],
+  "technical": [
+    {
+      "name": "",
+      "skills": []
+    },
+    So on ...
+  ],
+  "work": [
+    {
+      "role": "",
+      "company": "",
+      "from": "",
+      "to": "",
+      "description": []
+    },
+    So on ...
+  ],
+  "projects": [
+    {
+      "name": "",
+      "link": "",
+      "from": "",
+      "to": "",
+      "description": []
+    },
+    So on ...
+  ],
+  "certifications": [
+    {"name": "", "by": "", link: ""},
+    So on ...
+  ],
+  "achievements": []
+}
+
+Give complete response even if json is long. don't cut off. continue giving response till all json data returned.

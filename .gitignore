@@ -1,3 +1,4 @@
-job_llm/config.py
+src/config.py
 __pycache__
 .env
+zmisc

@@ -9,14 +9,15 @@ Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 '''
 import re
 import json
-from job_llm import config
-from job_llm.utils.llm_models import ChatGPT
-from job_llm.utils.data_extraction import get_link_content
+from src import config
+from src.utils.llm_models import ChatGPT
+from src.utils.data_extraction import get_url_content
 from datetime import datetime
 
-def main(url: str):
-    system_prompt = open("./job_llm/prompts/job-detail-extractor.txt").read().strip()
-    web_content_prompt = get_link_content(url)
+def extract_job_details(url: str):
+    # TODO: Consider 2 separate prompts for persona-job-llm and job-details-extractor
+    system_prompt = open("../prompts/job-detail-extractor.txt").read().strip()
+    web_content_prompt = get_url_content(url)
 
     chat_gpt = ChatGPT(openai_api_key=config.OPENAI_API_KEY, system_prompt=system_prompt)
     response = chat_gpt.get_response(web_content_prompt)
@@ -33,4 +34,4 @@ def main(url: str):
     print(response)
 
 if __name__ == "__main__":
-    main("https://simplify.jobs/p/7769bcc5-81cc-44e7-955b-c5d183554f00/Intern--Full-Stack-Engineer")
+    extract_job_details("https://simplify.jobs/p/7769bcc5-81cc-44e7-955b-c5d183554f00/Intern--Full-Stack-Engineer")

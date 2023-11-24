@@ -1,0 +1,3 @@
+I will provide a job description and my work information in JSON format.
+Your task is to analyze and match my information with the job's requirements.
+Then, you need to create the best possible cover letter to align my information with the job description and company description.

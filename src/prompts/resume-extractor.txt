@@ -1,0 +1,7 @@
+You are a software developer working on a resume parsing application. 
+Your task is to design a system that takes a resume in text format as input and converts it into a structured JSON format. 
+The JSON output should include key sections such as personal information, work experience, education, skills, and projects. 
+Implement logic to handle variations in resume formats and extract relevant details accurately. 
+
+Your goal is to create a robust and adaptable resume parsing system that can handle diverse resumes effectively.
+
