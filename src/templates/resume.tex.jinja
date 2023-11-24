@@ -1,6 +1,4 @@
-%----------------------------------------------------------------------------------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
+%==== PACKAGES AND OTHER DOCUMENT CONFIGURATIONS  ====%
 
 \documentclass{resume} % Use the custom resume.cls style
 
@@ -31,68 +29,64 @@
 
 \usepackage{hyperref}
 
-\name{Amey Sadanand Bhilegaonkar} % Your name
+\name{\VAR{name}} % Your name
 % \address{ } % Your phone number and email
 \address{
-{\faPhone} \href{tel:+14806163980}{480-616-3980} \quad
-{\faEnvelope} \href{mailto:ameybhilegaonkar3@gmail.com}{ameybhilegaonkar3@gmail.com} \quad
-{\faGithub} \href{https://github.com/ameygoes}{github.com/ameygoes} \quad
-{\faLinkedin} \href{https://linkedin.com/in/amey-bhilegaonkar/}{linkedin.com/in/amey-bhilegaonkar} 
+\BLOCK{ if personal.phone }{\faPhone} \href{tel:\VAR{personal.phone}}{\VAR{personal.phone}} \quad \BLOCK{ endif }
+\BLOCK{ if personal.email }{\faEnvelope} \href{mailto:\VAR{personal.email}}{\VAR{personal.email}} \quad \BLOCK{ endif }
+\BLOCK{ if personal.github }{\faGithub} \href{\VAR{personal.github}}{\VAR{personal.github}} \quad \BLOCK{ endif }
+\BLOCK{ if personal.linkedin }{\faLinkedin} \href{\VAR{personal.linkedin}}{\VAR{personal.linkedin}} \BLOCK{ endif }
 % \href{https://ameyportfolio.netlify.app/}{ameybhilegaonkar.com}/
 }
 
 \begin{document}
-\quad \quad \quad With over \textbf{3 years} of expertise in Designing and Managing \textbf{ETL Data Pipelines for Distributed Database systems}
-%----------------------------------------------------------------------------------------
-%	EDUCATION SECTION
-%----------------------------------------------------------------------------------------
+% \quad \quad \quad With over \textbf{3 years} of expertise in Designing and Managing \textbf{ETL Data Pipelines for Distributed Database systems}
+%==== EDUCATION SECTION ====%
 
 \begin{rSection}{Education}
-
-\textbf{{Arizona State University, Tempe, USA}} \hfill {August 2022 - May 2024} \\ 
-Masters of Science in Computer Science \href{https://drive.google.com/file/d/1CBoVt4rgM3gzX-zR2J2ZyE9mspKE_VHk/view?usp=share_link}{(GPA: 4/4)} \smallskip \\ 
+\BLOCK{ for school in education }
+\BLOCK{ if school.university }
+\textbf{\VAR{school.university}} \hfill {\VAR{school.from} - \VAR{school.to}} \\ 
+% \href{https://drive.google.com/file/d/1CBoVt4rgM3gzX-zR2J2ZyE9mspKE_VHk/view?usp=share_link}
+\BLOCK{ if school.degree } {\VAR{school.degree}} \BLOCK{ endif }  {(GPA: \VAR{school.grade})} \smallskip \\ 
 \textbf{\textit{Relevant Courses:}}
-\textit{Data Processing at Scale, Data Mining, Social Media Mining, Semantic Web Mining, Data Visualization, Statistical Machine Learning, Spatial Data Science}
-
-{\bf Pune Institute of Computer Technology, Pune, India} \hfill {July 2015 - May 2019} \\ 
-% {\bf University of Pune, Pune, India} \hfill {\em July 2015 - May 2019} \\ 
-Bachelors of Engineering in Electronics and Telecommunications \href{https://drive.google.com/file/d/1rnGGrkzzwtw6rxbOWBZM7GFE1_JE4Qln/view}{(GPA: 8.78/10)} \smallskip 
-\\
-\textbf{\textit{Relevant Courses:}}
-\textit{Data Structures \& Algorithms, Machine Learning, Operating Systems, Computer Networks}
-
+% \textit{Data Processing at Scale, Data Mining, Social Media Mining, Semantic Web Mining, Data Visualization, Statistical Machine Learning, Spatial Data Science}
+\BLOCK{ for course in school.coursework }
+\textit{\VAR{course}},
+\BLOCK{ endfor }
+\vspace{2mm}
+\BLOCK{ endif } 
+\BLOCK{ endfor }
 \end{rSection}
 
-% %----------------------------------------------------------------------------------------
-% %	TECHNICAL STRENGTHS SECTION
-% %----------------------------------------------------------------------------------------
+%==== TECHNICAL STRENGTHS SECTION ====%
 
 \begin{rSection}{Technical Skills}
 
 \begin{tabular}{ @{} >{\bfseries}l @{\hspace{1ex}} l }
-% ------------ programming languages ------------------------
+%==== programming languages ====%
 Programming Languages & Python, Java, SQL, Unix / Linux Scripting\\
 % \newcommand\myfontsize{\fontsize{.1pt}{.1pt}\selectfont} \myfontsize \color{white}{Cassandra, Agile, Redis, Azure, R, Go, C\#, open source community, Cassandra, Redis, Memcached, MATLAB, Object-oriented programming, automated driving, robotics, dynamics and controls, Microsoft, high-performance computing, supervised learning, unsupervised, twilio} \\
 
-% ------------- Cloud platforms -----------------------------
+%==== Cloud platforms ====%
 Cloud Platforms \& Databases & GCP, AWS, Big Query, Cassandra, Postgres, DynamoDB, MySQL \\
 % \newcommand\myfontsize{\fontsize{.1pt}{.1pt}\selectfont} \myfontsize \color{white}{Hadoop, MapReduce, Kotlin, Swift, Objective C, Android, iPhone, and iPad, Jira, GSuite, Scrum, Kanban, Naïve Bayes, SVM, NN, Boosting Methods, Spark, ICML, NeurIPS, Apache Kafka, Apache Samza, Pinot, Espresso, Ambry, Helix, AWS Lambda, AWS Step Functions, AWS ElasticCache, SNS, SQS, cost-benefit, forecasting, experiment analysis, oracle, Helix, AWS Lambda, AWS Step Functions, AWS ElasticCache, SNS, SQS, cost-benefit, forecasting, experiment analysis, oracle}\\
 
-% % ------------- Libraries and Frameworks -------------------------
+% ==== Libraries and Frameworks ====
 % Libraries \& Frameworks & Git, Spring Boot, Keras, Scikit Learn, PyTorch\\
-% % \newcommand\myfontsize{\fontsize{.1pt}{.1pt}\selectfont} \myfontsize \color{white}{DNS, HTTP, TCP, UDP, Socket Programming, Network, Protocol, Routing}\\
+% \newcommand\myfontsize{\fontsize{.1pt}{.1pt}\selectfont} \myfontsize \color{white}{DNS, HTTP, TCP, UDP, Socket Programming, Network, Protocol, Routing}\\
 
-% ------------- Libraries and Frameworks -------------------------
+% ==== Libraries and Frameworks ====
 Data Engineering & Spark, Kafka, SnowFlake, Airflow, Tableau, ETL, Pandas, D3.js
 
-% ---------------------- EXTRA SKILLS ----------------------
+% ==== EXTRA SKILLS ====
 \newcommand\myfontsize{\fontsize{.1pt}{.1pt}\selectfont} \myfontsize \color{white}
 % {Advanced working SQL knowledge, Big Query, query authoring (SQL), relational databases, Hadoop, Spark, GCS, GCP cloud services (GCS, Dataproc), stream-processing systems (Storm, Spark-Streaming), Python, Scala, ‘big data, GCP 'big data' technologies,}
 {EMR, EC2, S3, GLUE, KMS, Lambda, DynamoDB, DevOps, Site Reliability Engineering, Continuous Integration, Continuous Deployment, Continuous Delivery, Infrastructure as Code (IaC), Automation, Configuration Management, Microservices, Containerization, Docker, Kubernetes, Orchestration, Scalability, Availability, Monitoring, Alerting, Incident Management, Change Management, Version Control, Git, Jenkins, CI/CD Pipelines, Deployment Automation, Infrastructure Automation, Cloud Computing, AWS (Amazon Web Services)}\\
 % {, Azure, Google Cloud Platform (GCP), Hybrid Cloud, Serverless Computing, Load Balancing, High Availability, Disaster Recovery, Performance Optimization, Security Best Practices, Compliance, DevSecOps, Infrastructure Monitoring, Application Performance Monitoring (APM), Infrastructure Resilience, Chaos Engineering, Incident Response, On-Call Support, Service Level Objectives (SLOs), Service Level Agreements (SLAs), Capacity Planning, Infrastructure Scaling, Infrastructure Cost Management, Log Management. }\\
-% ---------------------- EXTRA SKILLS END ----------------------
+% ==== EXTRA SKILLS END ====
 
-% ------------- DevOps / SRE / Jenkins  -------------------------
+% ==== DevOps / SRE / Jenkins  ====
 DevOps / SRE & CI/CD, Git, Jenkins, Docker, Kubernetes, EC2, ECR, S3\\
 Certified Google Cloud Platform & \href{https://www.credential.net/c799d945-5e89-47a3-845e-8b97575a8342}{\textbf{Associate Cloud Engineer}.} \\
 % \newcommand\myfontsize{\fontsize{.1pt}{.1pt}\selectfont} \myfontsize \color{white}{EMR, EC2, S3, GLUE, KMS, Lambda, DynamoDB, DevOps, Site Reliability Engineering, Continuous Integration, Continuous Deployment, Continuous Delivery, Infrastructure as Code (IaC), Automation, Configuration Management, Microservices, Containerization, Docker, Kubernetes, Orchestration, Scalability, Availability, Monitoring, Alerting, Incident Management, Change Management, Version Control, Git, Jenkins, CI/CD Pipelines, Deployment Automation, Infrastructure Automation, Cloud Computing, AWS (Amazon Web Services), Azure, Google Cloud Platform (GCP), Hybrid Cloud, Serverless Computing, Load Balancing, High Availability, Disaster Recovery, Performance Optimization, Security Best Practices, Compliance, DevSecOps, Infrastructure Monitoring, Application Performance Monitoring (APM), Infrastructure Resilience, Chaos Engineering, Incident Response, On-Call Support, Service Level Objectives (SLOs), Service Level Agreements (SLAs), Capacity Planning, Infrastructure Scaling, Infrastructure Cost Management, Log Management.}\\
@@ -100,9 +94,7 @@ Certified Google Cloud Platform & \href{https://www.credential.net/c799d945-5e89
 \end{tabular}
 \end{rSection}
 
-%----------------------------------------------------------------------------------------
-%	WORK EXPERIENCE SECTION
-%----------------------------------------------------------------------------------------
+%==== WORK EXPERIENCE SECTION ====%
 
 \begin{rSection}{Work Experience}
 
@@ -137,20 +129,16 @@ Certified Google Cloud Platform & \href{https://www.credential.net/c799d945-5e89
     \item Utilized \textbf{AWS Lambda, and SNS} for scheduled data transformations, cutting pipeline run-time by 2 hours weekly.
 \end{rSubsection}
 
-%------------------------------------------------
+%====
 
 \end{rSection}
 
-%----------------------------------------------------------------------------------------
-%	PROJECTS SECTION
-%----------------------------------------------------------------------------------------
+%==== PROJECTS SECTION ====%
 
 \begin{rSection}{Projects}
 
 
-% --------------------------------
-% Opportunity Hackathon
-% --------------------------------
+%==== Opportunity Hackathon ==== %
 \begin{rSubsection}{\href{https://github.com/2023-opportunity-hack/SouL--DigitalRecordsManagementforMuseumsandHistoricalSites}{Search Engine for All file types - Opportunity Hackathon }}{}{}{}
     \item Spearheaded \textbf{Elasticsearch} implementation for blazing-fast search responses, with \textbf{millisecond response times}.
     \item Converted and stored every file type data as \textbf{vector embeddings}, ensuring \textbf{low-latency search} capabilities.
@@ -160,18 +148,18 @@ Certified Google Cloud Platform & \href{https://www.credential.net/c799d945-5e89
 \end{rSubsection}
 
 
-% --------------------------------
+%==== 
 % Graph Based Docker and Kubernetes Module
-% --------------------------------
+%==== 
 \begin{rSubsection}{\href{https://github.com/ameygoes/ASU_MCS/tree/master/SPRING_23_CLASSES_SEM_2/CSE_511_DATA_PROCESSING_AT_SCALE/PROJECTS}{Scalable Data Processing Pipeline - Neo4J, Docker, Kafka and Minikube}}{}{}{}
 \item Designed and implemented a highly scalable and available data processing pipeline using \textbf{Kubernetes}, Kafka, Docker, \textbf{Neo4j}.
 \item Orchestrated the setup of Kafka and Apache Zookeeper using Minikube, a lightweight Kubernetes implementation.
 \item Streamlined data ingestion, and processing into Neo4j, applying PageRank and BFS for graph-based data exploration.
 \end{rSubsection}
 
-% --------------------------------
+%==== 
 % Email Module
-% --------------------------------
+%==== 
 
 \begin{rSubsection}{\href{https://github.com/ameygoes/Automated_Email_HRs}{Email Automation Marketing Tool}}{}{}{}
 \item Initiated and completed the development of a robust email automation project, streamlining job application outreach and networking efforts with individuals of similar interests.
@@ -180,9 +168,9 @@ Certified Google Cloud Platform & \href{https://www.credential.net/c799d945-5e89
 \end{rSubsection}
 
 
-% --------------------------------
+%==== 
 % YouTube Analytics
-% --------------------------------
+%==== 
 % \begin{rSubsection}{YouTube Analytics}{}{}{}
 % \item Conducted in-depth analysis of a YouTube dataset to identify trends in YouTube videos, employing Python, Jupyter Notebooks, and AWS services. 
 % % \item Effectively utilized AWS S3 for data storage \&  EMR for \textbf{large-scale data processing}, and QuickSight for \textbf{data visualization}. 
@@ -203,7 +191,6 @@ Certified Google Cloud Platform & \href{https://www.credential.net/c799d945-5e89
 % % \item Compressed audio data using an Autoencoder technique to avoid data loss resulting in a boost in accuracy by 31\%. 
 % \end{rSubsection}
 \end{rSection}
-% %------------------------------------------------
 
 % \begin{rSubsection}{\href{https://github.com/ameygoes/PlacementsMadeEasy}{Python Django API based web App}}{}{}{}
 % \item Created a \textbf{REST API} based web application using Python and Django framework to streamline data-driven processes.
@@ -211,9 +198,8 @@ Certified Google Cloud Platform & \href{https://www.credential.net/c799d945-5e89
 % % \item Improved user experience and engagement by accomplishing responsive design and user-centered features.
 % \end{rSubsection}   
 % \end{rSection}
-% %------------------------------------------------
 
-% --------------------------------
+%==== 
 % Data Science Module
 % \begin{rSubsection}{\href{https://github.com/ameygoes/ASU_MCS/tree/master/FALL_22_CLASSES_SEM_1/CSE_575_STATISTICAL_MACHINE_LEARNING/PROJECTS}{Image Captioning using Deep Learning}}{}{}{}
 %     \item{Implemented an image captioning model using ResNet50 and Xception, trained on the Flickr8K dataset.}
@@ -225,7 +211,6 @@ Certified Google Cloud Platform & \href{https://www.credential.net/c799d945-5e89
 % \item Created interactive dashboards using Amazon QuickSight to visualize the analysis results.
 % \end{rSubsection}
 
-%------------------------------------------------
 
 % \begin{rSubsection}{\href{https://github.com/ameygoes/PlacementsMadeEasy}{Student Hiring Made Easy}}{}{}{}
 % \item Led the successful development and implementation of a cutting-edge student-hiring web application at Pune Institute of Computer Technology, leveraging Python, Django, and MySQL.
@@ -234,36 +219,29 @@ Certified Google Cloud Platform & \href{https://www.credential.net/c799d945-5e89
 % \item Upgraded an outdated manual hiring and logging system and improved the hiring process for over 10,000 students and faculty members annually.
 % \end{rSubsection}
 
-% %------------------------------------------------
 
 % \begin{rSubsection}{\href{https://github.com/ameygoes/ASU_MCS/tree/master/FALL_23_CLASSES_SEM_3/CSE_594_SPATIAL_DATA_SCIENCE}{Geospatial Data WebApp}}{}{}{}
 % \item Conceptualized and Developed a user-facing web App utilizing Python, Scala, JavaScript, Apache Sedona, and DeckGL library where users can perform various Geospatial queries.
 % \end{rSubsection}
-% %------------------------------------------------
 
-% % %------------------------------------------------
 % \begin{rSubsection}{\href{https://github.com/ameygoes/JavaMicroservice_ShoppingApplication}{Java Micro-Services: Shopping Application}}{}{}{}
 % \item Currently, Developing an\textbf{ Micro-services based} server-side REST HTTP  web API backend for Shopping applications using important concepts such as Service Discovery, Centralized Configuration, Event-driven architecture, circuit breakers, etc.
 % \item Implemented different services with Async communication using Kafka, RabbitMQ, and Sync communication with Resiliance4J
 % \item Used both non-relational and relational databases for serving different microservices
 % \item Stored secrets using Vault. Leveraged elastic search, logstash, and Kibana for logging
 % \end{rSubsection}
-% % %------------------------------------------------
 
-% % %------------------------------------------------
 % \begin{rSubsection}{\href{https://github.com/ameygoes/employee-management-system}{Full Stack Employee Management System}}{}{}{}
 % \item Developed a \textbf{Client-Server API-based web framework} leveraging Spring-web, to perform CRUD operations using Spring Data JPA and MySQL driver for communicating with the database layer
 % \item Developing client-side interactions using frameworks like React along with plain Javascript, tailwind CSS, and HTML, deployed Axios to interact with server-side APIs
 % \item Followed Design Patterns while formulating classes and API services
 % \item Made software more robust by adding Facebook and Google Authentication to the System
 % \end{rSubsection}
-% % %------------------------------------------------
 
 
 
 % \begin{rSection}{CERTIFICATIONS AND CO-CURRICULARS}
 
-%------------------------------------------------
 
 % \begin{rSubsection}{}{}{}{}
 % \item Certified Google Cloud Platform \href{https://www.credential.net/c799d945-5e89-47a3-845e-8b97575a8342}{\textbf{Associate Cloud Engineer}.}  
@@ -275,7 +253,6 @@ Certified Google Cloud Platform & \href{https://www.credential.net/c799d945-5e89
 % \item Appointed as an \textbf{Organizer} and \textbf{Web developer} at \href{https://www.pictieee.in/}{PICT IEEE Students Branch} 2017, a technical unit that organizes technical and non-technical programs. Managed a team of 20 members that resulted in the participation of 3000+ students.
 % \end{rSubsection}
 
-%------------------------------------------------
 \newcommand\myfontsize{\fontsize{0.1pt}{0.1pt}\selectfont} \myfontsize \color{white}
 {Data warehouse, data modeling, data extraction, data transformation, data loading, SQL, ETL, data quality, data governance, data privacy, data visualization, data controls, privacy, security, compliance, SLA, AWS, terabyte to petabyte scale data.}
 
