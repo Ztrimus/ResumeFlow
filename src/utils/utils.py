@@ -1,55 +1,24 @@
 import os
 import time
 import json
-import shutil
 from fpdf import FPDF
 from datetime import datetime
-import aspose.pdf as pdf
 import subprocess
 
 def write_file(file_path, data):
-    """Writes the given data to the specified file.
-
-    Args:
-        file_path (str): The file path where the data will be written.
-        data (str): The data to be written to the file.
-    """    
     with open(file_path, 'w') as file:
          file.write(data)
 
 def read_file(file_path):
-    """Reads the contents of the specified file.
-
-    Args:
-        file_path (str): The file path of the file to be read.
-
-    Returns:
-        str: The contents of the file.
-    """
     with open(file_path, 'r') as file:
         file_contents = file.read()
     return file_contents
 
 def write_json(file_path, data):
-    """Writes the given data to the specified file in JSON format.
-
-    Args:
-        file_path (str): The file path where the JSON data will be written.
-        data (dict): The data to be written to the file in JSON format.
-    """
     with open(file_path, 'w') as json_file:
             json.dump(data, json_file)
 
 def read_json(file_path: str):
-    """
-    Reads and loads JSON data from the specified file path.
-
-    Args:
-        file_path (str): The path to the JSON file.
-
-    Returns:
-        dict: A dictionary containing the JSON data.
-    """  
     with open(file_path) as json_file:
         return json.load(json_file)
 
@@ -60,6 +29,9 @@ def job_doc_name(job_details: dict):
      
 def clean_string(text: str):
      return text.title().replace(" ", "").strip()
+
+def open_file(file: str):
+     os.system(f'start {file}')
 
 def save_log(content: any, file_name: str):
      timestamp = int(datetime.timestamp(datetime.now()))
@@ -85,39 +57,32 @@ def text_to_pdf(text: str, file_path: str):
     """
     pdf = FPDF()
     pdf.add_page()
-    pdf.set_font("Arial", size=12)
-    pdf.multi_cell(0, 10, txt=text)
+    pdf.set_font("Arial", size=11)
+    pdf.multi_cell(0, 5, txt=text)
     pdf.output(file_path)
+    
 
-def tex_to_pdf(tex_file_path: str, pdf_file_path: str):
+def save_latex_as_pdf(tex_file_path: str, dst_path: str):
     # Call pdflatex to convert LaTeX to PDF
-    subprocess.run(['pdflatex', tex_file_path])
+    prev_loc = os.getcwd()
+    os.chdir(os.path.dirname(tex_file_path))
+    result = subprocess.run(["pdflatex", tex_file_path])
+    os.chdir(prev_loc)
+    resulted_pdf_path = tex_file_path.replace(".tex", ".pdf")
 
-    # Move the PDF file to the specified file path
-    shutil.copyfile(tex_file_path.replace(".tex", "pdf"), pdf_file_path)
+    os.rename(resulted_pdf_path, dst_path)
 
-    for file_type in [".aux", ".log", ".out", ".pdf"]:
-        file_path = tex_file_path.replace(".tex", file_type)
-        if os.path.exists(file_path):
-            os.remove(file_path)
-
-def tex_to_pdf_aspose(tex_file_path: str, pdf_file_path: str):
-    """Converts the given LaTeX file to a PDF file.
-
-    Args:
-        tex_file_path (str): The file path of the LaTeX file.
-        pdf_file_path (str): The file path where the PDF file will be saved.
-    """
-    # Create an instance of TeXLoadOptions class
-    load_options = pdf.TeXLoadOptions()
-
-    # Load the input LaTeX file with the Document class
-    doc = pdf.Document(tex_file_path, load_options)
-
-    # Convert the LaTeX file to a PDF file
-    doc.save(pdf_file_path)
-
-if __name__ == "__main__":
-    tex_file_path = "logs/resume.tex"
-    pdf_file_path = "logs/resume.pdf"
-    tex_to_pdf(tex_file_path, pdf_file_path)
+    if result.returncode != 0:
+        print('Exit-code not 0, check result!')
+    else:
+        open_file(dst_path)
+    
+    filename_without_ext = os.path.basename(tex_file_path).split('.')[0]
+    for file in os.listdir(os.path.dirname(os.path.realpath(tex_file_path))):
+        if file.startswith(filename_without_ext) and os.path.exists(file):
+            os.remove(file)
+    
+    with open(dst_path, "rb") as f:
+        pdf_data = f.read()
+    
+    return pdf_data
