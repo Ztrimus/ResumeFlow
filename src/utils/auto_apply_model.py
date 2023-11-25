@@ -70,7 +70,7 @@ class AutoApplyModel:
         query = f"""Provided Job description delimited by triple backticks(```) and my resume or work information below delimited by triple dashes(---). ```{json.dumps(job_details)}``` ---{json.dumps(user_data)}---"""
         
         chat_gpt = ChatGPT(openai_api_key=self.openai_key, system_prompt=system_prompt)
-        response = chat_gpt.get_response(query, need_longer_output=True)
+        response = chat_gpt.get_response(query, expecting_longer_output=True)
         job_details = json.loads(response)
         return job_details
     
@@ -90,5 +90,5 @@ class AutoApplyModel:
                 """
         
         chat_gpt = ChatGPT(openai_api_key=self.openai_key, system_prompt=system_prompt)
-        cover_letter = chat_gpt.get_response(query)
+        cover_letter = chat_gpt.get_response(query, expecting_longer_output=True)
         return cover_letter

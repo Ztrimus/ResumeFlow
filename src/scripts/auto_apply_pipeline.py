@@ -29,34 +29,29 @@ def run_autoapply_pipeline(job_url: str, user_data_path: str = "master_data/saur
         print("\n\nStarting Auto Apply Pipeline...")
         autoApply = AutoApplyModel(openai_key=OPENAI_API_KEY)
 
-        print("Fetching User data...")
+        print("\nFetching User data...")
         user_data = autoApply.user_data_extraction(user_data_path)
 
-        print("Extracting Job Details...")
-        # job_details = read_json("output/Eisneramper_SoftwareDeveloper-ConsultingInternshipSummer2024_JD.json")
+        print("\nExtracting Job Details...")
         job_details = autoApply.job_details_extraction(job_url)
+        jd_path, resume_path, cv_path  = job_doc_name(job_details, output_dir)
+        write_json(jd_path, job_details)
 
-        doc_name = job_doc_name(job_details)
-        resume_path = os.path.join(output_dir, f"{doc_name}_resume.json")
-        cv_path = os.path.join(output_dir, f"{doc_name}_cv.txt")
-
-        print("Generating Resume Details...")
-        # resume_details = read_json("output/Eisneramper_SoftwareDeveloper-ConsultingInternshipSummer2024_resume.json")
+        print("\nGenerating Resume Details...")
         resume_details = autoApply.resume_builder(job_details, user_data)
         write_json(resume_path, resume_details)
-        resume_pdf = latex_to_pdf(resume_details, resume_path.replace(".json", ".pdf"))
+        latex_to_pdf(resume_details, resume_path.replace(".json", ".pdf"))
         print("Resume PDF generated at: ", resume_path.replace(".json", ".pdf"))
 
 
-        print("Generating Cover Letter...")
-        # cv = read_file("output/Eisneramper_SoftwareDeveloper-ConsultingInternshipSummer2024_cv.txt")
+        print("\nGenerating Cover Letter...")
         cv = autoApply.cover_letter_generator(job_details, user_data)
         write_file(cv_path, cv)
         print("Cover Letter generated at: ", cv_path)
-        # is_cv_to_pdf = input("Want cover letter as PDF? (y/n): ")
-        # if is_cv_to_pdf.strip().lower() == "y":
-        text_to_pdf(cv, cv_path.replace(".txt", ".pdf"))
-        print("Cover Letter PDF generated at: ", cv_path.replace(".txt", ".pdf"))
+        is_cv_to_pdf = input("Want cover letter as PDF? (y/n): ")
+        if is_cv_to_pdf.strip().lower() == "y":
+            text_to_pdf(cv, cv_path.replace(".txt", ".pdf"))
+            print("Cover Letter PDF generated at: ", cv_path.replace(".txt", ".pdf"))
         
         print("Done!!!")
     except Exception as e:

@@ -14,11 +14,11 @@ class ChatGPT:
         self.system_prompt = {"role": "system", "content": system_prompt}
         openai.api_key = openai_api_key
     
-    def get_response(self, prompt, need_longer_output=False):
+    def get_response(self, prompt, expecting_longer_output=False):
         user_prompt = {"role": "user", "content": prompt}
 
         try:
-            if need_longer_output:
+            if expecting_longer_output:
                 completion = openai.ChatCompletion.create(
                     model="gpt-3.5-turbo-16k",
                     messages = [self.system_prompt, user_prompt],

@@ -16,22 +16,27 @@ def read_file(file_path):
 
 def write_json(file_path, data):
     with open(file_path, 'w') as json_file:
-            json.dump(data, json_file)
+            json.dump(data, json_file, indent=2)
 
 def read_json(file_path: str):
     with open(file_path) as json_file:
         return json.load(json_file)
 
-def job_doc_name(job_details: dict):
+def job_doc_name(job_details: dict, output_dir: str = "output"):
      company_name = clean_string(job_details["company_name"])
-     job_title = clean_string(job_details["title"])
-     return "_".join([company_name, job_title])
+     job_title = clean_string(job_details["title"])[:15]
+     doc_name = "_".join([company_name, job_title])
+     
+     jd_path = os.path.join(output_dir, f"{doc_name}_JD.json")
+     resume_path = os.path.join(output_dir, f"{doc_name}_resume.json")
+     cv_path = os.path.join(output_dir, f"{doc_name}_cv.txt")
+     return jd_path, resume_path, cv_path
      
 def clean_string(text: str):
      return text.title().replace(" ", "").strip()
 
 def open_file(file: str):
-     os.system(f'start {file}')
+     os.system(f'browse {file}')
 
 def save_log(content: any, file_name: str):
      timestamp = int(datetime.timestamp(datetime.now()))
@@ -60,13 +65,17 @@ def text_to_pdf(text: str, file_path: str):
     pdf.set_font("Arial", size=11)
     pdf.multi_cell(0, 5, txt=text)
     pdf.output(file_path)
+    # try:
+    #     open_file(file_path)
+    # except Exception as e:
+    #     print("Unable to open the PDF file.")
     
 
 def save_latex_as_pdf(tex_file_path: str, dst_path: str):
     # Call pdflatex to convert LaTeX to PDF
     prev_loc = os.getcwd()
     os.chdir(os.path.dirname(tex_file_path))
-    result = subprocess.run(["pdflatex", tex_file_path])
+    result = subprocess.run(["pdflatex", tex_file_path, "&>/dev/null"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     os.chdir(prev_loc)
     resulted_pdf_path = tex_file_path.replace(".tex", ".pdf")
 
@@ -74,8 +83,10 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
 
     if result.returncode != 0:
         print('Exit-code not 0, check result!')
-    else:
+    try:
         open_file(dst_path)
+    except Exception as e:
+        print("Unable to open the PDF file.")
     
     filename_without_ext = os.path.basename(tex_file_path).split('.')[0]
     unnessary_files = [file for file in os.listdir(os.path.dirname(os.path.realpath(tex_file_path))) if file.startswith(filename_without_ext)]
