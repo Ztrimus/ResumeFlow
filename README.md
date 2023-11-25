@@ -1,6 +1,6 @@
 # LLM Pipeline For Job Automation
 
-![Automatic ML Integration Pipeline](./JobLLM_Auto_Apply_Pipeline.png)
+![Auto Job Apply Pipeline - LLMs as Components in an ML Pipeline](resources/auto_apply_pipeline_jobllm.png)
 
 Project source can be downloaded from https://github.com/Ztrimus/job-llm.git
 
@@ -72,3 +72,4 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
 - Evaluation of generated resumes: metrics can be
     - **Content Preservation**: overlap b/w keywords from resume and master data.
     - **Goodness of resume for certain job**: Overlap b/w generated resume and job description.
+- Streamlit app development

@@ -1,9 +1,9 @@
 Starting Auto Apply Pipeline...
 Fetching User data...
 Extracting Job Details...
-Function extract_job_details took 46.2700 seconds to execute
+Function job_details_extraction took 46.2700 seconds to execute
 Generating Resume Details...
-Function generate_resume_details took 248.9129 seconds to execute
+Function resume_builder took 248.9129 seconds to execute
 This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex)
  restricted \write18 enabled.
 entering extended mode
@@ -108,5 +108,5 @@ Output written on Squarespace_WebsiteDesigner_resume.pdf (1 page, 177185 bytes)
 Transcript written on Squarespace_WebsiteDesigner_resume.log.
 Exit-code not 0, check result!
 Generating Cover Letter...
-Function generate_cover_letter took 41.8604 seconds to execute
+Function cover_letter_generator took 41.8604 seconds to execute
 Want cover letter as PDF? (y/n): y
