@@ -62,22 +62,11 @@
 %==== TECHNICAL STRENGTHS SECTION ====%
 
 \begin{rSection}{Technical Skills}
-
 \begin{tabular}{ @{} >{\bfseries}l @{\hspace{1ex}} l }
-%==== programming languages ====%
-Programming Languages & Python, Java, SQL, Unix / Linux Scripting\\
+\BLOCK{ for section in technical }
+\VAR{section.name}: \VAR{', '.join(section.skills)}\\
 % \newcommand\myfontsize{\fontsize{.1pt}{.1pt}\selectfont} \myfontsize \color{white}{Cassandra, Agile, Redis, Azure, R, Go, C\#, open source community, Cassandra, Redis, Memcached, MATLAB, Object-oriented programming, automated driving, robotics, dynamics and controls, Microsoft, high-performance computing, supervised learning, unsupervised, twilio} \\
-
-%==== Cloud platforms ====%
-Cloud Platforms \& Databases & GCP, AWS, Big Query, Cassandra, Postgres, DynamoDB, MySQL \\
-% \newcommand\myfontsize{\fontsize{.1pt}{.1pt}\selectfont} \myfontsize \color{white}{Hadoop, MapReduce, Kotlin, Swift, Objective C, Android, iPhone, and iPad, Jira, GSuite, Scrum, Kanban, Naïve Bayes, SVM, NN, Boosting Methods, Spark, ICML, NeurIPS, Apache Kafka, Apache Samza, Pinot, Espresso, Ambry, Helix, AWS Lambda, AWS Step Functions, AWS ElasticCache, SNS, SQS, cost-benefit, forecasting, experiment analysis, oracle, Helix, AWS Lambda, AWS Step Functions, AWS ElasticCache, SNS, SQS, cost-benefit, forecasting, experiment analysis, oracle}\\
-
-% ==== Libraries and Frameworks ====
-% Libraries \& Frameworks & Git, Spring Boot, Keras, Scikit Learn, PyTorch\\
-% \newcommand\myfontsize{\fontsize{.1pt}{.1pt}\selectfont} \myfontsize \color{white}{DNS, HTTP, TCP, UDP, Socket Programming, Network, Protocol, Routing}\\
-
-% ==== Libraries and Frameworks ====
-Data Engineering & Spark, Kafka, SnowFlake, Airflow, Tableau, ETL, Pandas, D3.js
+\BLOCK{ endfor }
 
 % ==== EXTRA SKILLS ====
 \newcommand\myfontsize{\fontsize{.1pt}{.1pt}\selectfont} \myfontsize \color{white}

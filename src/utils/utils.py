@@ -78,9 +78,11 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
         open_file(dst_path)
     
     filename_without_ext = os.path.basename(tex_file_path).split('.')[0]
-    for file in os.listdir(os.path.dirname(os.path.realpath(tex_file_path))):
-        if file.startswith(filename_without_ext) and os.path.exists(file):
-            os.remove(file)
+    unnessary_files = [file for file in os.listdir(os.path.dirname(os.path.realpath(tex_file_path))) if file.startswith(filename_without_ext)]
+    for file in unnessary_files:
+        file_path = os.path.join(os.path.dirname(tex_file_path), file)
+        if os.path.exists(file_path):
+            os.remove(file_path)
     
     with open(dst_path, "rb") as f:
         pdf_data = f.read()
