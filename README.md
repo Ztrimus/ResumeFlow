@@ -33,7 +33,7 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
 1. Prerequisites
     - OS: Linux(Ubuntu 22.04)
     - Python - 3.10.12
-    - OpenAI API key
+    - OpenAI API key (Store in your environment variable called `OPENAI_API_KEY`)
 2. Create python environment (`python -m venv .env` or conda or etc.)
 3. Install [Poetry package](https://python-poetry.org/docs/basic-usage/) (dependency management and packaging tool)
     ```bash
