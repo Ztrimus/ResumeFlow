@@ -18,25 +18,31 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import json
 from utils.llm_models import ChatGPT
 from utils.data_extraction import get_url_content, extract_text
-from utils.utils import measure_execution_time, write_json
+from utils.utils import measure_execution_time, read_json
 class AutoApplyModel:
     def __init__(self, openai_key: str):
         self.openai_key = openai_key
     
     def get_system_prompt(self, system_prompt_path: str):
-        """
-        Reads the system prompt text from the specified file path.
-
-        Args:
-            system_prompt_path (str): The file path of the system prompt.
-
-        Returns:
-            str: The system prompt read from the file.
-        """
         return open(system_prompt_path).read().strip()+"\n"
 
+    def get_resume_to_json(self, pdf_path):
+        system_prompt = self.get_system_prompt("src/prompts/resume-extractor.txt")
+        chat_gpt = ChatGPT(openai_api_key=self.openai_key, system_prompt=system_prompt)
+        resume_text = extract_text(pdf_path)
+        resume_text = chat_gpt.get_response(resume_text)
+        resume_json = json.loads(resume_text)
+        return resume_json
+    
     @measure_execution_time
-    def extract_job_details(self, url: str):
+    def user_data_extraction(self, user_data_path: str):
+        if os.path.splitext(user_data_path)[1] == '.pdf':
+            return self.get_resume_to_json(user_data_path)
+        else:
+            return read_json(user_data_path)
+
+    @measure_execution_time
+    def job_details_extraction(self, url: str):
         """
         Extracts job details from the specified job URL.
 
@@ -58,7 +64,7 @@ class AutoApplyModel:
         return job_details
     
     @measure_execution_time
-    def generate_resume_details(self, job_details: dict, user_data: dict):
+    def resume_builder(self, job_details: dict, user_data: dict):
         system_prompt = self.get_system_prompt("src/prompts/persona-job-llm.txt") + \
                         self.get_system_prompt("src/prompts/generate-resume-details.txt")
         query = f"""Provided Job description delimited by triple backticks(```) and my resume or work information below delimited by triple dashes(---). ```{json.dumps(job_details)}``` ---{json.dumps(user_data)}---"""
@@ -69,7 +75,7 @@ class AutoApplyModel:
         return job_details
     
     @measure_execution_time
-    def generate_cover_letter(self, job_details: dict, user_data: dict):
+    def cover_letter_generator(self, job_details: dict, user_data: dict):
         system_prompt = self.get_system_prompt("src/prompts/persona-job-llm.txt") + \
                         self.get_system_prompt("src/prompts/generate-cover-letter.txt")
         query = f"""Provided Job description delimited by triple backticks(```) and \
@@ -86,12 +92,3 @@ class AutoApplyModel:
         chat_gpt = ChatGPT(openai_api_key=self.openai_key, system_prompt=system_prompt)
         cover_letter = chat_gpt.get_response(query)
         return cover_letter
-    
-    @measure_execution_time
-    def get_resume_to_json(self, pdf_path, master_data_path):
-        system_prompt = self.get_system_prompt("src/prompt/resume-extractor.txt").read().strip()
-        chat_gpt = ChatGPT(openai_api_key=self.openai_key, system_prompt=system_prompt)
-        resume_text = extract_text(pdf_path)
-        resume_text = chat_gpt.get_response(resume_text)
-        resume_json = json.loads(resume_text)
-        return resume_json
