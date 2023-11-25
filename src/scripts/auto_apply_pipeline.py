@@ -29,7 +29,10 @@ def run_autoapply_pipeline(job_url: str, user_data_path: str = "master_data/saur
     autoApply = AutoApplyModel(openai_key=OPENAI_API_KEY)
 
     print("Fetching User data...")
-    user_data = read_json(user_data_path)
+    if os.path.splitext(user_data_path)[1] == '.pdf':
+        user_data = autoApply.get_resume_to_json(user_data_path)
+    else:
+        user_data = read_json(user_data_path)
 
     print("Extracting Job Details...")
     # job_details = read_json("output/Eisneramper_SoftwareDeveloper-ConsultingInternshipSummer2024_JD.json")

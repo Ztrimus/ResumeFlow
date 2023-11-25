@@ -11,14 +11,14 @@ import os
 import sys
 
 
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 import json
 from utils.llm_models import ChatGPT
-from utils.data_extraction import get_url_content
-from utils.utils import measure_execution_time
-
+from utils.data_extraction import get_url_content, extract_text
+from utils.utils import measure_execution_time, write_json
 class AutoApplyModel:
     def __init__(self, openai_key: str):
         self.openai_key = openai_key
@@ -86,3 +86,12 @@ class AutoApplyModel:
         chat_gpt = ChatGPT(openai_api_key=self.openai_key, system_prompt=system_prompt)
         cover_letter = chat_gpt.get_response(query)
         return cover_letter
+    
+    @measure_execution_time
+    def get_resume_to_json(self, pdf_path, master_data_path):
+        system_prompt = self.get_system_prompt("src/prompt/resume-extractor.txt").read().strip()
+        chat_gpt = ChatGPT(openai_api_key=self.openai_key, system_prompt=system_prompt)
+        resume_text = extract_text(pdf_path)
+        resume_text = chat_gpt.get_response(resume_text)
+        resume_json = json.loads(resume_text)
+        return resume_json
