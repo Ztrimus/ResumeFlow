@@ -1,16 +1,12 @@
-# LLM Pipeline For Job Automation
-
-![Auto Job Apply Pipeline - LLMs as Components in an ML Pipeline](resources/auto_apply_pipeline_jobllm.png)
+# Streamlining Job Applications with LLM Automation Pipeline
+<center><img src="resources/auto_apply_pipeline_jobllm.png" alt="Auto Job Apply Pipeline" width="auto" height="500"></center>
 
 Project source can be downloaded from https://github.com/Ztrimus/job-llm.git
 
 All other known bugs and fixes can be sent to following emails with the subject *"[BUG] JOB LLM"*. Reported bugs/fixes will be submitted to correction.
-- szinjad@asu.edu
-- abhilega@asu.edu
-
 #### Author & Contributor List
-- [Saurabh Zinjad - Ztrimus](https://linkedin.com/in/saurabhzinjad)
-- [Amey Bhilegaonkar - ameygoes](https://www.linkedin.com/in/amey-bhilegaonkar/)
+- [Saurabh Zinjad - Ztrimus](https://linkedin.com/in/saurabhzinjad) | szinjad@asu.edu
+- [Amey Bhilegaonkar - ameygoes](https://www.linkedin.com/in/amey-bhilegaonkar/) | abhilega@asu.edu
 
 
 ## Introduction:
@@ -43,12 +39,11 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
     ```bash
     > poetry install
     ```
-5. We recommand using poetry, if above command not working, we provided requirements.txt file.
-    ```
-    bash
+5. We recommand using poetry, if above command not working, we also provided `requirements.txt` file.
+    ```bash
     > pip install -r requirements.txt
     ```
-5. If you are on linux you also need to install following thing to convert latex to pdf.
+6. on linux you also need to install following pakages to convert latex to pdf.
     ```bash
     > sudo apt-get install texlive-latex-base texlive-fonts-recommended texlive-fonts-extra
     ```
@@ -60,8 +55,6 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
 ```bash
 >>> python main.py --url "https://www.squarespace.com/careers/jobs/5369485?ref=Simplify" --master_data="master_data/saurabh_profile.json"
 ```
-## Resources 
-
 ## References
 - https://www.overleaf.com/latex/templates/jakes-resume-anonymous/cstpnrbkhndn
 
