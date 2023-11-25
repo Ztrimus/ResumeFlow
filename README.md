@@ -1,5 +1,7 @@
 # Streamlining Job Applications with LLM Automation Pipeline
-<center><img src="resources/auto_apply_pipeline_jobllm.png" alt="Auto Job Apply Pipeline" width="auto" height="500"></center>
+<p align="center">
+  <img src="resources/auto_apply_pipeline_jobllm.png" alt="Auto Job Apply Pipeline" width="auto" height="500">
+</p>
 
 Project source can be downloaded from https://github.com/Ztrimus/job-llm.git
 
@@ -27,10 +29,10 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
 
 ## Get Started and Setup
 1. Prerequisites
-    - OS: Linux(Ubuntu 22.04)
+    - OS - Linux (Ubuntu 22.04)
     - Python - 3.10.12
-    - OpenAI API key (Store in your environment variable called `OPENAI_API_KEY`)
-2. Create python environment (`python -m venv .env` or conda or etc.)
+    - OpenAI API key - Store it in your environment variable called `OPENAI_API_KEY`. you can access it thorugh `[config.py](./src/config.py)`.
+2. Create and activate python environment (use `python -m venv .env` or conda or etc.) to avoid any package dependency conflict.
 3. Install [Poetry package](https://python-poetry.org/docs/basic-usage/) (dependency management and packaging tool)
     ```bash
     > pip install poetry
@@ -39,7 +41,7 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
     ```bash
     > poetry install
     ```
-5. We recommand using poetry, if above command not working, we also provided `requirements.txt` file.
+5. We recommend using poetry, if above command not working, we also provided `requirements.txt` file.
     ```bash
     > pip install -r requirements.txt
     ```
@@ -56,9 +58,9 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
 >>> python main.py --url "https://www.squarespace.com/careers/jobs/5369485?ref=Simplify" --master_data="master_data/saurabh_profile.json"
 ```
 ## References
-- https://www.overleaf.com/latex/templates/jakes-resume-anonymous/cstpnrbkhndn
-
-## Bugs :
+- [Overleaf LaTex Resume Template](https://www.overleaf.com/latex/templates/jakes-resume-anonymous/cstpnrbkhndn)
+- [Combining LaTeX with Python](https://tug.org/tug2019/slides/slides-ziegenhagen-python.pdf)
+- [OpenAI Documentation](https://platform.openai.com/docs/api-reference/chat/create)
 
 ## Limitation and Further growth : 
 ## TODO:
