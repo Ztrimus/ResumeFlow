@@ -1,7 +1,5 @@
 %==== PACKAGES AND OTHER DOCUMENT CONFIGURATIONS  ====%
-
 \documentclass{resume} % Use the custom resume.cls style
-
 \usepackage[left=0.25in,top=0.25in,right=0.25in,bottom=0.25in]{geometry} % Document margins
 \usepackage[T1]{fontenc}
 \usepackage{xcolor}
@@ -17,7 +15,6 @@
 % \definecolor{myblue}{RGB}{123, 176, 206}
 \definecolor{myblue}{RGB}{93, 142, 172}
 
-
 % Set hyperlink colors
 \hypersetup{
     colorlinks=true,
@@ -26,65 +23,58 @@
     urlcolor=myblue
 }
 
-
 \usepackage{hyperref}
 
+%==== Headings ====%
 \name{\VAR{name}} % Your name
-% \address{ } % Your phone number and email
 \address{
-\BLOCK{ if personal.phone }{\faPhone} \href{tel:\VAR{personal.phone}}{\VAR{personal.phone}} \quad \BLOCK{ endif }
+\BLOCK{ if personal.phone }{\faPhone} \href{tel:\VAR{personal.phone}}{\VAR{personal.phone.replace(' ','')}} \quad \BLOCK{ endif }
 \BLOCK{ if personal.email }{\faEnvelope} \href{mailto:\VAR{personal.email}}{\VAR{personal.email}} \quad \BLOCK{ endif }
 \BLOCK{ if personal.github }{\faGithub} \href{\VAR{personal.github}}{\VAR{personal.github}} \quad \BLOCK{ endif }
 \BLOCK{ if personal.linkedin }{\faLinkedin} \href{\VAR{personal.linkedin}}{\VAR{personal.linkedin}} \BLOCK{ endif }
-% \href{https://ameyportfolio.netlify.app/}{ameybhilegaonkar.com}/
 }
 
 \begin{document}
-% \quad \quad \quad With over \textbf{3 years} of expertise in Designing and Managing \textbf{ETL Data Pipelines for Distributed Database systems}
-%==== EDUCATION SECTION ====%
 
+%==== EDUCATION SECTION ====%
 \begin{rSection}{Education}
-\BLOCK{ for school in education }
-\BLOCK{ if school.university }
-\textbf{\VAR{school.university}} \hfill {\VAR{school.from} - \VAR{school.to}} \\ 
-% \href{https://drive.google.com/file/d/1CBoVt4rgM3gzX-zR2J2ZyE9mspKE_VHk/view?usp=share_link}
-\BLOCK{ if school.degree } {\VAR{school.degree}} \BLOCK{ endif }  {(GPA: \VAR{school.grade})} \smallskip \\ 
-\textbf{\textit{Relevant Courses:}}
-% \textit{Data Processing at Scale, Data Mining, Social Media Mining, Semantic Web Mining, Data Visualization, Statistical Machine Learning, Spatial Data Science}
-\BLOCK{ for course in school.coursework }
-\textit{\VAR{course}},
-\BLOCK{ endfor }
-\vspace{2mm}
-\BLOCK{ endif } 
-\BLOCK{ endfor }
+    \BLOCK{ for school in education }
+        \BLOCK{ if school.university }
+            \textbf{\VAR{school.university}} \hfill {\VAR{school.from} - \VAR{school.to}} \\
+            \BLOCK{ if school.degree }
+                {\VAR{school.degree}}
+            \BLOCK{ endif }
+            {(GPA: \VAR{school.grade})} \smallskip \\ 
+            \textbf{\textit{Relevant Courses:}}
+            \textit{\VAR{', '.join(school.coursework)}}
+            \vspace{2mm}
+        \BLOCK{ endif } 
+    \BLOCK{ endfor }
 \end{rSection}
 
 %==== TECHNICAL STRENGTHS SECTION ====%
 \BLOCK{ if technical }
-\begin{rSection}{Technical Skills}
-\begin{tabular}{ @{} l @{\hspace{1ex}} l }
-\BLOCK{ for section in technical }
-\textbf{\VAR{section.name}}: \VAR{', '.join(section.skills)}\\
-% \newcommand\myfontsize{\fontsize{.1pt}{.1pt}\selectfont} \myfontsize \color{white}{Cassandra, Agile, Redis, Azure, R, Go, C\#, open source community, Cassandra, Redis, Memcached, MATLAB, Object-oriented programming, automated driving, robotics, dynamics and controls, Microsoft, high-performance computing, supervised learning, unsupervised, twilio} \\
-\BLOCK{ endfor }
-\BLOCK{ if technical }
-Certifications: 
-\BLOCK{ for certification in certifications }
-\href{\VAR{certification.link}}{\textbf{\VAR{certification.name}}},
-% \newcommand\myfontsize{\fontsize{.1pt}{.1pt}\selectfont} \myfontsize \color{white}{EMR, EC2, S3, GLUE, KMS, Lambda, DynamoDB, DevOps, Site Reliability Engineering, Continuous Integration, Continuous Deployment, Continuous Delivery, Infrastructure as Code (IaC), Automation, Configuration Management, Microservices, Containerization, Docker, Kubernetes, Orchestration, Scalability, Availability, Monitoring, Alerting, Incident Management, Change Management, Version Control, Git, Jenkins, CI/CD Pipelines, Deployment Automation, Infrastructure Automation, Cloud Computing, AWS (Amazon Web Services), Azure, Google Cloud Platform (GCP), Hybrid Cloud, Serverless Computing, Load Balancing, High Availability, Disaster Recovery, Performance Optimization, Security Best Practices, Compliance, DevSecOps, Infrastructure Monitoring, Application Performance Monitoring (APM), Infrastructure Resilience, Chaos Engineering, Incident Response, On-Call Support, Service Level Objectives (SLOs), Service Level Agreements (SLAs), Capacity Planning, Infrastructure Scaling, Infrastructure Cost Management, Log Management.}\\
-\BLOCK{ endfor }
+    \begin{rSection}{Technical Skills}
+        \begin{tabular}{ @{} l @{\hspace{1ex}} l }
+            \BLOCK{ for section in technical }
+                \textbf{\VAR{section.name}}: \VAR{', '.join(section.skills)}\\
+            \BLOCK{ endfor }
+            \BLOCK{ if certifications }\textbf{Certifications:} 
+                \BLOCK{ for certification in certifications }
+                    \href{\VAR{certification.link}}{\textbf{\VAR{certification.name}}},
+                \BLOCK{ endfor }
+            \BLOCK{ endif } 
+        \end{tabular}
+    \end{rSection}
 \BLOCK{ endif } 
-\end{tabular}
-\end{rSection}
-\BLOCK{ endif } 
-%	WORK EXPERIENCE SECTION
 
+% WORK EXPERIENCE SECTION
 \BLOCK{ if work }
     \begin{rSection}{Work Experience}
         \BLOCK{ for exp in work }
             \begin{rSubsection}
                 \BLOCK{ if exp.link}
-                    {\href{exp.link}{exp.company}}
+                    {\href{\VAR{exp.link}}{\VAR{exp.company}}}
                 \BLOCK{else}
                     {\VAR{exp.company}}
                 \BLOCK{ endif }
@@ -97,5 +87,27 @@ Certifications:
         \BLOCK{ endfor }
     \end{rSection}
 \BLOCK{ endif }
+
+% PROJECTS SECTION
+\BLOCK{ if projects }
+    \begin{rSection}{Projects}
+        \BLOCK{ for project in projects}
+            \begin{rSubsection}
+                \BLOCK{ if project.link}
+                    {\href{\VAR{project.link}}{\VAR{project.name}}}
+                \BLOCK{else}
+                    {\VAR{project.name}}
+                \BLOCK{ endif }
+                {\normalfont{\VAR{project.from} - \VAR{project.to}}}{}{}
+                \BLOCK{ for point in project.description}
+                    \item \VAR{point}
+                \BLOCK{ endfor }
+            \end{rSubsection}
+        \BLOCK{ endfor }
+    \end{rSection}
+\BLOCK{ endif }
+
+\newcommand\myfontsize{\fontsize{0.1pt}{0.1pt}\selectfont} \myfontsize \color{white}
+{Data warehouse, data modeling, data extraction, data transformation, data loading, SQL, ETL, data quality, data governance, data privacy, data visualization, data controls, privacy, security, compliance, SLA, AWS, terabyte to petabyte scale data.}
 
 \end{document}
