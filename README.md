@@ -32,7 +32,7 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
 1. Prerequisites
     - OS - Linux (Ubuntu 22.04)
     - Python - 3.10.12
-    - OpenAI API key - Store it in your environment variable called `OPENAI_API_KEY`. you can access it thorugh [`config.py`](./src/config.py).
+    - OpenAI API key - Store it in your environment variable called `OPENAI_API_KEY`. you can access it thorugh [config.py](./src/config.py).
 2. Create and activate python environment (use `python -m venv .env` or conda or etc.) to avoid any package dependency conflict.
 3. Install [Poetry package](https://python-poetry.org/docs/basic-usage/) (dependency management and packaging tool)
     ```bash
@@ -42,7 +42,7 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
     ```bash
     poetry install
     ```
-5. We recommend using poetry, if above command not working, we also provided [`requirements.txt`](resources/requirements.txt) file.
+5. We recommend using poetry, if above command not working, we also provided [requirements.txt](resources/requirements.txt) file.
     ```bash
     pip install -r resources/requirements.txt
     ```
