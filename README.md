@@ -29,6 +29,7 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
 
 ## Get Started and Setup
 1. Prerequisites
+    - OS: Linux(Ubuntu 22.04)
     - Python - 3.10.12
     - OpenAI API key
 2. Create python environment (`python -m venv .env` or conda or etc.)
