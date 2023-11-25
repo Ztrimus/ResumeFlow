@@ -1,0 +1,28 @@
+Dear Hiring Manager,
+
+I am writing to express my keen interest in the position of Software Developer - Consulting Internship Summer 2024 at EisnerAmper. With my strong background in software development, project management, and technical writing, I believe I am an ideal fit for this role.
+
+I have recently completed my Masters of Science in Computer Science from Arizona State University, where I gained a solid foundation in agile software development, project management, and requirements gathering. During my degree, I excelled in coursework such as Social Media Mining, Knowledge Representation and Reasoning Algorithms, and Statistical Machine Learning. These courses have equipped me with the necessary skills and knowledge to support software development projects and collaborate effectively with project managers and developers.
+
+In my previous role as a Senior Machine Learning Engineer at Tiger Analytics, I successfully spearheaded the development of interactive dashboards, constraint-based ML models, and web applications for the MSP Value Optimization project in the Petcare sector. This involved collaborating with a team of 8 analysts to ensure the delivery of high-quality solutions. Additionally, I played a key role in developing an end-to-end MLOps platform, MLCORE, which attracted four significant new clients.
+
+As a Software Engineer at Winjit Technologies, I gained valuable experience in designing and developing RESTful APIs, low-latency responsive UI/UX application features, and large-scale databases. I also led a cross-functional team in designing a standardized solution for dynamic forms generation, significantly reducing development time.
+
+During my tenure as a Deep Learning Engineer at Automation Teknix, I successfully devised a lightweight object recognition engine with low computational cost, resulting in a 22% decrease in survey error. I also contributed to the training and monitoring of models, leading to a 7% increase in accuracy and a 2x reduction in inference time.
+
+In my research internship at IMATMI, I developed a range of ML and statistical models to streamline HR processes and optimize talent management systems. I also implemented an automated system to identify the best-fit employees for upcoming projects, improving project outcomes and resource allocation.
+
+Throughout my career, I have acquired a strong proficiency in programming languages such as Python, JavaScript, C#, and C++. I am also experienced in utilizing various data science tools and technologies, including TensorFlow, PyTorch, Azure, AWS, and Docker. My knowledge of full-stack technologies, including Angular, React, NodeJs, and Flask, further enhances my ability to contribute to software development projects.
+
+Apart from my technical skills, I also possess excellent communication skills, both in business and technical environments. I am adept at collaborating with cross-functional teams, presenting complex ideas in a clear and concise manner, and actively engaging in training sessions and meetings.
+
+I am excited about the opportunity to join EisnerAmper, one of the largest accounting, tax, and business advisory firms globally. The company's mission of combining responsiveness with a long-range perspective resonates with me, and I am eager to contribute to its success.
+
+Thank you for considering my application. I have attached my resume for your review. I look forward to discussing how my skills and experiences align with the requirements of the Software Developer - Consulting Internship Summer 2024 position further.
+
+Sincerely,
+
+Saurabh Bhausaheb Zinjad
+Phone: +1 480 913 5544
+Email: saurabhzinjad@asu.edu
+LinkedIn: linkedin.com/in/saurabhzinjad

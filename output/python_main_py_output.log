@@ -1,0 +1,21 @@
+(.env) saurabh@ztrimus:~/AAA/Convergent/Projects/job-llm$ python main.py --url "https://careers.eisneramper.com/en/career-opportunities/2301/software-developer-consulting-internship-summer-2024-baton-rouge"
+
+
+Starting Auto Apply Pipeline...
+
+Fetching User data...
+Function user_data_extraction took 0.0008 seconds to execute
+
+Extracting Job Details...
+Function job_details_extraction took 89.3799 seconds to execute
+
+Generating Resume Details...
+Function resume_builder took 152.9160 seconds to execute
+Resume PDF generated at:  /home/saurabh/AAA/Convergent/Projects/job-llm/output/Eisneramper_SoftwareDevelop_resume.pdf
+
+Generating Cover Letter...
+Function cover_letter_generator took 51.4875 seconds to execute
+Cover Letter generated at:  /home/saurabh/AAA/Convergent/Projects/job-llm/output/Eisneramper_SoftwareDevelop_cv.txt
+Want cover letter as PDF? (y/n): y
+Cover Letter PDF generated at:  /home/saurabh/AAA/Convergent/Projects/job-llm/output/Eisneramper_SoftwareDevelop_cv.pdf
+Done!!!
