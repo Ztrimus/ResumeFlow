@@ -35,9 +35,9 @@
       "to": "June 2019",
       "grade": "8.53/10",
       "classes": [
-        "Data Structure and Algorithms",
-        "Object Oriented Programming",
-        "Operating System",
+        "DSA",
+        "OOP",
+        "OS",
         "System Programming",
         "Computer Networks",
         "Information Theory",

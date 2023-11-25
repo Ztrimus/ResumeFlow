@@ -48,6 +48,7 @@ JSON should in following format:
     {
       "role": "",
       "company": "",
+      location:"",
       "from": "",
       "to": "",
       "description": []
