@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser()
 # Add the required arguments
 
 parser.add_argument('-u', "--url", help='URL of the job posting')
-parser.add_argument('-m', "--master_data", default="master_data/saurabh_profile.json", help='Path of user\'s master data file.')
+parser.add_argument('-m', "--master_data", default="master_data/user_profile.json", help='Path of user\'s master data file.')
 
 # Parse the arguments
 args = parser.parse_args()

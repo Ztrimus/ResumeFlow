@@ -1,6 +1,6 @@
 # Streamlining Job Applications with LLM Automation Pipeline
 <p align="center">
-  <img src="resources/auto_apply_pipeline_jobllm.png" alt="Auto Job Apply Pipeline" width="auto" height="500">
+  <img src="resources/auto_job_apply_workflow.png" alt="Auto Job Apply Pipeline" width="auto" height="500">
 </p>
 
 Project source can be downloaded from https://github.com/Ztrimus/job-llm.git
@@ -18,7 +18,6 @@ All other known bugs and fixes can be sent to following emails with the subject 
 Solving a task using machine learning methods requires a series of steps that often require large amounts of human effort or labor. Some examples of this are: 
 - data collection
 - data curation or something similar
-- data labeling
 - data augmentation, etc. 
 
 Furthermore there might be more steps after the training the ML model, such as evaluation, explaining the behavior of the model,
@@ -27,35 +26,37 @@ interpreting model outputs, etc. Many of these steps are also often human labor 
 ### 2. Our Proposal
 We're aiming to create a automated system that makes applying for jobs a breeze. Job hunting has many stages, and we see a chance to automate things and use LLM (Language Model) to make it even smoother. We're looking at different ways, both the usual and some new ideas, to integrate LLM into the job application process. The goal is to reduce how much you have to do and let LLM do its thing, making the whole process easier for you.
 
+### 3. Refer [Project Report](./resources/Project%20Report.pdf) for more details.
+
 ## Get Started and Setup
 1. Prerequisites
     - OS - Linux (Ubuntu 22.04)
     - Python - 3.10.12
-    - OpenAI API key - Store it in your environment variable called `OPENAI_API_KEY`. you can access it thorugh `[config.py](./src/config.py)`.
+    - OpenAI API key - Store it in your environment variable called `OPENAI_API_KEY`. you can access it thorugh [`config.py`](./src/config.py).
 2. Create and activate python environment (use `python -m venv .env` or conda or etc.) to avoid any package dependency conflict.
 3. Install [Poetry package](https://python-poetry.org/docs/basic-usage/) (dependency management and packaging tool)
     ```bash
-    > pip install poetry
+    pip install poetry
     ```
-4. Install all required packages. Refer [pyproject.toml](./pyproject.toml) or [poetry.lock](./poetry.lock) for list of packages.
+4. Install all required packages. Refer [pyproject.toml](pyproject.toml) or [poetry.lock](poetry.lock) for list of packages.
     ```bash
-    > poetry install
+    poetry install
     ```
-5. We recommend using poetry, if above command not working, we also provided `requirements.txt` file.
+5. We recommend using poetry, if above command not working, we also provided [`requirements.txt`](resources/requirements.txt) file.
     ```bash
-    > pip install -r requirements.txt
+    pip install -r resources/requirements.txt
     ```
 6. on linux you also need to install following pakages to convert latex to pdf.
     ```bash
-    > sudo apt-get install texlive-latex-base texlive-fonts-recommended texlive-fonts-extra
+    sudo apt-get install texlive-latex-base texlive-fonts-recommended texlive-fonts-extra
     ```
 ## Run Code
 ```bash
->>> python main.py --url "JOB_POSTING_URL" --master_data="JSON_USER_MASTER_DATA"
+python main.py --url "JOB_POSTING_URL" --master_data="JSON_USER_MASTER_DATA"
 ```
 - Refer following example
 ```bash
->>> python main.py --url "https://www.squarespace.com/careers/jobs/5369485?ref=Simplify" --master_data="master_data/saurabh_profile.json"
+python main.py --url "https://www.squarespace.com/careers/jobs/5369485?ref=Simplify" --master_data="master_data/user_profile.json"
 ```
 ## References
 - [Overleaf LaTex Resume Template](https://www.overleaf.com/latex/templates/jakes-resume-anonymous/cstpnrbkhndn)

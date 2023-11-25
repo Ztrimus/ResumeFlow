@@ -20,7 +20,7 @@ from utils.latex_ops import latex_to_pdf
 
 output_dir = os.path.realpath("output")
 
-def run_autoapply_pipeline(job_url: str, user_data_path: str = "master_data/saurabh_profile.json"):
+def run_autoapply_pipeline(job_url: str, user_data_path: str = "master_data/user_profile.json"):
     try:
         if not len(job_url.strip()):
             print("Job URL is required.")

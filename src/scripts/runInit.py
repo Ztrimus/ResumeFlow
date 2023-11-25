@@ -34,7 +34,7 @@ def createGPTs():
 resumeGPT, jobGPT, compareGPT = createGPTs()
 
 # parse resume
-pdf_path = '../input/Amey_Bhilegaonkar_Resume.pdf'
+pdf_path = '../input/user_resume.pdf'
 resume_text = extract_text(pdf_path)
 output_json_path = '../output/ameyBhilegaonkar.json'
 
