@@ -38,11 +38,13 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
     ```bash
     pip install poetry
     ```
-4. Install all required packages. Refer [pyproject.toml](pyproject.toml) or [poetry.lock](poetry.lock) for list of packages.
-    ```bash
-    poetry install
-    ```
-5. We recommend using poetry, if above command not working, we also provided [requirements.txt](resources/requirements.txt) file.
+4. Install all required packages. 
+    4.1. Refer [pyproject.toml](pyproject.toml) or [poetry.lock](poetry.lock) for list of packages.
+        ```bash
+        poetry install
+        ```
+        OR
+    4.2. We recommend using poetry, if above command not working, we also provided [requirements.txt](resources/requirements.txt) file.
     ```bash
     pip install -r resources/requirements.txt
     ```
@@ -50,6 +52,7 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
     ```bash
     sudo apt-get install texlive-latex-base texlive-fonts-recommended texlive-fonts-extra
     ```
+    NOTE: try `sudo apt-get update` if terminal unable to locate package.
 ## Run Code
 ```bash
 python main.py --url "JOB_POSTING_URL" --master_data="JSON_USER_MASTER_DATA"
