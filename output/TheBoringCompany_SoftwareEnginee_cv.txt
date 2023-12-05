@@ -1,0 +1,21 @@
+Dear Hiring Manager,
+
+I am writing to express my interest in the position of Software Engineering Intern at The Boring Company for the summer of 2024. I am confident that my skills and experiences make me a strong candidate for this role.
+
+In reviewing the job description, I noticed several key requirements that closely align with my background. Firstly, my educational background includes a Bachelor's Degree in Computer Science and I am currently pursuing my Masters of Science in Computer Science. My coursework in Social Media Mining, Knowledge Representation and Reasoning Algorithms, and Statistical Machine Learning has provided me with a strong foundation in data analysis and graphing - skills that are essential for the role. Additionally, my proficiency in JavaScript, HTML, CSS, and Node.js, combined with my experience in web development projects, make me well-suited to develop reliable and scalable web services to monitor the Las Vegas Loop.
+
+Furthermore, my experience as a Senior Machine Learning Engineer at Tiger Analytics demonstrates my ability to work in dynamic and collaborative teams. I have spearheaded the development of interactive dashboards and constraint-based ML models, and I have experience in comprehensive documentation and CI/CD pipelines. These experiences have given me the skills to improve the operational efficiency of the Las Vegas Loop by deploying web tools for various teams at The Boring Company.
+
+I am also well-versed in mathematics and statistics, which are essential for formulating statistical metrics to evaluate the performance of the Las Vegas Loop. My experience in designing and developing web tools to display performance metrics further strengthens my qualifications for this position.
+
+Throughout my career, I have consistently demonstrated my ability to quickly adapt to new projects and learn new languages, technologies, and concepts. I am proficient in Python and have experience with networking, which aligns with the preferred qualifications mentioned in the job description. Additionally, my participation in Computer Science competitions such as The International Olympiad in Informatics showcases my passion for problem-solving and my ability to thrive in competitive environments.
+
+I am particularly drawn to The Boring Company's mission to solve the problem of traffic congestion by creating an underground network of tunnels. The company's focus on enabling rapid transit aligns with my own interest in contributing to innovative solutions that address real-world challenges. I am excited about the opportunity to support the development of the Las Vegas Loop and contribute to the company's goals.
+
+Thank you for considering my application. I have attached my resume for your review, which provides more detail on my qualifications and experiences. I look forward to the opportunity to discuss how my skills and experiences align with the needs of The Boring Company. 
+
+Thank you for your time and consideration.
+
+Sincerely,
+
+Saurabh Bhausaheb Zinjad
