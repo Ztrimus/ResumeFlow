@@ -45,8 +45,8 @@ def escape_for_latex(data):
 
 def latex_to_pdf(json_resume, dst_path):
     try:
-        # dir_path = os.path.dirname(os.path.realpath(__file__))
-        dir_path = "zlm/templates"
+        module_dir = os.path.dirname(__file__)
+        templates_path = os.path.join(module_dir, '..', 'templates')
 
         latex_jinja_env = jinja2.Environment(
             block_start_string="\BLOCK{",
@@ -59,13 +59,13 @@ def latex_to_pdf(json_resume, dst_path):
             line_comment_prefix="%#",
             trim_blocks=True,
             autoescape=False,
-            loader=jinja2.FileSystemLoader(dir_path),
+            loader=jinja2.FileSystemLoader(templates_path),
         )
 
         escaped_json_resume = escape_for_latex(json_resume)
 
         resume_latex = use_template(latex_jinja_env, escaped_json_resume)
-        tex_temp_path = os.path.join(os.path.realpath(dir_path), os.path.basename(dst_path).replace(".pdf", ".tex"))
+        tex_temp_path = os.path.join(os.path.realpath(templates_path), os.path.basename(dst_path).replace(".pdf", ".tex"))
         write_file(tex_temp_path, resume_latex)
         return save_latex_as_pdf(tex_temp_path, dst_path)
     except Exception as e:
