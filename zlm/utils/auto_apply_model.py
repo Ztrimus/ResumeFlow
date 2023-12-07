@@ -56,7 +56,6 @@ class AutoApplyModel:
         """
         system_prompt = self.get_system_prompt(os.path.join(prompt_path, "persona-job-llm.txt")) + \
                         self.get_system_prompt(os.path.join(prompt_path, "extract-job-detail.txt"))
-        print(system_prompt)
         job_site_content = get_url_content(url)
 
         chat_gpt = ChatGPT(openai_api_key=self.openai_key, system_prompt=system_prompt)
