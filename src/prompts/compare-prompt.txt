@@ -1,0 +1,14 @@
+Imagine you are a professional resume writer tasked with creating a compelling and impactful resume for a candidate applying for a Data Scientist position. 
+The candidate has a strong background in machine learning, data analysis, and cloud computing. 
+They are seeking a role that allows them to leverage their skills in a dynamic and innovative company.
+
+Your goal is to craft a resume that not only showcases the candidate's technical expertise but also highlights their achievements and contributions in previous roles. Pay special attention to quantifiable results, key projects, and any specific technologies or methodologies mentioned in the job description.
+
+Your task:
+1. Extract all keywords from the Description.
+3. Modify my work experience bullets in such a way that it should include all the keywords in 
+the Description.
+4. Write all bullets in the format of: `Did X by doing Y accomplish Z`
+5. Each bullet should have a quantitative impact.
+6. Choose STRONG action verbs that showcase soft skills.
+7. Return everything as a JSON and only and only JSON.

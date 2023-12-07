@@ -9,7 +9,7 @@ Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 '''
 
 import argparse
-from zlm.scripts.auto_apply_pipeline import run_autoapply_pipeline
+from src.scripts.auto_apply_pipeline import run_autoapply_pipeline
 
 # Create an argument parser
 parser = argparse.ArgumentParser()
