@@ -18,9 +18,20 @@ from config import OPENAI_API_KEY
 from utils.utils import read_json, read_file, write_file, write_json, job_doc_name, save_log, text_to_pdf
 from utils.latex_ops import latex_to_pdf
 
-output_dir = os.path.realpath("output")
+module_dir = os.path.join(os.path.dirname(__file__), '..', '..')
+output_dir = os.path.join(module_dir, 'output')
 
-def run_autoapply_pipeline(job_url: str, user_data_path: str = "master_data/user_profile.json"):
+def run_autoapply_pipeline(job_url: str, user_data_path: str = os.path.join(module_dir, "master_data','user_profile.json")):
+    """Run the Auto Apply Pipeline.
+
+    Args:
+        job_url (str): The URL of the job to apply for.
+        user_data_path (str, optional): The path to the user profile data file.
+            Defaults to os.path.join(module_dir, "master_data','user_profile.json").
+
+    Returns:
+        None: The function prints the progress and results to the console.
+    """
     try:
         if not len(job_url.strip()):
             print("Job URL is required.")

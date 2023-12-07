@@ -11,15 +11,19 @@ Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 import argparse
 from zlm.scripts.auto_apply_pipeline import run_autoapply_pipeline
 
-# Create an argument parser
-parser = argparse.ArgumentParser()
+def create_resume(url, master_data):
+    run_autoapply_pipeline(url, master_data)
 
-# Add the required arguments
+if __name__ == "__main__":
+    # Create an argument parser
+    parser = argparse.ArgumentParser()
 
-parser.add_argument('-u', "--url", help='URL of the job posting')
-parser.add_argument('-m', "--master_data", default="master_data/user_profile.json", help='Path of user\'s master data file.')
+    # Add the required arguments
 
-# Parse the arguments
-args = parser.parse_args()
+    parser.add_argument('-u', "--url", help='URL of the job posting')
+    parser.add_argument('-m', "--master_data", default="master_data/user_profile.json", help='Path of user\'s master data file.')
 
-run_autoapply_pipeline(args.url, args.master_data)
+    # Parse the arguments
+    args = parser.parse_args()
+
+    run_autoapply_pipeline(args.url, args.master_data)
