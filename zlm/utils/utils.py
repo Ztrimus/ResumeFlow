@@ -1,9 +1,11 @@
 import os
 import time
 import json
-from fpdf import FPDF
-from datetime import datetime
+import platform
 import subprocess
+from fpdf import FPDF
+from pathlib import Path
+from datetime import datetime
 
 def write_file(file_path, data):
     with open(file_path, 'w') as file:
@@ -22,15 +24,21 @@ def read_json(file_path: str):
     with open(file_path) as json_file:
         return json.load(json_file)
 
-def job_doc_name(job_details: dict, output_dir: str = "output"):
+def job_doc_name(job_details: dict, output_dir: str = "output", type: str = ''):
      company_name = clean_string(job_details["company_name"])
      job_title = clean_string(job_details["title"])[:15]
      doc_name = "_".join([company_name, job_title])
-     
-     jd_path = os.path.join(output_dir, f"{doc_name}_JD.json")
-     resume_path = os.path.join(output_dir, f"{doc_name}_resume.json")
-     cv_path = os.path.join(output_dir, f"{doc_name}_cv.txt")
-     return jd_path, resume_path, cv_path
+     doc_dir = os.path.join(output_dir, company_name)
+     os.makedirs(doc_dir, exist_ok=True)
+
+     if type == "jd":
+        return os.path.join(doc_dir, f"{doc_name}_JD.json")
+     elif type == 'resume':
+         return os.path.join(doc_dir, f"{doc_name}_resume.json")
+     elif type == "cv":
+         return os.path.join(doc_dir, f"{doc_name}_cv.txt")
+     else:
+         return os.path.join(doc_dir, f"{doc_name}_")
      
 def clean_string(text: str):
      return text.title().replace(" ", "").strip()
@@ -99,3 +107,17 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
         pdf_data = f.read()
     
     return pdf_data
+
+def get_default_download_folder():
+    """Get the default download folder for the current operating system."""
+    system = platform.system().lower()
+
+    if system == "windows":
+        return os.path.join(str(Path.home()), "Downloads")
+    elif system == "darwin":  # macOS
+        return os.path.join(str(Path.home()), "Downloads")
+    elif system == "linux":
+        return os.path.join(str(Path.home()), "Downloads")
+    else:
+        # Default fallback for other systems
+        return os.path.join(str(Path.home()), "Downloads")

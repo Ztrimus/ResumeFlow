@@ -10,7 +10,7 @@ Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 
 import jinja2
 import os
-from utils.utils import write_file, save_latex_as_pdf
+from zlm.utils.utils import write_file, save_latex_as_pdf
 
 def escape_for_latex(data):
     if isinstance(data, dict):
