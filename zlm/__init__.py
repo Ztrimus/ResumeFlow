@@ -22,7 +22,7 @@ prompt_path = os.path.join(module_dir, 'prompts')
 
 
 class AutoApplyModel:
-    def __init__(self, openai_key: str, downloads_dir: str):
+    def __init__(self, openai_key: str, downloads_dir: str = get_default_download_folder()):
         if openai_key == None or openai_key.strip() == 'os':
             self.openai_key = os.environ.get("OPENAI_API_KEY")
 

@@ -1,8 +1,8 @@
 # Streamlining Job Applications with LLM Automation Pipeline
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/Ztrimus/job-llm/main/resources/auto_job_apply_workflow.png?token=GHSAT0AAAAAACHNE2LVFGFGEZTWLCOA5WOIZLRLEMA" alt="Auto Job Apply Pipeline" width="auto" height="500">
-  <!-- <img src="resources/auto_job_apply_workflow.png" alt="Auto Job Apply Pipeline" width="auto" height="500"> -->
+<!-- <img src="https://raw.githubusercontent.com/Ztrimus/job-llm/main/resources/auto_job_apply_workflow.png?token=GHSAT0AAAAAACHNE2LVFGFGEZTWLCOA5WOIZLRLEMA" alt="Auto Job Apply Pipeline" width="auto" height="500"> -->
+  <img src="resources/auto_job_apply_workflow.png" alt="Auto Job Apply Pipeline" width="auto" height="500">
 </p>
 
 Project source can be downloaded from https://github.com/Ztrimus/job-llm.git
@@ -47,8 +47,8 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
 4. Install all required packages.
    4.1. Refer [pyproject.toml](pyproject.toml) or [poetry.lock](poetry.lock) for list of packages.
    `bash
-    poetry install
-    `
+poetry install
+`
    OR
    4.2. We recommend using poetry, if above command not working, we also provided [requirements.txt](resources/requirements.txt) file.
     ```bash
