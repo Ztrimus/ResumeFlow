@@ -26,9 +26,13 @@ class AutoApplyModel:
     def __init__(self, openai_key: str, downloads_dir: str = get_default_download_folder()):
         if openai_key == None or openai_key.strip() == 'os':
             self.openai_key = os.environ.get("OPENAI_API_KEY")
+        else:
+            self.openai_key = openai_key
 
         if downloads_dir == None or downloads_dir.strip() == "":
             self.downloads_dir = get_default_download_folder()
+        else:
+            self.downloads_dir = downloads_dir
     
     def get_system_prompt(self, system_prompt_path: str):
         return open(system_prompt_path).read().strip()+"\n"
