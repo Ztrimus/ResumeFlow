@@ -10,15 +10,15 @@ Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 import os
 import sys
 
-
-
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
+import pkg_resources
 
 import json
 from utils.llm_models import ChatGPT
 from utils.data_extraction import get_url_content, extract_text
 from utils.utils import measure_execution_time, read_json
+from prompts import persona_job_llm, persona_resume_llm, generate_resume_details, generate_cover_letter
+
 class AutoApplyModel:
     def __init__(self, openai_key: str):
         self.openai_key = openai_key
@@ -27,7 +27,7 @@ class AutoApplyModel:
         return open(system_prompt_path).read().strip()+"\n"
 
     def get_resume_to_json(self, pdf_path):
-        system_prompt = self.get_system_prompt("../prompts/resume-extractor.txt")
+        system_prompt = self.get_system_prompt(pkg_resources.resource_string('zlm', 'prompts/resume-extractor.txt'))
         chat_gpt = ChatGPT(openai_api_key=self.openai_key, system_prompt=system_prompt)
         resume_text = extract_text(pdf_path)
         resume_text = chat_gpt.get_response(resume_text)
@@ -52,9 +52,9 @@ class AutoApplyModel:
         Returns:
             dict: A dictionary containing the extracted job details.
         """   
-
-        system_prompt = self.get_system_prompt("../prompts/persona-job-llm.txt") + \
-                        self.get_system_prompt("../prompts/extract-job-detail.txt")
+        print(os.getcwd())
+        system_prompt = self.get_system_prompt(pkg_resources.resource_string('zlm', 'prompts/persona-job-llm.txt')) + \
+                        self.get_system_prompt(pkg_resources.resource_string('zlm', 'prompts/extract-job-detail.txt'))
         job_site_content = get_url_content(url)
 
         chat_gpt = ChatGPT(openai_api_key=self.openai_key, system_prompt=system_prompt)
