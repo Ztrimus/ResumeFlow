@@ -22,3 +22,6 @@ ipykernel = "^6.26.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.package]
+include = ["zlm/prompts/*"]
