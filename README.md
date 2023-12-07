@@ -51,9 +51,9 @@ poetry install
 `
    OR
    4.2. We recommend using poetry, if above command not working, we also provided [requirements.txt](resources/requirements.txt) file.
-    ```bash
+   `bash
     pip install -r resources/requirements.txt
-    ```
+    `
 5. on linux you also need to install following pakages to convert latex to pdf.
     ```bash
     sudo apt-get install texlive-latex-base texlive-fonts-recommended texlive-fonts-extra
@@ -70,6 +70,20 @@ python main.py --url "JOB_POSTING_URL" --master_data="JSON_USER_MASTER_DATA"
 
 ```bash
 python main.py --url "https://www.squarespace.com/careers/jobs/5369485?ref=Simplify" --master_data="master_data/user_profile.json"
+```
+
+## Usage as package
+
+```bash
+pip install zlm
+```
+
+```python
+import os
+from zlm import AutoApplyModel
+
+job_llm = AutoApplyModel(os.environ['OPENAI_API_KEY'])
+job_llm.resume_cv_pipeline("JOB_URL_HERE")
 ```
 
 ## References
