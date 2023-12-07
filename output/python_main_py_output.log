@@ -19,3 +19,27 @@ Cover Letter generated at:  /home/saurabh/AAA/Convergent/Projects/job-llm/output
 Want cover letter as PDF? (y/n): y
 Cover Letter PDF generated at:  /home/saurabh/AAA/Convergent/Projects/job-llm/output/Eisneramper_SoftwareDevelop_cv.pdf
 Done!!!
+
+
+(.env) saurabh@ztrimus:~/AAA/Convergent/Projects/job-llm$ python main.py --url "https://itron.referrals.selectminds.com/jobs/intern-software-engineer-6245" --m
+aster_data "master_data/user_profile.json"
+
+
+Starting Auto Apply Pipeline...
+
+Fetching User data...
+Function user_data_extraction took 0.0003 seconds to execute
+
+Extracting Job Details...
+Function job_details_extraction took 33.1502 seconds to execute
+
+Generating Resume Details...
+Function resume_builder took 293.6161 seconds to execute
+Resume PDF generated at:  /home/saurabh/AAA/Convergent/Projects/job-llm/output/Itron_Intern-Software_resume.pdf
+
+Generating Cover Letter...
+Function cover_letter_generator took 55.6087 seconds to execute
+Cover Letter generated at:  /home/saurabh/AAA/Convergent/Projects/job-llm/output/Itron_Intern-Software_cv.txt
+Want cover letter as PDF? (y/n): y
+Cover Letter PDF generated at:  /home/saurabh/AAA/Convergent/Projects/job-llm/output/Itron_Intern-Software_cv.pdf
+Done!!!

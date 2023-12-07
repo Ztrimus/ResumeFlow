@@ -1,0 +1,41 @@
+{
+  "title": "Intern - Software Engineer",
+  "keywords": [
+    "Software Engineer", "Intern", "Data Platform", "Operations Optimizer", "DevOps", "C#", "API", "databases", "Azure", ".Net", "SQL Server", "PostgreSQL", "Angular", "Azure DevOps", "YAML pipelines", "Chef", "ruby", "Ansible", "python", "PowerShell", "Agile", "development environment", "enterprise level software development life cycles", "Git"
+  ],
+  "purpose": "To support product integration and contribute to the development of Itron's outcomes business using innovative Infrastructure as a Service (IaaS) technologies within Microsoft Azure.",
+  "duties_responsibilities": [
+    "Design and execute code in C# to support product integration",
+    "Participate in product design reviews and provide input on integration of functional requirements, product designs, and forecasting",
+    "Analyze and decompose complex software systems and collaborate with others to improve the overall design",
+    "Develop and support the testing of product features throughout the development cycle",
+    "Collaborate and communicate frequently with data team and project stakeholders"
+  ],
+  "required_qualifications": {
+    "education": "Enrolled in a related degree or training program (Computer Science or Computer Engineering preferred) with completion of at least two years of college courses",
+    "experience": "0-2 years. Previous internship or co/op experience is preferred.",
+    "skills": [
+      "Ability to effectively articulate technical challenges and solutions",
+      "Programming experience in C#",
+      "Working knowledge of databases",
+      "Working knowledge of version control systems (ideally Git)",
+      "Strong documentation skills",
+      "Professional workplace communication skills",
+      "Ability to work independently as well as collaboratively in a group",
+      "Available ~40 hours/week, hybrid, summer 2024"
+    ]
+  },
+  "preferred_qualifications": {
+    "skills": [
+      "Experience working in an Agile development environment",
+      "Knowledge of standard enterprise level software development life cycles",
+      "Work with relational databases like SQL Server or PostgreSQL"
+    ]
+  },
+  "company_name": "Itron",
+  "company_info": {
+    "overview": "Itron enables utilities and cities to safely, securely and reliably deliver critical infrastructure solutions. We provide smart networks, software, services, meters, and sensors to better manage electricity, gas, water, and city services.",
+    "mission": "We are dedicated to creating a more resourceful world.",
+    "values": ""
+  }
+}

@@ -1,0 +1,20 @@
+Dear Hiring Manager,
+
+I am writing to express my strong interest in the position of Intern - Software Engineer at Itron. With my background in software engineering and experience in developing innovative solutions, I believe I am a perfect fit for this role.
+
+In my previous role as a Senior Machine Learning Engineer at Tiger Analytics, I have successfully spearheaded the development of Interactive Dashboards, Constraint-based ML Models, Web Apps, Data & CI/CD pipelines, and Comprehensive Documentation for MSP Value Optimization in the Petcare sector. Additionally, I have led the development of the MLCORE product, an end-to-end MLOps platform, by implementing research ideas, prototyping, backend API implementation, and integrating it with various cloud services. These experiences have honed my skills in C#, API development, and cloud technologies, which are directly relevant to the Intern - Software Engineer position at Itron.
+
+Furthermore, my educational background in Computer Science, with a Master's degree in Computer Science from Arizona State University and a Bachelor's degree from Pune Institute of Computer Technology, has equipped me with a strong foundation in programming, databases, and software development. I have completed coursework in areas such as Social Media Mining, Knowledge Representation and Reasoning Algorithms, and Statistical Machine Learning, which have provided me with the knowledge and skills necessary to effectively contribute to product integration and development.
+
+I have a strong proficiency in programming languages such as C#, Python, and JavaScript, and I am familiar with databases, including SQL Server and MySQL. Additionally, I have experience working with version control systems like Git, which I believe will be valuable in collaborating with the development team at Itron.
+
+In addition to my technical skills, I am a highly self-driven individual with a relentless focus on efficient, high-quality solutions. I have a strong ability to analyze complex software systems, collaborate with others to improve designs, and effectively articulate technical challenges and solutions. My experience working in Agile development environments and knowledge of standard enterprise level software development life cycles further complement my qualifications for this role.
+
+I am excited about the opportunity to contribute to Itron's mission of creating a more resourceful world. I am confident that my technical skills, educational background, and drive for innovation make me an ideal candidate for the Intern - Software Engineer position.
+
+Thank you for considering my application. I have attached my resume for your review. I look forward to the opportunity to discuss how I can contribute to Itron's success in more detail.
+
+Sincerely,
+Saurabh Bhausaheb Zinjad
+LinkedIn: linkedin.com/in/saurabhzinjad
+GitHub: github.com/Ztrimus
