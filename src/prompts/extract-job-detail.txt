@@ -1,7 +1,0 @@
-
-I will provide a job and company description for your analysis. In your analysis you have to identify the key words, expertise & requirements the job demands, but also from the company description.
-
-Your task is consider it to meticulously assess the information and furnish the details like Job title, Keywords(key words are expertise & requirements the job demands), Job purpose, Job duties and responsibilities, Required qualifications, Preferred qualifications, Company name and Company details(points which include overview, mission, values or way of working) in bulleted points. 
-
-Provide them in JSON format with following keys:
-title, keywords, purpose, duties_responsibilities, required_qualifications, preferred_qualifications, company_name, company_info.

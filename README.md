@@ -1,6 +1,7 @@
 # Streamlining Job Applications with LLM Automation Pipeline
 <p align="center">
-  <img src="resources/auto_job_apply_workflow.png" alt="Auto Job Apply Pipeline" width="auto" height="500">
+<img src="https://raw.githubusercontent.com/Ztrimus/job-llm/main/resources/auto_job_apply_workflow.png?token=GHSAT0AAAAAACHNE2LVFGFGEZTWLCOA5WOIZLRLEMA" alt="Auto Job Apply Pipeline" width="auto" height="500">
+  <!-- <img src="resources/auto_job_apply_workflow.png" alt="Auto Job Apply Pipeline" width="auto" height="500"> -->
 </p>
 
 Project source can be downloaded from https://github.com/Ztrimus/job-llm.git
@@ -32,7 +33,7 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
 1. Prerequisites
     - OS - Linux (Ubuntu 22.04)
     - Python - 3.10.12
-    - OpenAI API key - Store it in your environment variable called `OPENAI_API_KEY`. you can access it thorugh [config.py](./src/config.py).
+    - OpenAI API key - Store it in your environment variable called `OPENAI_API_KEY`. you can access it thorugh [config.py](./zlm/config.py).
 2. Create and activate python environment (use `python -m venv .env` or conda or etc.) to avoid any package dependency conflict.
 3. Install [Poetry package](https://python-poetry.org/docs/basic-usage/) (dependency management and packaging tool)
     ```bash
