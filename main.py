@@ -23,17 +23,11 @@ if __name__ == "__main__":
     # Add the required arguments
 
     parser.add_argument('-u', "--url", help='URL of the job posting')
-    parser.add_argument('-m', "--master_data", default="master_data/user_profile.json", help='Path of user\'s master data file.')
+    parser.add_argument('-m', "--master_data", help='Path of user\'s master data file.')
     parser.add_argument('-k', "--openai_api_key", default="os", help='Open AI API Keys')
     parser.add_argument('-d', "--downloads_dir", help='Give detailed path of folder')
 
     # Parse the arguments
     args = parser.parse_args()
-
-    args.url = "https://boards.greenhouse.io/thebrattlegroup/jobs/4325755005"
-    args.master_data = "/home/saurabh/AAA/Convergent/Projects/job-llm/master_data/user_profile.json"
-
-    if args.openai_api_key == 'os':
-        args.openai_api_key = os.environ.get("OPENAI_API_KEY")
     
     create_resume_cv(args.url, args.master_data, args.openai_api_key, args.downloads_dir)

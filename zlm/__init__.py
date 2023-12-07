@@ -22,13 +22,10 @@ prompt_path = os.path.join(module_dir, 'prompts')
 
 
 class AutoApplyModel:
-    def __init__(
-            self,
-            openai_key: str = os.environ.get("OPENAI_API_KEY"),
-            downloads_dir: str = get_default_download_folder()):
-        print("\n\nInitializing Auto Apply Model...")
-        self.openai_key = openai_key
-        print(downloads_dir)
+    def __init__(self, openai_key: str, downloads_dir: str):
+        if openai_key == None or openai_key.strip() == 'os':
+            self.openai_key = os.environ.get("OPENAI_API_KEY")
+
         if downloads_dir == None or downloads_dir.strip() == "":
             self.downloads_dir = get_default_download_folder()
     
@@ -45,6 +42,9 @@ class AutoApplyModel:
     
     @measure_execution_time
     def user_data_extraction(self, user_data_path: str):
+        if user_data_path == None or user_data_path.strip() == "":
+            user_data_path = os.path.join(module_dir, 'demo_data','user_profile.json')
+
         if os.path.splitext(user_data_path)[1] == '.pdf':
             return self.get_resume_to_json(user_data_path)
         else:
@@ -120,7 +120,7 @@ class AutoApplyModel:
             print("Cover Letter PDF generated at: ", cv_path.replace(".txt", ".pdf"))        
         return cover_letter
     
-    def resume_cv_pipeline(self, job_url: str, user_data_path: str = os.path.join(module_dir, "master_data','user_profile.json")):
+    def resume_cv_pipeline(self, job_url: str, user_data_path: str):
         """Run the Auto Apply Pipeline.
 
         Args:
