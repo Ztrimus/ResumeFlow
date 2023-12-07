@@ -1,0 +1,207 @@
+{
+  "name": "Saurabh Bhausaheb Zinjad",
+  "personal": {
+    "phone": "+1 480 913 5544",
+    "email": "saurabhzinjad@asu.edu",
+    "github": "github.com/Ztrimus",
+    "linkedin": "linkedin.com/in/saurabhzinjad"
+  },
+  "education": [
+    {
+      "degree": "Masters of Science in Computer Science",
+      "university": "Arizona State University, Tempe, USA",
+      "from": "August 2023",
+      "to": "May 2025",
+      "grade": "4/4",
+      "coursework": [
+        "Social Media Mining",
+        "Knowledge Representation and Reasoning Algorithms",
+        "Statistical Machine Learning"
+      ]
+    },
+    {
+      "degree": "Bachelor of Engineering",
+      "university": "Pune Institute of Computer Technology(PICT), Savitribai Phule Pune University, India",
+      "from": "July 2015",
+      "to": "June 2019",
+      "grade": "8.53/10",
+      "coursework": [
+        "DSA",
+        "OOP",
+        "OS",
+        "System Programming",
+        "Computer Networks",
+        "Information Theory",
+        "Artificial Intelligence",
+        "Machine learning",
+        "Digital Video and Image Processing"
+      ]
+    }
+  ],
+  "technical": [
+    {
+      "name": "Programming Languages",
+      "skills": [
+        "Python",
+        "JavaScript",
+        "C#",
+        "C++",
+        "SQL",
+        "R",
+        "Java",
+        "Shell Scripting"
+      ]
+    },
+    {
+      "name": "Data Science",
+      "skills": [
+        "Databricks",
+        "PySpark",
+        "TensorFlow",
+        "PyTorch",
+        "MXNet",
+        "OpenCV",
+        "Scikit Learn",
+        "Pandas",
+        "Matplotlib",
+        "Keras"
+      ]
+    },
+    {
+      "name": "Cloud and DevOps",
+      "skills": [
+        "Azure",
+        "AWS",
+        "Docker",
+        "Kubernetes",
+        "MLFlow",
+        "Jupyter Notebook",
+        "Git"
+      ]
+    },
+    {
+      "name": "Full-Stack Tech",
+      "skills": [
+        "Angular",
+        "React",
+        ".Net Core",
+        "NodeJs",
+        "Django",
+        "Flask",
+        "FastAPI",
+        "MongoDB",
+        "SQL Server",
+        "MySQL",
+        "Postman"
+      ]
+    }
+  ],
+  "work": [
+    {
+      "role": "Senior Machine Learning Engineer",
+      "company": "Tiger Analytics",
+      "location": "Bangalore, India",
+      "from": "June 2022",
+      "to": "July 2023",
+      "description": [
+        "Led a team of 8 analysts to spearhead the development of Interactive Dashboards, Constraint-based ML Models, Web App, Data & CI/CD pipelines, and Comprehensive Documentation for MSP Value Optimization in the Petcare sector.",
+        "Developed the MLCORE product, an end-to-end MLOps platform, by implementing research ideas, prototyping, backend API implementation, and integration with cloud services, attracting four significant clients."
+      ]
+    },
+    {
+      "role": "Software Engineer",
+      "company": "Winjit Technologies",
+      "location": "Pune, India",
+      "from": "January 2020",
+      "to": "June 2022",
+      "description": [
+        "Designed and developed RESTful APIs Architecture and Distributed services.",
+        "Designed high-quality web architecture for 30+ low-latency responsive UI/UX application features.",
+        "Led a cross-functional team of 12 members to create a standardized solution for dynamic forms generation, reducing development time by 8x."
+      ]
+    },
+    {
+      "role": "Deep Learning Engineer",
+      "company": "Automation Teknix",
+      "location": "Pune, India",
+      "from": "September 2019",
+      "to": "January 2020",
+      "description": [
+        "Developed a Lightweight Object Recognition Engine with low computational cost using the SSD algorithm with MobilenetV2 architecture, reducing survey error by 22%.",
+        "Conducted research, prototyped neural network flow, and trained models resulting in a 7% increase in accuracy and a 2x reduction in inference time."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Search Engine for All file types",
+      "link": "https://devpost.com/software/team-soul-1fjgwo",
+      "from": "3 Nov 2023",
+      "to": "5 Nov 2023",
+      "description": [
+        "Converted and stored every file type data as vector embeddings.",
+        "Utilized Machine Learning techniques such as BERT, OCR, ResNet50, and Image Captioning.",
+        "Contributed to Elasticsearch implementation for blazing-fast search responses.",
+        "Led Python FAST API and Angular development."
+      ]
+    },
+    {
+      "name": "Prompt Engineering Hackathon for Humanities",
+      "link": "https://www.linkedin.com/pulse/exploring-depths-ai-story-writing-prompt-engineering-hackathon-wbqwc",
+      "from": "13 Oct 2023",
+      "to": "15 Oct 2023",
+      "description": [
+        "Led SouL LLM Brews to 1st runner-up position.",
+        "Crafted an AI persona, LLM Brews, for innovative collaborations between humans and machines.",
+        "Explored AI storytelling tools and presented innovative ideas in a humorous manner."
+      ]
+    },
+    {
+      "name": "Forest Fire Detection using IoT Sensor Data",
+      "link": "https://github.com/OmdenaAI/Dryad",
+      "from": "September 2021",
+      "to": "January 2022",
+      "description": [
+        "Devised a TabNet Classifier Model with 98.7% accuracy.",
+        "Deployed on AWS and edge devices using technologies TinyML, Docker, Redis, and Celery.",
+        "Performed Model Exploration, Analysis, and Optimization."
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Deep Learning Specialization",
+      "by": "DeepLearning.AI, Coursera Inc.",
+      "link": "https://www.coursera.org/account/accomplishments/specialization/G3WPNWRYX628"
+    },
+    {
+      "name": "MLOps for AI Engineers and Data Scientists",
+      "by": "Omdena Inc.",
+      "link": "https://drive.google.com/file/d/1fh4AEscb0P82nfoaA-muWMzmFngzyk2g/view"
+    },
+    {
+      "name": "Microsoft Azure Fundamentals",
+      "by": "Udemy",
+      "link": "https://www.udemy.com/certificate/UC-37e943d1-e7f7-4d27-a1e4-e799aef7013b/"
+    },
+    {
+      "name": "Server-side Backend Development",
+      "by": "The Hong Kong University of Science and Technology",
+      "link": "https://www.coursera.org/account/accomplishments/verify/TYMQX23D4HRQ"
+    },
+    {
+      "name": "Front-End Web UI Frameworks and Tools",
+      "by": "The Hong Kong University of Science and Technology",
+      "link": "https://www.coursera.org/account/accomplishments/verify/TW8MA6MEXSCZ"
+    }
+  ],
+  "achievements": [
+    "1st runner-up in \"Prompt Engineering Hackathon 2023 for Humanities\"",
+    "Received the 'Extra Miller - 2021' award at Winjit Technologies for outstanding performance.",
+    "President of Machine Learning Club: Led a team of 20 people in a project and was awarded \"Best Project of the Year\".",
+    "Finalist in E-yantra Robotics Competition 2018 - IITB.",
+    "Dance Section's Head of PICT Art Circle: Best dance choreography for Winning \"Firodiya theater competition 2019\".",
+    "Performed in multiple award-winning state-level drama competitions and received the best-organized team prize thrice.",
+    "Active member of the NSS (National Community Service Group in PICT) in 2016."
+  ]
+}
