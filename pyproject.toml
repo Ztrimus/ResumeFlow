@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "zlm"
-version = "0.1.2"
+version = "0.1.3"
 description = "Simplify and improve the job hunting experience by integrating LLMs to automate tasks such as resume and cover letter generation, as well as application submission, saving users time and effort."
 authors = ["Saurabh Zinjad <zinjadsaurabh1997@gmail.com>"]
 readme = "README.md"
