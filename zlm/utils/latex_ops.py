@@ -46,7 +46,7 @@ def escape_for_latex(data):
 def latex_to_pdf(json_resume, dst_path):
     try:
         # dir_path = os.path.dirname(os.path.realpath(__file__))
-        dir_path = "src/templates"
+        dir_path = "zlm/templates"
 
         latex_jinja_env = jinja2.Environment(
             block_start_string="\BLOCK{",

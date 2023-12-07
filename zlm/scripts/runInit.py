@@ -13,11 +13,11 @@ import sys
 import openai
 sys.path.append('../')
 
-from src.utils.data_extraction import get_url_content, extract_text
-from src.utils.utils import read_file, write_json, ext
+from zlm.utils.data_extraction import get_url_content, extract_text
+from zlm.utils.utils import read_file, write_json, ext
 
-from src import config
-from src.utils.llm_models import ChatGPT
+from zlm import config
+from zlm.utils.llm_models import ChatGPT
 
 resume_prompt = open("./prompts/resume-extractor.txt").read().strip()
 # TODO: Consider 2 separate prompts for persona-job-llm and job-details-extractor

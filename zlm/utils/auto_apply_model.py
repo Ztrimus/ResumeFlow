@@ -27,7 +27,7 @@ class AutoApplyModel:
         return open(system_prompt_path).read().strip()+"\n"
 
     def get_resume_to_json(self, pdf_path):
-        system_prompt = self.get_system_prompt("src/prompts/resume-extractor.txt")
+        system_prompt = self.get_system_prompt("../prompts/resume-extractor.txt")
         chat_gpt = ChatGPT(openai_api_key=self.openai_key, system_prompt=system_prompt)
         resume_text = extract_text(pdf_path)
         resume_text = chat_gpt.get_response(resume_text)
@@ -53,8 +53,8 @@ class AutoApplyModel:
             dict: A dictionary containing the extracted job details.
         """   
 
-        system_prompt = self.get_system_prompt("src/prompts/persona-job-llm.txt") + \
-                        self.get_system_prompt("src/prompts/extract-job-detail.txt")
+        system_prompt = self.get_system_prompt("../prompts/persona-job-llm.txt") + \
+                        self.get_system_prompt("../prompts/extract-job-detail.txt")
         job_site_content = get_url_content(url)
 
         chat_gpt = ChatGPT(openai_api_key=self.openai_key, system_prompt=system_prompt)
@@ -65,8 +65,8 @@ class AutoApplyModel:
     
     @measure_execution_time
     def resume_builder(self, job_details: dict, user_data: dict):
-        system_prompt = self.get_system_prompt("src/prompts/persona-job-llm.txt") + \
-                        self.get_system_prompt("src/prompts/generate-resume-details.txt")
+        system_prompt = self.get_system_prompt("../prompts/persona-job-llm.txt") + \
+                        self.get_system_prompt("../prompts/generate-resume-details.txt")
         query = f"""Provided Job description delimited by triple backticks(```) and my resume or work information below delimited by triple dashes(---). ```{json.dumps(job_details)}``` ---{json.dumps(user_data)}---"""
         
         chat_gpt = ChatGPT(openai_api_key=self.openai_key, system_prompt=system_prompt)
@@ -76,8 +76,8 @@ class AutoApplyModel:
     
     @measure_execution_time
     def cover_letter_generator(self, job_details: dict, user_data: dict):
-        system_prompt = self.get_system_prompt("src/prompts/persona-job-llm.txt") + \
-                        self.get_system_prompt("src/prompts/generate-cover-letter.txt")
+        system_prompt = self.get_system_prompt("../prompts/persona-job-llm.txt") + \
+                        self.get_system_prompt("../prompts/generate-cover-letter.txt")
         query = f"""Provided Job description delimited by triple backticks(```) and \
                     my resume or work information below delimited by triple dashes(---).
                     ```
