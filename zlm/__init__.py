@@ -18,6 +18,7 @@ from zlm.utils.latex_ops import latex_to_pdf
 
 
 module_dir = os.path.dirname(__file__)
+demo_data_path = os.path.join(module_dir, 'demo_data','user_profile.json')
 prompt_path = os.path.join(module_dir, 'prompts')
 
 
@@ -43,7 +44,7 @@ class AutoApplyModel:
     @measure_execution_time
     def user_data_extraction(self, user_data_path: str):
         if user_data_path == None or user_data_path.strip() == "":
-            user_data_path = os.path.join(module_dir, 'demo_data','user_profile.json')
+            user_data_path = demo_data_path
 
         if os.path.splitext(user_data_path)[1] == '.pdf':
             return self.get_resume_to_json(user_data_path)
@@ -120,7 +121,7 @@ class AutoApplyModel:
             print("Cover Letter PDF generated at: ", cv_path.replace(".txt", ".pdf"))        
         return cover_letter
     
-    def resume_cv_pipeline(self, job_url: str, user_data_path: str):
+    def resume_cv_pipeline(self, job_url: str, user_data_path: str = demo_data_path):
         """Run the Auto Apply Pipeline.
 
         Args:
