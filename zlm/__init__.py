@@ -173,6 +173,7 @@ class AutoApplyModel:
         chat_gpt = ChatGPT(openai_api_key=self.openai_key, system_prompt=system_prompt)
         response = chat_gpt.get_response(query, expecting_longer_output=True)
         resume_details = json.loads(response)
+        resume_details['keywords'] = job_details['keywords']
         resume_path = job_doc_name(job_details, self.downloads_dir, "resume")
 
         write_json(resume_path, resume_details)
@@ -235,16 +236,20 @@ class AutoApplyModel:
             None: The function prints the progress and results to the console.
         """
         try:
+            if user_data_path is None or user_data_path.strip() == "":
+                user_data_path = demo_data_path
+
             print("Starting Auto Resume and CV Pipeline")
-            if len(job_url.strip()) == "":
-                print("Job URL is required.")
-                return
+            # if job_url is None and len(job_url.strip()) == "":
+            #     print("Job URL is required.")
+            #     return
 
             print("\nFetching User data...")
             user_data = self.user_data_extraction(user_data_path)
 
             print("\nExtracting Job Details...")
-            job_details = self.job_details_extraction(job_url)
+            # job_details = self.job_details_extraction(job_url)
+            job_details = read_json('/home/saurabh/AAA/Convergent/Projects/job-llm/output/Itron_Intern-Software_JD.json')
 
             print("\nGenerating Resume Details...")
             self.resume_builder(job_details, user_data)

@@ -107,7 +107,21 @@
     \end{rSection}
 \BLOCK{ endif }
 
+% ACHIEVEMENTS SECTION
+\BLOCK{ if achievements }
+    \begin{rSection}{Achievements}
+        \begin{rSubsection}{}{}{}
+            \BLOCK{ for point in achievements}
+                \item \VAR{point}
+            \BLOCK{ endfor }
+        \end{rSubsection}
+    \end{rSection}
+\BLOCK{ endif }
+
 \newcommand\myfontsize{\fontsize{0.1pt}{0.1pt}\selectfont} \myfontsize \color{white}
-{Data warehouse, data modeling, data extraction, data transformation, data loading, SQL, ETL, data quality, data governance, data privacy, data visualization, data controls, privacy, security, compliance, SLA, AWS, terabyte to petabyte scale data.}
+{\VAR{', '.join(keywords)}}
+
+\newcommand\myfontsize{\fontsize{0.1pt}{0.1pt}\selectfont} \myfontsize \color{white}
+{python, javascript, prompt engieering, frontend, backend, html, css, api, angular, software, development, machine learning, artificial intelligence, deep learning, Data warehouse, data modeling, data extraction, data transformation, data loading, SQL, ETL, data quality, data governance, data privacy, data visualization, data controls, privacy, security, compliance, SLA, AWS, terabyte to petabyte scale data.}
 
 \end{document}

@@ -12,10 +12,7 @@ Instructions:
 - Aim for clear expression over impressiveness.
 - Prefer active voice over passive voice.
 - Omit a summary about the candidate.
-
-For the work or projects section:
-- Include a maximum of 3 experiences closely aligned with job details.
-- Limit bulleted points to a maximum of 3, expressing the full context of each experience.
+- Include only 3 work/project experiences, each with 3 bulleted points closely aligned with job details.
 - Format all bullets as 'Did X by doing Y accomplish Z'.
 
 Ensure the output is in JSON format, easily serializable into JSON.
