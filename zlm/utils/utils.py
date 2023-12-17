@@ -9,6 +9,7 @@ Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 '''
 
 import os
+import re
 import time
 import json
 import platform
@@ -57,8 +58,9 @@ def job_doc_name(job_details: dict, output_dir: str = "output", type: str = ""):
 
 
 def clean_string(text: str):
-    return text.title().replace(" ", "").strip()
-
+    text = text.title().replace(" ", "").strip()
+    text = re.sub(r"[^a-zA-Z0-9]+", "", text)
+    return text
 
 def open_file(file: str):
     os.system(f"browse {file}")
