@@ -140,6 +140,7 @@ class AutoApplyModel:
             )
             response = chat_gpt.get_response(job_site_content)
             job_details = json.loads(response)
+            job_details["url"] = url
             jd_path = job_doc_name(job_details, self.downloads_dir, "jd")
             write_json(jd_path, job_details)
 
@@ -218,10 +219,10 @@ class AutoApplyModel:
         cv_path = job_doc_name(job_details, self.downloads_dir, "cv")
         write_file(cv_path, cover_letter)
         print("Cover Letter generated at: ", cv_path)
-        is_cv_to_pdf = input("Want cover letter as PDF? (y/n): ")
-        if is_cv_to_pdf.strip().lower() == "y":
-            text_to_pdf(cover_letter, cv_path.replace(".txt", ".pdf"))
-            print("Cover Letter PDF generated at: ", cv_path.replace(".txt", ".pdf"))
+        # is_cv_to_pdf = input("Want cover letter as PDF? (y/n): ")
+        # if is_cv_to_pdf.strip().lower() == "y":
+        text_to_pdf(cover_letter, cv_path.replace(".txt", ".pdf"))
+        print("Cover Letter PDF generated at: ", cv_path.replace(".txt", ".pdf"))
         return cover_letter
 
     def resume_cv_pipeline(self, job_url: str, user_data_path: str = demo_data_path):
@@ -248,8 +249,7 @@ class AutoApplyModel:
             user_data = self.user_data_extraction(user_data_path)
 
             print("\nExtracting Job Details...")
-            # job_details = self.job_details_extraction(job_url)
-            job_details = read_json('/home/saurabh/AAA/Convergent/Projects/job-llm/output/Itron_Intern-Software_JD.json')
+            job_details = self.job_details_extraction(job_url)
 
             print("\nGenerating Resume Details...")
             self.resume_builder(job_details, user_data)

@@ -61,7 +61,7 @@
             \BLOCK{ endfor }
             \BLOCK{ if certifications }\textbf{Certifications:} 
                 \BLOCK{ for certification in certifications }
-                    \href{\VAR{certification.link}}{\textbf{\VAR{certification.name}}},
+                    \href{\VAR{certification.link}}{\textbf{\VAR{certification.name}}}, \newline
                 \BLOCK{ endfor }
             \BLOCK{ endif } 
         \end{tabular}
@@ -119,9 +119,6 @@
 \BLOCK{ endif }
 
 \newcommand\myfontsize{\fontsize{0.1pt}{0.1pt}\selectfont} \myfontsize \color{white}
-{\VAR{', '.join(keywords)}}
-
-\newcommand\myfontsize{\fontsize{0.1pt}{0.1pt}\selectfont} \myfontsize \color{white}
-{python, javascript, prompt engieering, frontend, backend, html, css, api, angular, software, development, machine learning, artificial intelligence, deep learning, Data warehouse, data modeling, data extraction, data transformation, data loading, SQL, ETL, data quality, data governance, data privacy, data visualization, data controls, privacy, security, compliance, SLA, AWS, terabyte to petabyte scale data.}
+{\VAR{', '.join(keywords)}, \VAR{', '.join(keywords)}, \VAR{', '.join(keywords)}, python, javascript, prompt engieering, frontend, backend, html, css, api, angular, software, development, machine learning, artificial intelligence, deep learning, Data warehouse, data modeling, data extraction, data transformation, data loading, SQL, ETL, data quality, data governance, data privacy, data visualization, data controls, privacy, security, compliance, SLA, AWS, terabyte to petabyte scale data.}
 
 \end{document}

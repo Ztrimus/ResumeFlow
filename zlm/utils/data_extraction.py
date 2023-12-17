@@ -19,23 +19,26 @@ def get_url_content(url: str):
     Args:
         url (str): Webpage web link
     """    
-    # getting response object
-    res = requests.get(url)
-    
-    # Initialize the object with the document
-    soup = BeautifulSoup(res.content, "html.parser")
-    
-    # Get the whole body tag
-    tag = soup.body
-    text_content = ""
-    
-    # Print each string recursively
-    for string in tag.strings:
-        string = string.strip()
-        if string:
-            text_content += string + "\n"
+    try:
+        # getting response object
+        res = requests.get(url)
+        # Initialize the object with the document
+        soup = BeautifulSoup(res.content, "html.parser")
+        
+        # Get the whole body tag
+        tag = soup.body
+        text_content = ""
+        
+        # Print each string recursively
+        for string in tag.strings:
+            string = string.strip()
+            if string:
+                text_content += string + "\n"
 
-    return text_content
+        return text_content
+    except Exception as e:
+        print(e)
+        return None
 
 def extract_text(pdf_path: str):
     resume_text = ""

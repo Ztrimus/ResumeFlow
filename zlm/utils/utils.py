@@ -143,11 +143,11 @@ def get_default_download_folder():
     system = platform.system().lower()
 
     if system == "windows":
-        return os.path.join(str(Path.home()), "Downloads")
+        return os.path.join(str(Path.home()), "Downloads", "JobLLM_Resume_CV")
     elif system == "darwin":  # macOS
-        return os.path.join(str(Path.home()), "Downloads")
+        return os.path.join(str(Path.home()), "Downloads", "JobLLM_Resume_CV")
     elif system == "linux":
-        return os.path.join(str(Path.home()), "Downloads")
+        return os.path.join(str(Path.home()), "Downloads", "JobLLM_Resume_CV")
     else:
         # Default fallback for other systems
-        return os.path.join(str(Path.home()), "Downloads")
+        return os.path.join(str(Path.home()), "Downloads", "JobLLM_Resume_CV")
