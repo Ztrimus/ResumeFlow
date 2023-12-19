@@ -94,8 +94,9 @@ job_llm.resume_cv_pipeline("JOB_LINK_YOU_WANT_APPLY_FOR") # Return and downloads
 python main.py /
     --url "JOB_POSTING_URL" /
     --master_data="JSON_USER_MASTER_DATA" /
-    --openai_api_key="YOUR_OPENAI_API_KEY" /
-    --downloads_dir="DOWNLOAD_LOCATION_FOR_RESUME_CV"
+    --api_key="YOUR_OPENAI_API_KEY" /
+    --downloads_dir="DOWNLOAD_LOCATION_FOR_RESUME_CV" /
+    --provider="openai" # together, g4f
 ```
 
 ## 3. References
