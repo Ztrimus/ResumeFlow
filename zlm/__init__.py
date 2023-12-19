@@ -264,11 +264,11 @@ class AutoApplyModel:
             print("\nExtracting Job Details...")
             job_details = self.job_details_extraction(job_url)
 
-            print("\nGenerating Resume Details...")
-            self.resume_builder(job_details, user_data)
-
             print("\nGenerating Cover Letter...")
             self.cover_letter_generator(job_details, user_data)
+
+            print("\nGenerating Resume Details...")
+            self.resume_builder(job_details, user_data)
 
             print("Done!!!")
         except Exception as e:
