@@ -10,9 +10,9 @@ Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 import openai
 
 class ChatGPT:
-    def __init__(self, openai_api_key, system_prompt):
+    def __init__(self, api_key, system_prompt):
         self.system_prompt = {"role": "system", "content": system_prompt}
-        openai.api_key = openai_api_key
+        openai.api_key = api_key
     
     def get_response(self, prompt, expecting_longer_output=False):
         user_prompt = {"role": "user", "content": prompt}
@@ -32,6 +32,38 @@ class ChatGPT:
 
             response = completion.choices[0].message
             content = response["content"].strip()
+
+            return content
+        
+        except Exception as e:
+            print(e)
+
+class TogetherAI:
+    def __init__(self, api_key, system_prompt):
+        self.system_prompt = {"role": "system", "content": system_prompt}
+        self.client = openai.OpenAI(
+            api_key=api_key,
+            base_url='https://api.together.xyz',
+        )
+    
+    def get_response(self, prompt, expecting_longer_output=False):
+        user_prompt = {"role": "user", "content": prompt}
+
+        try:
+            if expecting_longer_output:
+                completion = self.client.chat.completions.create(
+                    model="mistralai/Mistral-7B-Instruct-v0.2",
+                    messages = [self.system_prompt, user_prompt],
+                    max_tokens = 7000,
+                )
+            else:
+                completion = self.client.chat.completions.create(
+                    model="mistralai/Mistral-7B-Instruct-v0.2",
+                    messages = [self.system_prompt, user_prompt],
+                )
+
+            response = completion.choices[0].message
+            content = response.content.strip()
 
             return content
         

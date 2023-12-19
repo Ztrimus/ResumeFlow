@@ -11,7 +11,7 @@ import os
 import sys
 import json
 
-from zlm.utils.llm_models import ChatGPT
+from zlm.utils.llm_models import ChatGPT, TogetherAI
 from zlm.utils.data_extraction import get_url_content, extract_text
 from zlm.utils.utils import (
     get_default_download_folder,
@@ -35,11 +35,11 @@ class AutoApplyModel:
     A class that represents an Auto Apply Model for job applications.
 
     Args:
-        openai_key (str): The OpenAI API key.
+        api_key (str): The OpenAI API key.
         downloads_dir (str, optional): The directory to save downloaded files. Defaults to the default download folder.
 
     Attributes:
-        openai_key (str): The OpenAI API key.
+        api_key (str): The OpenAI API key.
         downloads_dir (str): The directory to save downloaded files.
 
     Methods:
@@ -53,12 +53,17 @@ class AutoApplyModel:
     """
 
     def __init__(
-        self, openai_key: str, downloads_dir: str = get_default_download_folder()
+        self, api_key: str, provider: str, downloads_dir: str = get_default_download_folder()
     ):
-        if openai_key is None or openai_key.strip() == "os":
-            self.openai_key = os.environ.get("OPENAI_API_KEY")
+        self.provider = provider
+
+        if api_key is None or api_key.strip() == "os":
+            if provider == "openai":
+                self.api_key = os.environ.get("OPENAI_API_KEY")
+            elif provider == "together":
+                self.api_key = os.environ.get("TOGETHER_KEY")
         else:
-            self.openai_key = openai_key
+            self.api_key = api_key
 
         if downloads_dir is None or downloads_dir.strip() == "":
             self.downloads_dir = get_default_download_folder()
@@ -77,26 +82,7 @@ class AutoApplyModel:
         """
         with open(system_prompt_path, encoding="utf-8") as file:
             return file.read().strip() + "\n"
-
-    def get_resume_to_json(self, pdf_path):
-        """
-        Converts a resume in PDF format to JSON format.
-
-        Args:
-            pdf_path (str): The path to the PDF file.
-
-        Returns:
-            dict: The resume data in JSON format.
-        """
-        system_prompt = self.get_system_prompt(
-            os.path.join(prompt_path, "resume-extractor.txt")
-        )
-        chat_gpt = ChatGPT(openai_api_key=self.openai_key, system_prompt=system_prompt)
-        resume_text = extract_text(pdf_path)
-        resume_text = chat_gpt.get_response(resume_text)
-        resume_json = json.loads(resume_text)
-        return resume_json
-
+        
     @measure_execution_time
     def user_data_extraction(self, user_data_path: str):
         """
@@ -116,6 +102,33 @@ class AutoApplyModel:
         else:
             return read_json(user_data_path)
 
+    def get_resume_to_json(self, pdf_path):
+        """
+        Converts a resume in PDF format to JSON format.
+
+        Args:
+            pdf_path (str): The path to the PDF file.
+
+        Returns:
+            dict: The resume data in JSON format.
+        """
+        system_prompt = self.get_system_prompt(
+            os.path.join(prompt_path, "resume-extractor.txt")
+        )
+        llm = self.get_llm_instance(system_prompt)
+        resume_text = extract_text(pdf_path)
+        resume_text = llm.get_response(resume_text)
+        resume_json = json.loads(resume_text)
+        return resume_json
+    
+    def get_llm_instance(self, system_prompt):
+        if self.provider == "openai":
+            return ChatGPT(api_key=self.api_key, system_prompt=system_prompt)
+        elif self.provider == "together":
+            return TogetherAI(api_key=self.api_key, system_prompt=system_prompt)
+        else:
+            raise Exception("Invalid LLM Provider")
+
     @measure_execution_time
     def job_details_extraction(self, url: str):
         """
@@ -133,12 +146,12 @@ class AutoApplyModel:
             ) + self.get_system_prompt(
                 os.path.join(prompt_path, "extract-job-detail.txt")
             )
+
+            # TODO: Handle case where it returns None. sometime, website take time to load, but scraper complete before that.
             job_site_content = get_url_content(url)
 
-            chat_gpt = ChatGPT(
-                openai_api_key=self.openai_key, system_prompt=system_prompt
-            )
-            response = chat_gpt.get_response(job_site_content)
+            llm = self.get_llm_instance(system_prompt)
+            response = llm.get_response(job_site_content)
             job_details = json.loads(response)
             job_details["url"] = url
             jd_path = job_doc_name(job_details, self.downloads_dir, "jd")
@@ -171,8 +184,8 @@ class AutoApplyModel:
         )
         query = f"""Provided Job description delimited by triple backticks(```) and my resume or work information below delimited by triple dashes(---). ```{json.dumps(job_details)}``` ---{json.dumps(user_data)}---"""
 
-        chat_gpt = ChatGPT(openai_api_key=self.openai_key, system_prompt=system_prompt)
-        response = chat_gpt.get_response(query, expecting_longer_output=True)
+        llm = self.get_llm_instance(system_prompt)
+        response = llm.get_response(query, expecting_longer_output=True)
         resume_details = json.loads(response)
         resume_details['keywords'] = job_details['keywords']
         resume_path = job_doc_name(job_details, self.downloads_dir, "resume")
@@ -214,8 +227,8 @@ class AutoApplyModel:
                     ---
                 """
 
-        chat_gpt = ChatGPT(openai_api_key=self.openai_key, system_prompt=system_prompt)
-        cover_letter = chat_gpt.get_response(query, expecting_longer_output=True)
+        llm = self.get_llm_instance(system_prompt)
+        cover_letter = llm.get_response(query, expecting_longer_output=True)
         cv_path = job_doc_name(job_details, self.downloads_dir, "cv")
         write_file(cv_path, cover_letter)
         print("Cover Letter generated at: ", cv_path)
@@ -251,11 +264,11 @@ class AutoApplyModel:
             print("\nExtracting Job Details...")
             job_details = self.job_details_extraction(job_url)
 
-            print("\nGenerating Resume Details...")
-            self.resume_builder(job_details, user_data)
-
             print("\nGenerating Cover Letter...")
             self.cover_letter_generator(job_details, user_data)
+
+            print("\nGenerating Resume Details...")
+            self.resume_builder(job_details, user_data)
 
             print("Done!!!")
         except Exception as e:

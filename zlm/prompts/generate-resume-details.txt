@@ -3,27 +3,31 @@ Your task is to analyze and match my details with the job's requirements.
 Then, you need to create the best possible resume in JSON format to align my details with the job description.
 
 Instructions:
+- Include only 3 work and project experiences. each experience with 3 bulleted points closely aligned with job details. It very important you follow this.
 - Use quantifiable impacts for each bullet point.
+- Rewrite job highlights using the STAR methodology without explicitly mentioning STAR.
 - Employ STRONG action verbs showcasing soft skills.
 - Maintain truthfulness and objectivity in listing experience.
-- Prioritize specificity over generality.
-- Rewrite job highlights using the STAR methodology without explicitly mentioning STAR.
+- Format experience points as 'Did X by doing Y accomplish Z'.
+- Prioritize specificity - with respect to job - over generality.
 - Proofread and Correct spelling and grammar errors.
 - Aim for clear expression over impressiveness.
 - Prefer active voice over passive voice.
 - Omit a summary about the candidate.
-- Include only 3 work/project experiences, each with 3 bulleted points closely aligned with job details.
-- Format all bullets as 'Did X by doing Y accomplish Z'.
 
-Ensure the output is in JSON format, easily serializable into JSON.
+Ensure the output is in JSON format 
+- Easily serializable into JSON and parse by any json parser.
+- Exactly like mentioned below in ``` (triple backticks) and extract all mentioned properties without changing their names.
+
 
 JSON Output Format:
+```
 {
   "name": "",
   "personal": { "phone": "+1 111-222-3333", "email": "", "github": "", "linkedin": ""
   },
   "education": [
-    { "degree": "", "university": "", "from": "", "to": "", "grade": "", "coursework": [] },
+    { "degree": "", "university": "", "from": "", "to": "", "grade": "", "classes": [] },
     ...
   ],
   "technical": [
@@ -39,8 +43,12 @@ JSON Output Format:
     ...
   ],
   "certifications": [
-    {"name": "", "by": "", "link": ""},
+    {"name": "", "issuer": "", "link": ""},
     ...
   ],
-  "achievements": []
+  "achievements": [
+    "achievements_1",
+    ...
+  ]
 }
+```
