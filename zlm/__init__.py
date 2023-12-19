@@ -130,12 +130,13 @@ class AutoApplyModel:
             raise Exception("Invalid LLM Provider")
 
     @measure_execution_time
-    def job_details_extraction(self, url: str):
+    def job_details_extraction(self, url: str=None, job_site_content: str=None):
         """
         Extracts job details from the specified job URL.
 
         Args:
             url (str): The URL of the job posting.
+            job_site_content (str): The content of the job posting.
 
         Returns:
             dict: A dictionary containing the extracted job details.
@@ -148,7 +149,8 @@ class AutoApplyModel:
             )
 
             # TODO: Handle case where it returns None. sometime, website take time to load, but scraper complete before that.
-            job_site_content = get_url_content(url)
+            if url is not None and url.strip() != "":
+                job_site_content = get_url_content(url)
 
             llm = self.get_llm_instance(system_prompt)
             response = llm.get_response(job_site_content)
@@ -264,7 +266,7 @@ class AutoApplyModel:
             user_data = self.user_data_extraction(user_data_path)
 
             print("\nExtracting Job Details...")
-            job_details = self.job_details_extraction(job_url)
+            job_details = self.job_details_extraction(url=job_url)
 
             print("\nGenerating Cover Letter...")
             self.cover_letter_generator(job_details, user_data)
