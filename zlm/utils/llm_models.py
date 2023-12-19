@@ -7,28 +7,24 @@ Developer Email: zinjadsaurabh1997@gmail.com
 Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 -----------------------------------------------------------------------
 '''
-import openai
+from openai import OpenAI
 
 class ChatGPT:
     def __init__(self, api_key, system_prompt):
         self.system_prompt = {"role": "system", "content": system_prompt}
-        openai.api_key = api_key
+        self.client = OpenAI(api_key=api_key)
     
     def get_response(self, prompt, expecting_longer_output=False):
         user_prompt = {"role": "user", "content": prompt}
 
         try:
             if expecting_longer_output:
-                completion = openai.ChatCompletion.create(
-                    model="gpt-3.5-turbo-16k",
-                    messages = [self.system_prompt, user_prompt],
-                    max_tokens = 7000,
-                )
+                completion = self.client.chat.completions.create(model="gpt-3.5-turbo-16k",
+                messages = [self.system_prompt, user_prompt],
+                max_tokens = 7000)
             else:
-                completion = openai.ChatCompletion.create(
-                    model="gpt-3.5-turbo",
-                    messages = [self.system_prompt, user_prompt],
-                )
+                completion = self.client.chat.completions.create(model="gpt-3.5-turbo",
+                messages = [self.system_prompt, user_prompt])
 
             response = completion.choices[0].message
             content = response["content"].strip()
@@ -41,7 +37,7 @@ class ChatGPT:
 class TogetherAI:
     def __init__(self, api_key, system_prompt):
         self.system_prompt = {"role": "system", "content": system_prompt}
-        self.client = openai.OpenAI(
+        self.client = OpenAI(
             api_key=api_key,
             base_url='https://api.together.xyz',
         )
