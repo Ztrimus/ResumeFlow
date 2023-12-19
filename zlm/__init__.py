@@ -84,7 +84,7 @@ class AutoApplyModel:
             return file.read().strip() + "\n"
         
     @measure_execution_time
-    def user_data_extraction(self, user_data_path: str):
+    def user_data_extraction(self, user_data_path: str = demo_data_path):
         """
         Extracts user data from the given file path.
 
