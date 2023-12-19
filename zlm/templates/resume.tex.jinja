@@ -44,12 +44,18 @@
             \BLOCK{ if school.degree }
                 {\VAR{school.degree}}
             \BLOCK{ endif }
-            {(GPA: \VAR{school.grade})} \smallskip \\ 
-            \textbf{\textit{Relevant Courses:}}
-            \textit{\VAR{', '.join(school.coursework)}}
-            \vspace{2mm}
+            \BLOCK{ if school.grade }
+                {(GPA: \VAR{school.grade})} \smallskip \\ 
+            \BLOCK{else}
+                \smallskip \\ 
+            \BLOCK{ endif } 
+            \BLOCK{ if school.classes }
+                \textbf{\textit{Relevant Courses:}}
+                \textit{\VAR{', '.join(school.classes)}}
+            \BLOCK{ endif } 
         \BLOCK{ endif } 
     \BLOCK{ endfor }
+    \vspace{2mm}
 \end{rSection}
 
 %==== TECHNICAL STRENGTHS SECTION ====%
@@ -60,9 +66,9 @@
                 \textbf{\VAR{section.name}}: \VAR{', '.join(section.skills)}\\
             \BLOCK{ endfor }
             \BLOCK{ if certifications }\textbf{Certifications:} 
-                \BLOCK{ for certification in certifications }
-                    \href{\VAR{certification.link}}{\textbf{\VAR{certification.name}}}, \newline
-                \BLOCK{ endfor }
+                    \BLOCK{ for certification in certifications }
+                        \href{\VAR{certification.link}}{\textbf{\VAR{certification.name}}},
+                    \BLOCK{ endfor }
             \BLOCK{ endif } 
         \end{tabular}
     \end{rSection}
@@ -119,6 +125,6 @@
 \BLOCK{ endif }
 
 \newcommand\myfontsize{\fontsize{0.1pt}{0.1pt}\selectfont} \myfontsize \color{white}
-{\VAR{', '.join(keywords)}, \VAR{', '.join(keywords)}, \VAR{', '.join(keywords)}, python, javascript, prompt engieering, frontend, backend, html, css, api, angular, software, development, machine learning, artificial intelligence, deep learning, Data warehouse, data modeling, data extraction, data transformation, data loading, SQL, ETL, data quality, data governance, data privacy, data visualization, data controls, privacy, security, compliance, SLA, AWS, terabyte to petabyte scale data.}
+{\VAR{', '.join(keywords)}, \VAR{', '.join(keywords)}, \VAR{', '.join(keywords)}, artificial intelligence engineer, azure cognitive services exp, azure services, core azure services, azure cognitive and generative ai, genai, aws,  gcp, java, c#, clean, efficient, maintainable code, react, front end, back end, ai solutions, data analysis, pretrained models, automl, software development principles, version control, testing, continuous integration and deployment, python, javascript, prompt engieering, frontend, backend, html, css, api, angular, development, machine learning, artificial intelligence, deep learning, data warehouse, data modeling, data extraction, data transformation, data loading, sql, etl, data quality, data governance, data privacy, data visualization, data controls, privacy, security, compliance, sla, aws, terabyte to petabyte scale data, full stack software development, cloud, security engineering, security architecture, ai/ml engineering, technical product management, microsoft office, google suite, visualization tools, scripting, coding, programming languages, analytical skills, collaboration, leadership, communication, presentation skills, computer vision, senior, ms or ph.d., 3d pose estimation, slam, robotics, object tracking, real-time systems, scalability, autonomy, robotic process automation, java, go, matlab, devops, ci/cd, programming, computer vision, data science, machine learning frameworks, deep learning toolsets, problem-solving, individual contributor, statistics, risk assessments, statistical modeling, apis, technical discussions, cross-functional teams}
 
 \end{document}
