@@ -14,20 +14,20 @@ class ChatGPT:
         self.system_prompt = {"role": "system", "content": system_prompt}
         self.client = OpenAI(api_key=api_key)
     
-    def get_response(self, prompt, expecting_longer_output=False):
+    def get_response(self, prompt, expecting_longer_output=False, need_json_output=False):
         user_prompt = {"role": "user", "content": prompt}
 
         try:
-            if expecting_longer_output:
-                completion = self.client.chat.completions.create(model="gpt-3.5-turbo-16k",
+        
+            completion = self.client.chat.completions.create(
+                model="gpt-4-1106-preview",
                 messages = [self.system_prompt, user_prompt],
-                max_tokens = 7000)
-            else:
-                completion = self.client.chat.completions.create(model="gpt-3.5-turbo",
-                messages = [self.system_prompt, user_prompt])
+                max_tokens = 4000 if expecting_longer_output else None,
+                response_format = { "type": "json_object" } if need_json_output else None
+            )
 
             response = completion.choices[0].message
-            content = response["content"].strip()
+            content = response.content.strip()
 
             return content
         
