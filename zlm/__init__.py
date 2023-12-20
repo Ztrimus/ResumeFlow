@@ -55,7 +55,11 @@ class AutoApplyModel:
     def __init__(
         self, api_key: str, provider: str, downloads_dir: str = get_default_download_folder()
     ):
-        self.provider = provider
+
+        if provider is None or provider.strip() == "":
+            self.provider = "openai"
+        else:
+            self.provider = provider
 
         if api_key is None or api_key.strip() == "os":
             if provider == "openai":
@@ -153,17 +157,18 @@ class AutoApplyModel:
                 job_site_content = get_url_content(url)
 
             llm = self.get_llm_instance(system_prompt)
-            response = llm.get_response(job_site_content)
+            response = llm.get_response(job_site_content, need_json_output=True)
             job_details = json.loads(response)
             job_details["url"] = url
             jd_path = job_doc_name(job_details, self.downloads_dir, "jd")
             write_json(jd_path, job_details)
+            print("Job Details JSON generated at: ", jd_path)
 
             return job_details
         except Exception as e:
             print(e)
             return None
-
+ 
     @measure_execution_time
     def resume_builder(self, job_details: dict, user_data: dict):
         """
@@ -187,7 +192,7 @@ class AutoApplyModel:
         query = f"""Provided Job description delimited by triple backticks(```) and my resume or work information below delimited by triple dashes(---). ```{json.dumps(job_details)}``` ---{json.dumps(user_data)}---"""
 
         llm = self.get_llm_instance(system_prompt)
-        response = llm.get_response(query, expecting_longer_output=True)
+        response = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
         resume_details = json.loads(response)
         resume_details['keywords'] = job_details['keywords']
         resume_path = job_doc_name(job_details, self.downloads_dir, "resume")
