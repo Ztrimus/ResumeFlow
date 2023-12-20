@@ -45,33 +45,33 @@
                 {\VAR{school.degree}}
             \BLOCK{ endif }
             \BLOCK{ if school.grade }
-                {(GPA: \VAR{school.grade})} \smallskip \\ 
-            \BLOCK{else}
-                \smallskip \\ 
+                \hfill {(GPA: \VAR{school.grade})}
             \BLOCK{ endif } 
             \BLOCK{ if school.classes }
-                \textbf{\textit{Relevant Courses:}}
-                \textit{\VAR{', '.join(school.classes)}}
+                \textbf{\textit{Relevant Courses:}} \textit{\VAR{', '.join(school.classes)}}
             \BLOCK{ endif } 
         \BLOCK{ endif } 
     \BLOCK{ endfor }
 \end{rSection}
 
-%==== TECHNICAL STRENGTHS SECTION ====%
-\BLOCK{ if technical }
-    \begin{rSection}{Technical Skills}
-        \begin{tabular}{ @{} l @{\hspace{1ex}} l }
-            \BLOCK{ for section in technical }
-                \textbf{\VAR{section.name}}: \VAR{', '.join(section.skills)}\\
-            \BLOCK{ endfor }
-            \BLOCK{ if certifications }\textbf{Certifications:} 
-                    \BLOCK{ for certification in certifications }
-                        \href{\VAR{certification.link}}{\textbf{\VAR{certification.name}}},
-                    \BLOCK{ endfor }
-            \BLOCK{ endif } 
-        \end{tabular}
+% ==== PROJECTS SECTION =====%
+\BLOCK{ if projects }
+    \begin{rSection}{Projects}
+        \BLOCK{ for project in projects}
+            \begin{rSubsection}
+                \BLOCK{ if project.link}
+                    {\href{\VAR{project.link}}{\VAR{project.name}}}
+                \BLOCK{else}
+                    {\VAR{project.name}}
+                \BLOCK{ endif }
+                {\normalfont{\VAR{project.from} - \VAR{project.to}}}{}{}
+                \BLOCK{ for point in project.description}
+                    \item \VAR{point}
+                \BLOCK{ endfor }
+            \end{rSubsection}
+        \BLOCK{ endfor }
     \end{rSection}
-\BLOCK{ endif } 
+\BLOCK{ endif }
 
 % WORK EXPERIENCE SECTION
 \BLOCK{ if work }
@@ -93,24 +93,21 @@
     \end{rSection}
 \BLOCK{ endif }
 
-% PROJECTS SECTION
-\BLOCK{ if projects }
-    \begin{rSection}{Projects}
-        \BLOCK{ for project in projects}
-            \begin{rSubsection}
-                \BLOCK{ if project.link}
-                    {\href{\VAR{project.link}}{\VAR{project.name}}}
-                \BLOCK{else}
-                    {\VAR{project.name}}
-                \BLOCK{ endif }
-                {\normalfont{\VAR{project.from} - \VAR{project.to}}}{}{}
-                \BLOCK{ for point in project.description}
-                    \item \VAR{point}
-                \BLOCK{ endfor }
-            \end{rSubsection}
-        \BLOCK{ endfor }
+%==== TECHNICAL STRENGTHS SECTION ====%
+\BLOCK{ if technical }
+    \begin{rSection}{Technical Skills}
+        \begin{tabular}{ @{} l @{\hspace{1ex}} l }
+            \BLOCK{ for section in technical }
+                \textbf{\VAR{section.name}}: \VAR{', '.join(section.skills)}\\
+            \BLOCK{ endfor }
+            \BLOCK{ if certifications }\textbf{Certifications:} 
+                    \BLOCK{ for certification in certifications }
+                        \href{\VAR{certification.link}}{\textbf{\VAR{certification.name}}},\\
+                    \BLOCK{ endfor }
+            \BLOCK{ endif } 
+        \end{tabular}
     \end{rSection}
-\BLOCK{ endif }
+\BLOCK{ endif } 
 
 % ACHIEVEMENTS SECTION
 \BLOCK{ if achievements }

@@ -15,12 +15,7 @@ Instructions:
 - Prefer active voice over passive voice.
 - Omit a summary about the candidate.
 
-Ensure the output is in JSON format 
-- Easily serializable into JSON and parse by any json parser.
-- Exactly like mentioned below in ``` (triple backticks) and extract all mentioned properties without changing their names.
-
-
-JSON Output Format:
+Output the response in JSON format only - below I have given example delimited by ```. Output must be easily parse by python's json parser. Extract all mentioned properties in given example without changing their names.
 ```
 {
   "name": "",

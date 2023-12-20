@@ -94,7 +94,9 @@ def text_to_pdf(text: str, file_path: str):
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size=11)
-    pdf.multi_cell(0, 5, txt=text)
+    # Encode the text explicitly using 'latin-1' encoding
+    encoded_text = text.encode('utf-8').decode('latin-1')
+    pdf.multi_cell(0, 5, txt=encoded_text)
     pdf.output(file_path)
     # try:
     #     open_file(file_path)
