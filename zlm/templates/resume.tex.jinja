@@ -13,7 +13,7 @@
 % Define your custom colors
 % \definecolor{myblue}{RGB}{173, 216, 246}
 % \definecolor{myblue}{RGB}{123, 176, 206}
-\definecolor{myblue}{RGB}{93, 142, 172}
+\definecolor{myblue}{RGB}{0, 164, 218}
 
 % Set hyperlink colors
 \hypersetup{
@@ -35,6 +35,26 @@
 }
 
 \begin{document}
+
+%===== WORK EXPERIENCE SECTION =====%
+\BLOCK{ if work }
+    \begin{rSection}{Work Experience}
+        \BLOCK{ for exp in work }
+            \begin{rSubsection}
+                {\VAR{exp.role}}{\VAR{exp.from} - \VAR{exp.to}}
+                \BLOCK{ if exp.link}
+                    \textit{\normalfont{\textit{\href{\VAR{exp.link}}{\VAR{exp.company}}}}}
+                \BLOCK{else}
+                    {\normalfont{\textit{\VAR{exp.company}}}}
+                \BLOCK{ endif }
+                \textit{\normalfont{\textit{\VAR{exp.location}}}}
+                \BLOCK{ for point in exp.description }
+                    \item \VAR{point}
+                \BLOCK{ endfor }
+            \end{rSubsection}
+        \BLOCK{ endfor }
+    \end{rSection}
+\BLOCK{ endif }
 
 %==== EDUCATION SECTION ====%
 \begin{rSection}{Education}
@@ -66,26 +86,6 @@
                 \BLOCK{ endif }
                 {\normalfont{\VAR{project.from} - \VAR{project.to}}}{}{}
                 \BLOCK{ for point in project.description}
-                    \item \VAR{point}
-                \BLOCK{ endfor }
-            \end{rSubsection}
-        \BLOCK{ endfor }
-    \end{rSection}
-\BLOCK{ endif }
-
-% WORK EXPERIENCE SECTION
-\BLOCK{ if work }
-    \begin{rSection}{Work Experience}
-        \BLOCK{ for exp in work }
-            \begin{rSubsection}
-                \BLOCK{ if exp.link}
-                    {\href{\VAR{exp.link}}{\VAR{exp.company}}}
-                \BLOCK{else}
-                    {\VAR{exp.company}}
-                \BLOCK{ endif }
-                {\VAR{exp.location}}
-                {\normalfont{\VAR{exp.role}}}{\normalfont{\VAR{exp.from} - \VAR{exp.to}}}
-                \BLOCK{ for point in exp.description }
                     \item \VAR{point}
                 \BLOCK{ endfor }
             \end{rSubsection}
