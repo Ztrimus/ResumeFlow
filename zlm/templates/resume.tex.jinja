@@ -43,11 +43,11 @@
             \begin{rSubsection}
                 {\VAR{exp.role}}{\VAR{exp.from} - \VAR{exp.to}}
                 \BLOCK{ if exp.link}
-                    \textit{\normalfont{\textit{\href{\VAR{exp.link}}{\VAR{exp.company}}}}}
+                    {\normalfont{\textit{\href{\VAR{exp.link}}{\VAR{exp.company}}}}}
                 \BLOCK{else}
                     {\normalfont{\textit{\VAR{exp.company}}}}
                 \BLOCK{ endif }
-                \textit{\normalfont{\textit{\VAR{exp.location}}}}
+                {\normalfont{\textit{\VAR{exp.location}}}}
                 \BLOCK{ for point in exp.description }
                     \item \VAR{point}
                 \BLOCK{ endfor }
