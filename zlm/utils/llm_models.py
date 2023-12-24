@@ -18,7 +18,7 @@ class ChatGPT:
         user_prompt = {"role": "user", "content": prompt}
 
         try:
-        
+            # TODO: Decide value(temperature, top_p, max_tokens, stop) to get apt response
             completion = self.client.chat.completions.create(
                 model="gpt-4-1106-preview",
                 messages = [self.system_prompt, user_prompt],

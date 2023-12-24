@@ -8,11 +8,11 @@ Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 -----------------------------------------------------------------------
 """
 import os
-import sys
 import json
 
 from zlm.utils.llm_models import ChatGPT, TogetherAI
 from zlm.utils.data_extraction import get_url_content, extract_text
+from zlm.utils.latex_ops import latex_to_pdf
 from zlm.utils.utils import (
     get_default_download_folder,
     measure_execution_time,
@@ -22,7 +22,8 @@ from zlm.utils.utils import (
     job_doc_name,
     text_to_pdf,
 )
-from zlm.utils.latex_ops import latex_to_pdf
+from langchain.document_loaders import JSONLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 
 module_dir = os.path.dirname(__file__)
@@ -86,6 +87,17 @@ class AutoApplyModel:
         """
         with open(system_prompt_path, encoding="utf-8") as file:
             return file.read().strip() + "\n"
+    
+    def get_embeddings(data, chunk_size=1024, chunk_overlap=100):
+        # TODO: Decide apt chunk size and overlap for embedding of master data and job description
+        loader = JSONLoader(file_path=data)
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=chunk_size, 
+            chunk_overlap=chunk_overlap,
+            length_function=len
+        )
+        chunks = loader.load_and_split(text_splitter)
+        return chunks
         
     @measure_execution_time
     def user_data_extraction(self, user_data_path: str = demo_data_path):
@@ -101,10 +113,16 @@ class AutoApplyModel:
         if user_data_path is None or user_data_path.strip() == "":
             user_data_path = demo_data_path
 
+        # Read user data
         if os.path.splitext(user_data_path)[1] == ".pdf":
-            return self.get_resume_to_json(user_data_path)
+            user_data = self.get_resume_to_json(user_data_path)
         else:
-            return read_json(user_data_path)
+            user_data = read_json(user_data_path)
+        
+        # Create user embeddings
+        user_embeddings = self.get_embeddings(user_data)
+        
+        return user_data, user_embeddings
 
     def get_resume_to_json(self, pdf_path):
         """
@@ -268,7 +286,7 @@ class AutoApplyModel:
             #     return
 
             print("\nFetching User data...")
-            user_data = self.user_data_extraction(user_data_path)
+            user_data, user_embeddings = self.user_data_extraction(user_data_path)
 
             print("\nExtracting Job Details...")
             job_details = self.job_details_extraction(url=job_url)
