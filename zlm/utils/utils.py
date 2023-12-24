@@ -17,6 +17,7 @@ import subprocess
 from fpdf import FPDF
 from pathlib import Path
 from datetime import datetime
+OS_SYSTEM = platform.system().lower()
 
 
 def write_file(file_path, data):
@@ -63,7 +64,24 @@ def clean_string(text: str):
     return text
 
 def open_file(file: str):
-    os.system(f"browse {file}")
+    if OS_SYSTEM == "darwin":  # macOS
+        os.system(f"open {file}")
+    elif OS_SYSTEM == "linux":
+        try:
+            os.system(f"xdg-open {file}")
+        except FileNotFoundError:
+            print("Error: xdg-open command not found. Please install xdg-utils.")
+    elif OS_SYSTEM == "windows":
+        try:
+            os.startfile(file)
+        except AttributeError:
+            print("Error: os.startfile is not available on this platform.")
+    else:
+        # Default fallback for other systems
+        try:
+            os.system(f"xdg-open {file}")
+        except FileNotFoundError:
+            print(f"Error: xdg-open command not found. Please install xdg-utils. Alternatively, open the file manually.")
 
 
 def save_log(content: any, file_name: str):
@@ -144,13 +162,12 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
 
 def get_default_download_folder():
     """Get the default download folder for the current operating system."""
-    system = platform.system().lower()
 
-    if system == "windows":
+    if OS_SYSTEM == "windows":
         return os.path.join(str(Path.home()), "Downloads", "JobLLM_Resume_CV")
-    elif system == "darwin":  # macOS
+    elif OS_SYSTEM == "darwin":  # macOS
         return os.path.join(str(Path.home()), "Downloads", "JobLLM_Resume_CV")
-    elif system == "linux":
+    elif OS_SYSTEM == "linux":
         return os.path.join(str(Path.home()), "Downloads", "JobLLM_Resume_CV")
     else:
         # Default fallback for other systems
