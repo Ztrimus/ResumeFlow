@@ -89,6 +89,7 @@ class AutoApplyModel:
             return file.read().strip() + "\n"
     
     def get_embeddings(data, chunk_size=1024, chunk_overlap=100):
+        return None
         # TODO: Decide apt chunk size and overlap for embedding of master data and job description
         loader = JSONLoader(file_path=data)
         text_splitter = RecursiveCharacterTextSplitter(
