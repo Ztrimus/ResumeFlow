@@ -12,6 +12,7 @@ import textwrap
 from openai import OpenAI
 import google.generativeai as genai
 from zlm.utils.utils import parse_json_markdown
+import pandas as pd
 
 class ChatGPT:
     def __init__(self, api_key, system_prompt):
@@ -78,6 +79,26 @@ class Gemini:
         except Exception as e:
             print(e)
             return None
+    
+    def get_embedding(self, content, model="models/embedding-001", task_type="retrieval_document"):
+        try:
+            def embed_fn(data):
+                result = genai.embed_content(
+                    model=model,
+                    content=data,
+                    task_type=task_type,
+                    title="Embedding of json text" if task_type in ["retrieval_document", "document"] else None)
+                
+                return result['embedding']
+            
+            df = pd.DataFrame(content)
+            df.columns = ['chunk']
+            df['embedding'] = df.apply(lambda row: embed_fn(row['chunk']), axis=1)
+            
+            return df
+        
+        except Exception as e:
+            print(e)
 
 
 class TogetherAI:
@@ -157,3 +178,22 @@ class Llama2:
             return response
 
         return response
+
+# TODO: https://ai.google.dev/tutorials/python_quickstart#use_embeddings
+def compute_embedding(self, chunks):
+    try:
+        embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+        vector_embedding = FAISS.from_texts( texts = chunks, embedding=embeddings)
+        return vector_embedding
+    except Exception as e:
+        print(e)
+        return None
+
+# Define a function to compute embeddings for the text   
+# def compute_embedding(self, text):
+#     response = openai.Embed(
+#         input=text,
+#         model="text-davinci-003-001",
+#         max_tokens=50
+#     )
+#     return response['embedding']
