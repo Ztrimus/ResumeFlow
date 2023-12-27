@@ -10,7 +10,7 @@ Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 import os
 import json
 
-from zlm.utils.llm_models import ChatGPT, TogetherAI
+from zlm.utils.llm_models import ChatGPT, Gemini, TogetherAI
 from zlm.utils.data_extraction import get_url_content, extract_text
 from zlm.utils.latex_ops import latex_to_pdf
 from zlm.utils.utils import (
@@ -21,9 +21,11 @@ from zlm.utils.utils import (
     write_json,
     job_doc_name,
     text_to_pdf,
+    get_system_prompt
 )
-from langchain.document_loaders import JSONLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.vectorstores import FAISS
 
 
 module_dir = os.path.dirname(__file__)
@@ -67,6 +69,8 @@ class AutoApplyModel:
                 self.api_key = os.environ.get("OPENAI_API_KEY")
             elif provider == "together":
                 self.api_key = os.environ.get("TOGETHER_KEY")
+            elif provider == "gemini":
+                self.api_key = os.environ.get("GEMINI_API_KEY")
         else:
             self.api_key = api_key
 
@@ -74,31 +78,52 @@ class AutoApplyModel:
             self.downloads_dir = get_default_download_folder()
         else:
             self.downloads_dir = downloads_dir
-
-    def get_system_prompt(self, system_prompt_path: str) -> str:
-        """
-        Reads the content of the file at the given system_prompt_path and returns it as a string.
-
-        Args:
-            system_prompt_path (str): The path to the system prompt file.
-
-        Returns:
-            str: The content of the file as a string.
-        """
-        with open(system_prompt_path, encoding="utf-8") as file:
-            return file.read().strip() + "\n"
     
-    def get_embeddings(data, chunk_size=1024, chunk_overlap=100):
-        return None
-        # TODO: Decide apt chunk size and overlap for embedding of master data and job description
-        loader = JSONLoader(file_path=data)
-        text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=chunk_size, 
-            chunk_overlap=chunk_overlap,
-            length_function=len
-        )
-        chunks = loader.load_and_split(text_splitter)
-        return chunks
+    def load_and_split_documents(self, data, chunk_size=1024, chunk_overlap=100):
+        try:
+            # TODO: Decide apt chunk size and overlap for embedding of master data and job description
+            text_splitter = RecursiveCharacterTextSplitter(
+                chunk_size=chunk_size, 
+                chunk_overlap=chunk_overlap,
+                length_function=len
+            )
+            chunks = text_splitter.split_text(data)
+            return chunks
+        except Exception as e:
+            print(e)
+            return None
+    
+    # TODO: https://ai.google.dev/tutorials/python_quickstart#use_embeddings
+    def compute_embedding(self, chunks):
+        try:
+            embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+            vector_embedding = FAISS.from_texts( texts = chunks, embedding=embeddings)
+            return vector_embedding
+        except Exception as e:
+            print(e)
+            return None
+
+    # Define a function to compute embeddings for the text   
+    # def compute_embedding(self, text):
+    #     response = openai.Embed(
+    #         input=text,
+    #         model="text-davinci-003-001",
+    #         max_tokens=50
+    #     )
+    #     return response['embedding']
+    
+    # Define a function to compute embeddings for the query and document
+    def find_similar_points(self, query_embedding, document_embeddings):
+        similar_points = []
+        for i, doc_embedding in enumerate(document_embeddings):
+            similarity_score = openai.Similarity(
+                documents=[query_embedding, doc_embedding],
+                model="text-davinci-003-001"
+            )
+            if similarity_score > 0.8:  # Adjust the threshold as per your requirement
+                similar_points.append(document[i])
+        return similar_points
+
         
     @measure_execution_time
     def user_data_extraction(self, user_data_path: str = demo_data_path):
@@ -111,6 +136,8 @@ class AutoApplyModel:
         Returns:
             dict: The extracted user data in JSON format.
         """
+        print("\nFetching User data...")
+
         if user_data_path is None or user_data_path.strip() == "":
             user_data_path = demo_data_path
 
@@ -121,9 +148,11 @@ class AutoApplyModel:
             user_data = read_json(user_data_path)
         
         # Create user embeddings
-        user_embeddings = self.get_embeddings(user_data)
+        # TODO: https://www.pinecone.io/learn/chunking-strategies/
+        chunks = self.load_and_split_documents(json.dumps(user_data))
+        vector_embedding = self.compute_embedding(chunks)
         
-        return user_data, user_embeddings
+        return user_data, vector_embedding
 
     def get_resume_to_json(self, pdf_path):
         """
@@ -135,13 +164,12 @@ class AutoApplyModel:
         Returns:
             dict: The resume data in JSON format.
         """
-        system_prompt = self.get_system_prompt(
+        system_prompt = get_system_prompt(
             os.path.join(prompt_path, "resume-extractor.txt")
         )
         llm = self.get_llm_instance(system_prompt)
         resume_text = extract_text(pdf_path)
-        resume_text = llm.get_response(resume_text)
-        resume_json = json.loads(resume_text)
+        resume_json = llm.get_response(resume_text, need_json_output=True)
         return resume_json
     
     def get_llm_instance(self, system_prompt):
@@ -149,6 +177,8 @@ class AutoApplyModel:
             return ChatGPT(api_key=self.api_key, system_prompt=system_prompt)
         elif self.provider == "together":
             return TogetherAI(api_key=self.api_key, system_prompt=system_prompt)
+        elif self.provider == "gemini":
+            return Gemini(api_key=self.api_key, system_prompt=system_prompt)
         else:
             raise Exception("Invalid LLM Provider")
 
@@ -164,10 +194,13 @@ class AutoApplyModel:
         Returns:
             dict: A dictionary containing the extracted job details.
         """
+        
+        print("\nExtracting Job Details...")
+
         try:
-            system_prompt = self.get_system_prompt(
+            system_prompt = get_system_prompt(
                 os.path.join(prompt_path, "persona-job-llm.txt")
-            ) + self.get_system_prompt(
+            ) + get_system_prompt(
                 os.path.join(prompt_path, "extract-job-detail.txt")
             )
 
@@ -176,14 +209,19 @@ class AutoApplyModel:
                 job_site_content = get_url_content(url)
 
             llm = self.get_llm_instance(system_prompt)
-            response = llm.get_response(job_site_content, need_json_output=True)
-            job_details = json.loads(response)
+            job_details = llm.get_response(job_site_content, need_json_output=True)
+            # job_details = read_json("/Users/saurabh/Downloads/JobLLM_Resume_CV/Microsoft/Microsoft_ResearchInternG_JD.json")
+
+            # Create user embeddings
+            chunks = self.load_and_split_documents(json.dumps(job_details))
+            vector_embedding = self.compute_embedding(chunks)
+
             job_details["url"] = url
             jd_path = job_doc_name(job_details, self.downloads_dir, "jd")
             write_json(jd_path, job_details)
             print("Job Details JSON generated at: ", jd_path)
+            return job_details, vector_embedding
 
-            return job_details
         except Exception as e:
             print(e)
             return None
@@ -203,16 +241,18 @@ class AutoApplyModel:
         Raises:
             FileNotFoundError: If the system prompt files are not found.
         """
-        system_prompt = self.get_system_prompt(
+
+        print("\nGenerating Resume Details...")
+
+        system_prompt = get_system_prompt(
             os.path.join(prompt_path, "persona-job-llm.txt")
-        ) + self.get_system_prompt(
+        ) + get_system_prompt(
             os.path.join(prompt_path, "generate-resume-details.txt")
         )
         query = f"""Provided Job description delimited by triple backticks(```) and my resume or work information below delimited by triple dashes(---). ```{json.dumps(job_details)}``` ---{json.dumps(user_data)}---"""
 
         llm = self.get_llm_instance(system_prompt)
-        response = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
-        resume_details = json.loads(response)
+        resume_details = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
         resume_details['keywords'] = job_details['keywords']
         resume_path = job_doc_name(job_details, self.downloads_dir, "resume")
 
@@ -239,9 +279,11 @@ class AutoApplyModel:
         Raises:
             None
         """
-        system_prompt = self.get_system_prompt(
+        print("\nGenerating Cover Letter...")
+
+        system_prompt = get_system_prompt(
             os.path.join(prompt_path, "persona-job-llm.txt")
-        ) + self.get_system_prompt(
+        ) + get_system_prompt(
             os.path.join(prompt_path, "generate-cover-letter.txt")
         )
         query = f"""Provided Job description delimited by triple backticks(```) and \
@@ -286,16 +328,16 @@ class AutoApplyModel:
             #     print("Job URL is required.")
             #     return
 
-            print("\nFetching User data...")
             user_data, user_embeddings = self.user_data_extraction(user_data_path)
 
-            print("\nExtracting Job Details...")
-            job_details = self.job_details_extraction(url=job_url)
+            job_details, job_embeddings = self.job_details_extraction(url=job_url)
 
-            print("\nGenerating Cover Letter...")
+            # Perform similarity search
+            # relevant_points = find_similar_points(query_embedding, document_embeddings)
+            # qa = RetrievalQA(vector_store=user_embeddings, query_vector_store=job_embeddings, k=3)
+
             self.cover_letter_generator(job_details, user_data)
 
-            print("\nGenerating Resume Details...")
             self.resume_builder(job_details, user_data)
 
             print("Done!!!")
