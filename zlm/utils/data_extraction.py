@@ -28,6 +28,7 @@ def get_url_content(url: str):
         # Get the whole body tag
         tag = soup.body
         text_content = ""
+        # TODO: Preprocessing of data, like remove html tags, remove unwanted content, etc.
         
         # Print each string recursively
         for string in tag.strings:

@@ -83,7 +83,7 @@ class AutoApplyModel:
     
     def load_and_split_documents(self, data, chunk_size=1024, chunk_overlap=100):
         try:
-            # TODO: Decide apt chunk size and overlap for embedding of master data and job description
+            # TODO: Decide apt chunk size and overlap. start small(128/256) for granular semnatic info to large(512/1024) chunks for broad context.
             text_splitter = RecursiveCharacterTextSplitter(
                 chunk_size=chunk_size, 
                 chunk_overlap=chunk_overlap,
@@ -172,6 +172,7 @@ class AutoApplyModel:
             user_data = read_json(user_data_path)
         
         # TODO: https://www.pinecone.io/learn/chunking-strategies/
+        # langchain.text_splitter, Recursive Chunking, NLTKTextSplitter(), SpaCyTextSplitter(), 
         chunks = self.load_and_split_documents(json.dumps(user_data))
 
         # Create user embeddings

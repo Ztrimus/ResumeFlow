@@ -65,9 +65,9 @@ class Gemini:
             content = model.generate_content(
                 entire_prompt,
                 generation_config={
-                    "temperature": 0, 
+                    "temperature": 0.3, 
                     "max_output_tokens": 4000 if expecting_longer_output else None,
-                    "top_k": 1
+                    "top_k": 4
                     }
                 )
             
