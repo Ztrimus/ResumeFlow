@@ -17,6 +17,7 @@ from zlm.utils.data_extraction import get_url_content, extract_text
 from zlm.utils.latex_ops import latex_to_pdf
 from zlm.utils.utils import (
     get_default_download_folder,
+    key_value_chunking,
     measure_execution_time,
     read_json,
     write_file,
@@ -173,7 +174,8 @@ class AutoApplyModel:
         
         # TODO: https://www.pinecone.io/learn/chunking-strategies/
         # langchain.text_splitter, Recursive Chunking, NLTKTextSplitter(), SpaCyTextSplitter(), 
-        chunks = self.load_and_split_documents(json.dumps(user_data))
+        # chunks = self.load_and_split_documents(json.dumps(user_data))
+        chunks = key_value_chunking(json.dumps(user_data))
 
         # Create user embeddings
         llm = self.get_llm_instance("")
@@ -214,7 +216,8 @@ class AutoApplyModel:
             # job_details = read_json("/Users/saurabh/Downloads/JobLLM_Resume_CV/Microsoft/Microsoft_ResearchInternG_JD.json")
 
             # Create user embeddings
-            chunks = self.load_and_split_documents(json.dumps(job_details))
+            # chunks = self.load_and_split_documents()
+            chunks = key_value_chunking(json.dumps(job_details))
             vector_embedding = llm.get_embedding(chunks, task_type="retrieval_query")
 
             job_details["url"] = url

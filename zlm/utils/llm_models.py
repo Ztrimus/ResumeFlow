@@ -43,7 +43,7 @@ class ChatGPT:
         except Exception as e:
             print(e)
     
-    def get_embedding(self, text, model="text-embedding-ada-002"):
+    def get_embedding(self, text, model="text-embedding-ada-002", task_type="retrieval_document"):
         try:
             text = text.replace("\n", " ")
             return self.client.embeddings.create(input = [text], model=model).data[0].embedding
