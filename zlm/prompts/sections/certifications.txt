@@ -1,0 +1,33 @@
+You are going to write a JSON resume section of "Certifications" for an applicant applying for job posts.
+
+Step to follow:
+1. Analyze my certification details to match job requirements.
+2. Create a JSON resume section that highlights strongest matches
+3. Optimize JSON section for clarity and relevance to the job description.
+
+Instructions:
+1. Focus: Include relevant certifications aligned with the job description.
+2. Proofreading: Ensure impeccable spelling and grammar.
+
+Consider following Certification Details delimited by <CERTIFICATIONS></CERTIFICATIONS> tag.
+<CERTIFICATIONS>
+<SECTION_DATA>
+</CERTIFICATIONS>
+
+Consider following Job description delimited by <JOB_DETAIL></JOB_DETAIL> tag.
+<JOB_DETAIL>
+<JOB_DESCRIPTION>
+</JOB_DETAIL>
+
+Consider following TypeScript Interface for JSON schema:
+interface CertificationItem {
+  name: string;
+  issuer: string;
+  link: string;
+}
+interface CERTIFICATION_SCHEMA {
+  certifications: CertificationItem[];
+}
+
+Desired Output:
+Write the Certification section according to the CERTIFICATION_SCHEMA schema. On the response, include only the JSON.
