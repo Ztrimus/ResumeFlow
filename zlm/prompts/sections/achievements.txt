@@ -1,0 +1,32 @@
+You are going to write a JSON resume section of "Achievements" for an applicant applying for job posts.
+
+Step to follow:
+1. Analyze my achievements details to match job requirements.
+2. Create a JSON resume section that highlights strongest matches
+3. Optimize JSON section for clarity and relevance to the job description.
+
+Instructions:
+1. Focus: Craft relevant achievements aligned with the job description.
+2. Honesty: Prioritize truthfulness and objective language.
+3. Specificity: Prioritize relevance to the specific job over general achievements.
+4. Style:
+  4.1. Voice: Use active voice whenever possible.
+  4.2. Proofreading: Ensure impeccable spelling and grammar.
+
+Consider following Achievements Details delimited by <ACHIEVEMENTS></ACHIEVEMENTS> tag.
+<ACHIEVEMENTS>
+<SECTION_DATA>
+</ACHIEVEMENTS>
+
+Consider following Job description delimited by <JOB_DETAIL></JOB_DETAIL> tag.
+<JOB_DETAIL>
+<JOB_DESCRIPTION>
+</JOB_DETAIL>
+
+Consider following TypeScript Interface for JSON schema:
+interface ACHIEVEMENTS_SCHEMA {
+  achievements: string[];
+}
+
+Desired Output:
+Write the Achievements section according to the ACHIEVEMENTS_SCHEMA schema. On the response, include only the JSON.

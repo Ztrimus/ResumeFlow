@@ -179,7 +179,7 @@ class Llama2:
 
         return response
 
-# TODO: https://ai.google.dev/tutorials/python_quickstart#use_embeddings
+# DO: https://ai.google.dev/tutorials/python_quickstart#use_embeddings
 def compute_embedding(self, chunks):
     try:
         embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")

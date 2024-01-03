@@ -26,7 +26,7 @@
 \usepackage{hyperref}
 
 %==== Headings ====%
-\name{\VAR{name}} % Your name
+\name{\VAR{personal.name}} % Your name
 \address{
 \BLOCK{ if personal.phone }{\faPhone} \href{tel:\VAR{personal.phone}}{\VAR{personal.phone.replace(' ','')}} \quad \BLOCK{ endif }
 \BLOCK{ if personal.email }{\faEnvelope} \href{mailto:\VAR{personal.email}}{\VAR{personal.email}} \quad \BLOCK{ endif }
@@ -94,10 +94,10 @@
 \BLOCK{ endif }
 
 %==== TECHNICAL STRENGTHS SECTION ====%
-\BLOCK{ if technical }
+\BLOCK{ if skill_section }
     \begin{rSection}{Technical Skills}
         \begin{tabular}{ @{} l @{\hspace{1ex}} l }
-            \BLOCK{ for section in technical }
+            \BLOCK{ for section in skill_section }
                 \textbf{\VAR{section.name}}: \VAR{', '.join(section.skills)}\\
             \BLOCK{ endfor }
             \BLOCK{ if certifications }\textbf{Certifications:} 

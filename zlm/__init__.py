@@ -24,7 +24,7 @@ from zlm.utils.utils import (
     write_json,
     job_doc_name,
     text_to_pdf,
-    get_system_prompt
+    get_prompt
 )
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import HuggingFaceEmbeddings
@@ -49,7 +49,7 @@ class AutoApplyModel:
         downloads_dir (str): The directory to save downloaded files.
 
     Methods:
-        get_system_prompt(system_prompt_path: str) -> str: Returns the system prompt from the specified path.
+        get_prompt(system_prompt_path: str) -> str: Returns the system prompt from the specified path.
         get_resume_to_json(pdf_path: str) -> dict: Extracts resume details from the specified PDF path.
         user_data_extraction(user_data_path: str) -> dict: Extracts user data from the specified path.
         job_details_extraction(url: str) -> dict: Extracts job details from the specified job URL.
@@ -84,7 +84,7 @@ class AutoApplyModel:
     
     def load_and_split_documents(self, data, chunk_size=1024, chunk_overlap=100):
         try:
-            # TODO: Decide apt chunk size and overlap. start small(128/256) for granular semnatic info to large(512/1024) chunks for broad context.
+            # DO: Decide apt chunk size and overlap. start small(128/256) for granular semnatic info to large(512/1024) chunks for broad context.
             text_splitter = RecursiveCharacterTextSplitter(
                 chunk_size=chunk_size, 
                 chunk_overlap=chunk_overlap,
@@ -132,7 +132,7 @@ class AutoApplyModel:
         Returns:
             dict: The resume data in JSON format.
         """
-        system_prompt = get_system_prompt(
+        system_prompt = get_prompt(
             os.path.join(prompt_path, "resume-extractor.txt")
         )
         llm = self.get_llm_instance(system_prompt)
@@ -161,7 +161,7 @@ class AutoApplyModel:
         Returns:
             dict: The extracted user data in JSON format.
         """
-        print("\nFetching User data...")
+        print("\nFetching user data...")
 
         if user_data_path is None or user_data_path.strip() == "":
             user_data_path = demo_data_path
@@ -172,13 +172,15 @@ class AutoApplyModel:
         else:
             user_data = read_json(user_data_path)
         
-        # TODO: https://www.pinecone.io/learn/chunking-strategies/
+        # DO: https://www.pinecone.io/learn/chunking-strategies/
         # langchain.text_splitter, Recursive Chunking, NLTKTextSplitter(), SpaCyTextSplitter(), 
         # chunks = self.load_and_split_documents(json.dumps(user_data))
-        chunks = key_value_chunking(json.dumps(user_data))
+        print("Chunking user data...")
+        chunks = key_value_chunking(user_data)
 
         # Create user embeddings
         llm = self.get_llm_instance("")
+        print("Embedding user's chunked data...")
         vector_embedding = llm.get_embedding(chunks, task_type="retrieval_document")
         
         return user_data, vector_embedding
@@ -196,12 +198,12 @@ class AutoApplyModel:
             dict: A dictionary containing the extracted job details.
         """
         
-        print("\nExtracting Job Details...")
+        print("\nExtracting job details...")
 
         try:
-            system_prompt = get_system_prompt(
+            system_prompt = get_prompt(
                 os.path.join(prompt_path, "persona-job-llm.txt")
-            ) + get_system_prompt(
+            ) + get_prompt(
                 os.path.join(prompt_path, "extract-job-detail.txt")
             )
 
@@ -217,7 +219,9 @@ class AutoApplyModel:
 
             # Create user embeddings
             # chunks = self.load_and_split_documents()
-            chunks = key_value_chunking(json.dumps(job_details))
+            print("Chunking job post data...")
+            chunks = key_value_chunking(job_details)
+            print("Embedding job details' chunked data...")
             vector_embedding = llm.get_embedding(chunks, task_type="retrieval_query")
 
             job_details["url"] = url
@@ -247,9 +251,9 @@ class AutoApplyModel:
         """
         print("\nGenerating Cover Letter...")
 
-        system_prompt = get_system_prompt(
+        system_prompt = get_prompt(
             os.path.join(prompt_path, "persona-job-llm.txt")
-        ) + get_system_prompt(
+        ) + get_prompt(
             os.path.join(prompt_path, "generate-cover-letter.txt")
         )
         query = f"""Provided Job description delimited by triple backticks(```) and \
@@ -293,15 +297,30 @@ class AutoApplyModel:
 
         print("\nGenerating Resume Details...")
 
-        system_prompt = get_system_prompt(
-            os.path.join(prompt_path, "persona-job-llm.txt")
-        ) + get_system_prompt(
-            os.path.join(prompt_path, "generate-resume-details.txt")
-        )
-        query = f"""Provided Job description delimited by triple backticks(```) and my resume or work information below delimited by triple dashes(---). ```{json.dumps(job_details)}``` ---{json.dumps(user_data)}---"""
+        resume_details = dict()
+        system_prompt = get_prompt(os.path.join(prompt_path, "persona-job-llm.txt"))
+        del job_details['url']
 
-        llm = self.get_llm_instance(system_prompt)
-        resume_details = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
+        print("Processing Resume's Personal Info Section...")
+        # Personal Information Section
+        resume_details["personal"] = { 
+            "name": user_data["name"], 
+            "phone": user_data["phone"], 
+            "email": user_data["email"],
+            "github": user_data["media"]["github"], 
+            "linkedin": user_data["media"]["linkedin"]
+            }
+
+        # Other Sections
+        for section in ['education', 'work', 'skill_section', 'projects', 'certifications', 'achievements']:
+            print(f"Processing Resume's {section.upper()} Section...")
+            query = get_prompt(os.path.join(prompt_path, "sections", f"{section}.txt"))
+            query = query.replace("<SECTION_DATA>", json.dumps(user_data[section])).replace("<JOB_DESCRIPTION>", json.dumps(job_details))
+
+            llm = self.get_llm_instance(system_prompt)
+            response = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
+            resume_details[section] = response[section]
+        
         resume_details['keywords'] = job_details['keywords']
         resume_path = job_doc_name(job_details, self.downloads_dir, "resume")
 
@@ -340,9 +359,9 @@ class AutoApplyModel:
             relevant_points = self.find_similar_points(user_embeddings, job_embeddings)
             
             # TODO: Pass relevant points instad of user_data, but work on chunk strategies first.
-            self.cover_letter_generator(job_details, user_data)
-
             self.resume_builder(job_details, user_data)
+
+            self.cover_letter_generator(job_details, user_data)
 
             print("Done!!!")
         except Exception as e:

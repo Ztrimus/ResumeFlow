@@ -18,15 +18,14 @@ Instructions:
 Output the response in JSON format only - below I have given example delimited by ```. Output must be easily parse by python's json parser. Extract all mentioned properties in given example without changing their names.
 ```
 {
-  "name": "",
-  "personal": { "phone": "+1 111-222-3333", "email": "", "github": "", "linkedin": ""
+  "personal": { "name": "", "phone": "+1 111-222-3333", "email": "", "github": "", "linkedin": ""
   },
   "education": [
     { "degree": "", "university": "", "from": "", "to": "", "grade": "", "classes": [] },
     ...
   ],
-  "technical": [
-    { "name": "", "skills": [] },
+  "skill_section": [
+    { "name": "", "skills": [] }
     ...
   ],
   "work": [

@@ -1,7 +1,7 @@
 {
   "name": "Saurabh Bhausaheb Zinjad",
   "summary": "Versatile and self-driven professional with 4+ years of industrial experience in crafting production-ready ML Architecture and full-stack softwares through coherent analysis, and relentless focus on efficient solutions with meticulous execution.",
-  "phone-no": "+1 480 913 5544",
+  "phone": "+1 480 913 5544",
   "email": "saurabhzinjad@asu.edu",
   "media": {
     "linkedin": "linkedin.com/in/saurabhzinjad",
@@ -46,7 +46,7 @@
       ]
     }
   ],
-  "skill-section": [
+  "skill_section": [
     {
       "name": "Programming Languages",
       "skills": [

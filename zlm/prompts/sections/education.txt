@@ -1,0 +1,39 @@
+You are going to write a JSON resume section of "Education" for an applicant applying for job posts.
+
+Step to follow:
+1. Analyze my education details to match job requirements.
+2. Create a JSON resume section that highlights strongest matches
+3. Optimize JSON section for clarity and relevance to the job description.
+
+Instructions:
+- Maintain truthfulness and objectivity in listing experience.
+- Prioritize specificity - with respect to job - over generality.
+- Proofread and Correct spelling and grammar errors.
+- Aim for clear expression over impressiveness.
+- Prefer active voice over passive voice.
+
+Consider following Education Details delimited by <Education></Education> tag.
+<Education>
+<SECTION_DATA>
+</Education>
+
+Consider following Job description delimited by <JOB_DETAIL></JOB_DETAIL> tag.
+<JOB_DETAIL>
+<JOB_DESCRIPTION>
+</JOB_DETAIL>
+
+Consider following TypeScript Interface for JSON schema:
+interface EducationItem {
+  degree: string;
+  university: string;
+  from: string;
+  to: string;
+  grade: string;
+  classes: string[];
+}
+interface EDUCATION_SCHEMA {
+  education: EducationItem[];
+}
+
+Desired Output:
+Write the education section according to the EDUCATION_SCHEMA schema. On the response, include only the JSON.
