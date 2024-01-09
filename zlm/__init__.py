@@ -345,8 +345,8 @@ class AutoApplyModel:
 
             # cv_details = self.cover_letter_generator(job_details, user_data)
 
-            content_preservation = jaccard_similarity(json.dumps(user_data), json.dumps(resume_details))
-            goodness = jaccard_similarity(json.dumps(job_details), json.dumps(resume_details))
+            content_preservation = jaccard_similarity(json.dumps(resume_details), json.dumps(user_data))
+            goodness = jaccard_similarity(json.dumps(resume_details), json.dumps(job_details))
 
             print("Content Preservation: ", content_preservation)
             print("Resume's Goodness Over JD: ", goodness)
