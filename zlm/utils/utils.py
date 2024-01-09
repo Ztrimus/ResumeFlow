@@ -238,3 +238,67 @@ def key_value_chunking(data, prefix=""):
             chunks.append(f"{prefix}: {data}")
     
     return chunks
+
+def remove_urls(list_of_strings):
+    """Removes strings containing URLs from a list using regular expressions."""
+    filtered_list = [string for string in list_of_strings if not re.search(r"https?://\S+", string)]
+    return filtered_list
+
+
+def jaccard_similarity(doc1, doc2): 
+    
+    # List the unique words in a document
+    words_doc1 = set(doc1.lower().split()) 
+    words_doc2 = set(doc2.lower().split())
+
+    # Remove Links and URLs
+    words_doc1 = remove_urls(words_doc1)
+    words_doc2 = remove_urls(words_doc2)
+
+    # Remove punctuation and special characters: Keep only letters and numbers:
+    words_doc1 = set(re.sub(r"[^a-zA-Z0-9]", "", w) for w in words_doc1)
+    words_doc2 = set(re.sub(r"[^a-zA-Z0-9]", "", w) for w in words_doc2)
+
+    # Remove empty strings
+    words_doc1 = {w for w in words_doc1 if w.strip() != ""}
+    words_doc2 = {w for w in words_doc2 if w.strip() != ""} 
+    
+    # Find the intersection of words list of doc1 & doc2
+    intersection = words_doc1.intersection(words_doc2)
+
+    # Find the union of words list of doc1 & doc2
+    union = words_doc1.union(words_doc2)
+        
+    # Calculate Jaccard similarity score 
+    jaccard_similarity = float(len(intersection)) / len(union)
+    return jaccard_similarity
+
+    # Stemming or Lemmatization (Optional): 
+    # Reduce words to root forms: Choose stemming for simpler rules or lemmatization for considering context:
+    # from nltk.stem import PorterStemmer
+    # stemmer = PorterStemmer()
+
+    # words_doc1 = {stemmer.stem(w) for w in words_doc1}
+    # words_doc2 = {stemmer.stem(w) for w in words_doc2}
+
+    # Remove Stop Words: Identify common words: Use a predefined list of stop words to filter out:
+    # import nltk
+    # nltk.download('stopwords')
+    # from nltk.corpus import stopwords
+
+    # stop_words = set(stopwords.words('english'))  # Adjust language as needed
+
+    # words_doc1 = {w for w in words_doc1 if w not in stop_words}
+    # words_doc2 = {w for w in words_doc2 if w not in stop_words}
+
+# from deepeval import evaluate
+# from deepeval.test_case import LLMTestCase
+# from deepeval.metrics import SummarizationMetric
+
+# def get_score(resume, input):
+#     test_case = LLMTestCase(
+#     input=input, 
+#     actual_output=resume
+#     )
+#     summarization_metric = SummarizationMetric()
+#     return evaluate([test_case], [summarization_metric])
