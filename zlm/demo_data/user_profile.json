@@ -1,6 +1,6 @@
 {
   "name": "Saurabh Bhausaheb Zinjad",
-  "summary": "Versatile and self-driven professional with 4+ years of industrial experience in crafting production-ready ML Architecture and full-stack softwares through coherent analysis, and relentless focus on efficient solutions with meticulous execution.",
+  "summary": "Versatile and self-driven professional with 4+ years of industrial experience in crafting production-ready AI Architecture and full-stack softwares through coherent analysis, and relentless focus on efficient solutions with meticulous execution.",
   "phone": "+1 480 913 5544",
   "email": "saurabhzinjad@asu.edu",
   "media": {
@@ -17,15 +17,18 @@
   ],
   "education": [
     {
-      "degree": "Masters of Science in Computer Science",
+      "degree": "Masters of Science - Computer Science (Thesis)",
       "university": "Arizona State University, Tempe, USA",
       "from": "Aug 2023",
       "to": "May 2025",
       "grade": "3.8/4",
       "coursework": [
+        "Statistical Machine Learning",
+        "Operational Deep Learning",
+        "Software verification, Validation and Testing",
+        "AI Safety and Assessment",
         "Social Media Mining",
-        "Knowledge Representation and Reasoning Algorithms",
-        "Statistical Machine Learning"
+        "Knowledge Representation and Reasoning Algorithms"
       ]
     },
     {

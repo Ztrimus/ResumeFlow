@@ -282,7 +282,6 @@ class AutoApplyModel:
 
         resume_details = dict()
         system_prompt = get_prompt(os.path.join(prompt_path, "persona-job-llm.txt"))
-        del job_details['url']
 
         print("Processing Resume's Personal Info Section...")
         # Personal Information Section
@@ -337,13 +336,11 @@ class AutoApplyModel:
 
             user_data = self.user_data_extraction(user_data_path)
 
-            # job_details = self.job_details_extraction(url=job_url)
-            job_details = read_json("/Users/saurabh/Downloads/JobLLM_Resume_CV/AmazonDevelopmentCenterUSInc/AmazonDevelopmentCenterUSInc_SoftwareDevEngi_JD.json")
-            
-            # resume_details = self.resume_builder(job_details, user_data)
-            resume_details = read_json("/Users/saurabh/Downloads/JobLLM_Resume_CV/AmazonDevelopmentCenterUSInc/AmazonDevelopmentCenterUSInc_SoftwareDevEngi_resume.json")
+            job_details = self.job_details_extraction(url=job_url)
 
-            # cv_details = self.cover_letter_generator(job_details, user_data)
+            resume_details = self.resume_builder(job_details, user_data)
+            
+            cv_details = self.cover_letter_generator(job_details, user_data)
 
             content_preservation = jaccard_similarity(json.dumps(resume_details), json.dumps(user_data))
             goodness = jaccard_similarity(json.dumps(resume_details), json.dumps(job_details))
