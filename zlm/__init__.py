@@ -24,7 +24,8 @@ from zlm.utils.utils import (
     write_json,
     job_doc_name,
     text_to_pdf,
-    get_prompt
+    get_prompt,
+    jaccard_similarity
 )
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import HuggingFaceEmbeddings
@@ -172,18 +173,7 @@ class AutoApplyModel:
         else:
             user_data = read_json(user_data_path)
         
-        # DO: https://www.pinecone.io/learn/chunking-strategies/
-        # langchain.text_splitter, Recursive Chunking, NLTKTextSplitter(), SpaCyTextSplitter(), 
-        # chunks = self.load_and_split_documents(json.dumps(user_data))
-        print("Chunking user data...")
-        chunks = key_value_chunking(user_data)
-
-        # Create user embeddings
-        llm = self.get_llm_instance("")
-        print("Embedding user's chunked data...")
-        vector_embedding = llm.get_embedding(chunks, task_type="retrieval_document")
-        
-        return user_data, vector_embedding
+        return user_data
 
     @measure_execution_time
     def job_details_extraction(self, url: str=None, job_site_content: str=None):
@@ -215,20 +205,13 @@ class AutoApplyModel:
 
             llm = self.get_llm_instance(system_prompt)
             job_details = llm.get_response(job_site_content, need_json_output=True)
-            # job_details = read_json("/Users/saurabh/Downloads/JobLLM_Resume_CV/Microsoft/Microsoft_ResearchInternG_JD.json")
-
-            # Create user embeddings
-            # chunks = self.load_and_split_documents()
-            print("Chunking job post data...")
-            chunks = key_value_chunking(job_details)
-            print("Embedding job details' chunked data...")
-            vector_embedding = llm.get_embedding(chunks, task_type="retrieval_query")
-
             job_details["url"] = url
             jd_path = job_doc_name(job_details, self.downloads_dir, "jd")
+
             write_json(jd_path, job_details)
             print("Job Details JSON generated at: ", jd_path)
-            return job_details, vector_embedding
+            del job_details['url']
+            return job_details
 
         except Exception as e:
             print(e)
@@ -276,7 +259,7 @@ class AutoApplyModel:
             text_to_pdf(cover_letter, cv_path.replace(".txt", ".pdf"))
             print("Cover Letter PDF generated at: ", cv_path.replace(".txt", ".pdf"))
         
-        return cv_path
+        return cover_letter
 
 
     @measure_execution_time
@@ -299,7 +282,6 @@ class AutoApplyModel:
 
         resume_details = dict()
         system_prompt = get_prompt(os.path.join(prompt_path, "persona-job-llm.txt"))
-        del job_details['url']
 
         print("Processing Resume's Personal Info Section...")
         # Personal Information Section
@@ -330,7 +312,7 @@ class AutoApplyModel:
 
         latex_to_pdf(resume_details, resume_path)
         print("Resume PDF generated at: ", resume_path)
-        return resume_path
+        return resume_details
 
     def resume_cv_pipeline(self, job_url: str, user_data_path: str = demo_data_path):
         """Run the Auto Apply Pipeline.
@@ -352,16 +334,19 @@ class AutoApplyModel:
                 print("Job URL is required.")
                 return
 
-            user_data, user_embeddings = self.user_data_extraction(user_data_path)
+            user_data = self.user_data_extraction(user_data_path)
 
-            job_details, job_embeddings = self.job_details_extraction(url=job_url)
+            job_details = self.job_details_extraction(url=job_url)
 
-            relevant_points = self.find_similar_points(user_embeddings, job_embeddings)
+            resume_details = self.resume_builder(job_details, user_data)
             
-            # TODO: Pass relevant points instad of user_data, but work on chunk strategies first.
-            self.resume_builder(job_details, user_data)
+            cv_details = self.cover_letter_generator(job_details, user_data)
 
-            self.cover_letter_generator(job_details, user_data)
+            content_preservation = jaccard_similarity(json.dumps(resume_details), json.dumps(user_data))
+            goodness = jaccard_similarity(json.dumps(resume_details), json.dumps(job_details))
+
+            print("Content Preservation: ", content_preservation)
+            print("Resume's Goodness Over JD: ", goodness)
 
             print("Done!!!")
         except Exception as e:

@@ -40,7 +40,7 @@ if __name__ == "__main__":
     parser.add_argument("-m", "--master_data", help="Path of user's master data file.")
     parser.add_argument("-k", "--api_key", default="os", help="LLM Provider API Keys")
     parser.add_argument("-d", "--downloads_dir", help="Give detailed path of folder")
-    parser.add_argument("-p", "--provider", default="openai", help="LLM provider name. support for openai, gemini, together, g4f")
+    parser.add_argument("-p", "--provider", default="gemini", help="LLM provider name. support for openai, gemini, together, g4f")
 
     # Parse the arguments
     args = parser.parse_args()
