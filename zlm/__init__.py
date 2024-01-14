@@ -25,8 +25,8 @@ from zlm.utils.utils import (
     job_doc_name,
     text_to_pdf,
     get_prompt,
-    jaccard_similarity
 )
+from zlm.utils.metrics import jaccard_similarity, overlap_coefficient
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
@@ -333,22 +333,29 @@ class AutoApplyModel:
             if job_url is None and len(job_url.strip()) == "":
                 print("Job URL is required.")
                 return
-
+            
+            # Extract user data
             user_data = self.user_data_extraction(user_data_path)
 
+            # Extract job details
             job_details = self.job_details_extraction(url=job_url)
 
+            # Build resume
             resume_details = self.resume_builder(job_details, user_data)
-            
+
+            # Calculate metrics
+            for metric in ['jaccard_similarity', 'overlap_coefficient']:
+                print(f"\nCalculating {metric}...")
+                
+                user_personlization = globals()[metric](json.dumps(resume_details), json.dumps(user_data))
+                job_alignment = globals()[metric](json.dumps(resume_details), json.dumps(job_details))
+
+                print("User Personlization Score: ", user_personlization)
+                print("Job Alignment Score: ", job_alignment)
+
             cv_details = self.cover_letter_generator(job_details, user_data)
 
-            content_preservation = jaccard_similarity(json.dumps(resume_details), json.dumps(user_data))
-            goodness = jaccard_similarity(json.dumps(resume_details), json.dumps(job_details))
-
-            print("Content Preservation: ", content_preservation)
-            print("Resume's Goodness Over JD: ", goodness)
-
-            print("Done!!!")
+            print("\nDone!!!")
         except Exception as e:
             print(e)
             return None
