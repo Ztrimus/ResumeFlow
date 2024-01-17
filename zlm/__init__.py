@@ -26,7 +26,7 @@ from zlm.utils.utils import (
     text_to_pdf,
     get_prompt,
 )
-from zlm.utils.metrics import jaccard_similarity, overlap_coefficient
+from zlm.utils.metrics import jaccard_similarity, overlap_coefficient, cosine_similarity, vector_embedding_similarity
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
@@ -339,19 +339,29 @@ class AutoApplyModel:
 
             # Extract job details
             job_details = self.job_details_extraction(url=job_url)
+            # job_details = read_json("/Users/saurabh/Downloads/JobLLM_Resume_CV/Netflix/Netflix_MachineLearning_JD.json")
 
             # Build resume
             resume_details = self.resume_builder(job_details, user_data)
+            # resume_details = read_json("/Users/saurabh/Downloads/JobLLM_Resume_CV/Netflix/Netflix_MachineLearning_resume.json")
 
             # Calculate metrics
-            for metric in ['jaccard_similarity', 'overlap_coefficient']:
+            for metric in ['jaccard_similarity', 'overlap_coefficient', 'cosine_similarity', 'vector_embedding_similarity']:
                 print(f"\nCalculating {metric}...")
-                
-                user_personlization = globals()[metric](json.dumps(resume_details), json.dumps(user_data))
-                job_alignment = globals()[metric](json.dumps(resume_details), json.dumps(job_details))
 
-                print("User Personlization Score: ", user_personlization)
-                print("Job Alignment Score: ", job_alignment)
+                if metric == 'vector_embedding_similarity':
+                    llm = self.get_llm_instance('')
+                    user_personlization = globals()[metric](llm, json.dumps(resume_details), json.dumps(user_data))
+                    job_alignment = globals()[metric](llm, json.dumps(resume_details), json.dumps(job_details))
+                    job_match = globals()[metric](llm, json.dumps(user_data), json.dumps(job_details))
+                else:
+                    user_personlization = globals()[metric](json.dumps(resume_details), json.dumps(user_data))
+                    job_alignment = globals()[metric](json.dumps(resume_details), json.dumps(job_details))
+                    job_match = globals()[metric](json.dumps(user_data), json.dumps(job_details))
+
+                print("User Personlization Score(resume,master_data): ", user_personlization)
+                print("Job Alignment Score(resume,JD): ", job_alignment)
+                print("Job Match Score(master_data,JD): ", job_match)
 
             cv_details = self.cover_letter_generator(job_details, user_data)
 

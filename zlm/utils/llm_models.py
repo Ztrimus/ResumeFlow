@@ -16,7 +16,8 @@ import pandas as pd
 
 class ChatGPT:
     def __init__(self, api_key, system_prompt):
-        self.system_prompt = {"role": "system", "content": system_prompt}
+        if system_prompt.strip():
+            self.system_prompt = {"role": "system", "content": system_prompt}
         self.client = OpenAI(api_key=api_key)
     
     def get_response(self, prompt, expecting_longer_output=False, need_json_output=False):
@@ -54,7 +55,7 @@ class Gemini:
     # TODO: Test and Improve support for Gemini API
     def __init__(self, api_key, system_prompt):
         genai.configure(api_key=api_key)
-        self.system_prompt = "System Prompt\n======\n" + system_prompt
+        self.system_prompt = "System Prompt\n======\n" + system_prompt if system_prompt.strip() else ""
     
     def get_response(self, prompt, expecting_longer_output=False, need_json_output=False):
         try:
