@@ -51,7 +51,7 @@ class AutoApplyModel:
 
     Methods:
         get_prompt(system_prompt_path: str) -> str: Returns the system prompt from the specified path.
-        get_resume_to_json(pdf_path: str) -> dict: Extracts resume details from the specified PDF path.
+        resume_to_json(pdf_path: str) -> dict: Extracts resume details from the specified PDF path.
         user_data_extraction(user_data_path: str) -> dict: Extracts user data from the specified path.
         job_details_extraction(url: str) -> dict: Extracts job details from the specified job URL.
         resume_builder(job_details: dict, user_data: dict) -> dict: Generates a resume based on job details and user data.
@@ -123,7 +123,7 @@ class AutoApplyModel:
             
         # qa = RetrievalQA(vector_store=user_embeddings, query_vector_store=job_embeddings, k=3)
 
-    def get_resume_to_json(self, pdf_path):
+    def resume_to_json(self, pdf_path):
         """
         Converts a resume in PDF format to JSON format.
 
@@ -169,7 +169,7 @@ class AutoApplyModel:
 
         # Read user data
         if os.path.splitext(user_data_path)[1] == ".pdf":
-            user_data = self.get_resume_to_json(user_data_path)
+            user_data = self.resume_to_json(user_data_path)
         else:
             user_data = read_json(user_data_path)
         
@@ -200,8 +200,8 @@ class AutoApplyModel:
             # TODO: Handle case where it returns None. sometime, website take time to load, but scraper complete before that.
             if url is not None and url.strip() != "":
                 job_site_content = get_url_content(url)
-                while job_site_content is None:
-                    job_site_content = get_url_content(url)
+                if job_site_content is None:
+                    raise Exception("Unable to web scrape the job description.")
 
             llm = self.get_llm_instance(system_prompt)
             job_details = llm.get_response(job_site_content, need_json_output=True)
@@ -341,12 +341,15 @@ class AutoApplyModel:
             job_details = self.job_details_extraction(url=job_url)
             # job_details = read_json("/Users/saurabh/Downloads/JobLLM_Resume_CV/Netflix/Netflix_MachineLearning_JD.json")
 
+            # Generate cover letter
+            cv_details = self.cover_letter_generator(job_details, user_data)
+
             # Build resume
             resume_details = self.resume_builder(job_details, user_data)
             # resume_details = read_json("/Users/saurabh/Downloads/JobLLM_Resume_CV/Netflix/Netflix_MachineLearning_resume.json")
 
             # Calculate metrics
-            for metric in ['jaccard_similarity', 'overlap_coefficient', 'cosine_similarity', 'vector_embedding_similarity']:
+            for metric in ['jaccard_similarity', 'overlap_coefficient', 'cosine_similarity']:
                 print(f"\nCalculating {metric}...")
 
                 if metric == 'vector_embedding_similarity':
@@ -362,8 +365,6 @@ class AutoApplyModel:
                 print("User Personlization Score(resume,master_data): ", user_personlization)
                 print("Job Alignment Score(resume,JD): ", job_alignment)
                 print("Job Match Score(master_data,JD): ", job_match)
-
-            cv_details = self.cover_letter_generator(job_details, user_data)
 
             print("\nDone!!!")
         except Exception as e:
