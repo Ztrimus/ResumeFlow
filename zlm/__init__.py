@@ -29,9 +29,6 @@ from zlm.utils.utils import (
     get_prompt,
 )
 from zlm.utils.metrics import jaccard_similarity, overlap_coefficient, cosine_similarity, vector_embedding_similarity
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.vectorstores import FAISS
 
 
 module_dir = os.path.dirname(__file__)
@@ -85,19 +82,19 @@ class AutoApplyModel:
         else:
             self.downloads_dir = downloads_dir
     
-    def load_and_split_documents(self, data, chunk_size=1024, chunk_overlap=100):
-        try:
-            # DO: Decide apt chunk size and overlap. start small(128/256) for granular semnatic info to large(512/1024) chunks for broad context.
-            text_splitter = RecursiveCharacterTextSplitter(
-                chunk_size=chunk_size, 
-                chunk_overlap=chunk_overlap,
-                length_function=len
-            )
-            chunks = text_splitter.split_text(data)
-            return chunks
-        except Exception as e:
-            print(e)
-            return None
+    # def load_and_split_documents(self, data, chunk_size=1024, chunk_overlap=100):
+    #     try:
+    #         # DO: Decide apt chunk size and overlap. start small(128/256) for granular semnatic info to large(512/1024) chunks for broad context.
+    #         text_splitter = RecursiveCharacterTextSplitter(
+    #             chunk_size=chunk_size, 
+    #             chunk_overlap=chunk_overlap,
+    #             length_function=len
+    #         )
+    #         chunks = text_splitter.split_text(data)
+    #         return chunks
+    #     except Exception as e:
+    #         print(e)
+    #         return None
     
     # Define a function to perform similarity search between user and job description
     def find_similar_points(self, user_embeddings, job_embeddings):

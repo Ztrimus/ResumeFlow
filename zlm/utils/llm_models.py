@@ -180,14 +180,14 @@ class Llama2:
         return response
 
 # DO: https://ai.google.dev/tutorials/python_quickstart#use_embeddings
-def compute_embedding(self, chunks):
-    try:
-        embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-        vector_embedding = FAISS.from_texts( texts = chunks, embedding=embeddings)
-        return vector_embedding
-    except Exception as e:
-        print(e)
-        return None
+# def compute_embedding(self, chunks):
+#     try:
+#         embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+#         vector_embedding = FAISS.from_texts( texts = chunks, embedding=embeddings)
+#         return vector_embedding
+#     except Exception as e:
+#         print(e)
+#         return None
 
 # Define a function to compute embeddings for the text   
 # def compute_embedding(self, text):
