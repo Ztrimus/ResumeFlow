@@ -7,12 +7,14 @@ Developer Email: saurabhzinjad@gmail.com
 Copyright (c) 2023-2024 Saurabh Zinjad. All rights reserved | https://github.com/Ztrimus
 -----------------------------------------------------------------------
 '''
-import base64
 import os
+import json
+import base64
 import shutil
 import streamlit as st
 
 from zlm import AutoApplyModel
+from zlm.utils.metrics import jaccard_similarity, overlap_coefficient, cosine_similarity
 
 def displayPDF(file):
     # Opening file from file path
@@ -109,8 +111,29 @@ if get_resume_button or get_cover_letter_button:
         
         # Build Resume
         if get_resume_button:
-            resume_path, resume_latex = resume_llm.resume_builder(job_details, user_data, is_st_print=True)
+            resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st_print=True)
             st.subheader("Generated Resume")
+            
+            # Calculate metrics
+            st.subheader("Metrics")
+            for metric in ['overlap_coefficient', 'cosine_similarity']:
+                user_personlization = globals()[metric](json.dumps(resume_details), json.dumps(user_data))
+                job_alignment = globals()[metric](json.dumps(resume_details), json.dumps(job_details))
+                job_match = globals()[metric](json.dumps(user_data), json.dumps(job_details))
+
+                if metric == "overlap_coefficient":
+                    title = "Overlap Coefficient"
+                    help_text = "The overlap coefficient is a measure of the overlap between two sets, and is defined as the size of the intersection divided by the smaller of the size of the two sets."
+                elif metric == "cosine_similarity":
+                    title = "Cosine Similarity"
+                    help_text = "The cosine similarity is a measure of the similarity between two non-zero vectors of an inner product space that measures the cosine of the angle between them."
+
+                st.caption(f"### **:rainbow[{title}]**", help=help_text)
+                col_m_1, col_m_2, col_m_3 = st.columns(3)
+                col_m_1.metric(label=":green[User Personlization Score]", value="0.546", delta="[resume,master_data]", delta_color="off")
+                col_m_2.metric(label=":blue[Job Alignment Score]", value="0.546", delta="[resume,JD]", delta_color="off")
+                col_m_3.metric(label=":violet[Job Match Score]", value="0.546", delta="[master_data,JD]", delta_color="off")
+
             displayPDF(resume_path)
             st.toast("Resume generated successfully!", icon="✅")
             st.markdown("---")
