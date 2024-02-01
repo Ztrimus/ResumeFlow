@@ -9,6 +9,7 @@ Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 """
 import os
 import json
+import time
 import streamlit as st
 
 import numpy as np
@@ -315,6 +316,7 @@ class AutoApplyModel:
 
             llm = self.get_llm_instance(system_prompt)
             response = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
+            time.sleep(1)
             resume_details[section] = response[section]
         
         resume_details['keywords'] = job_details['keywords']
@@ -326,7 +328,7 @@ class AutoApplyModel:
 
         pdf_data, resume_latex = latex_to_pdf(resume_details, resume_path)
         print("Resume PDF generated at: ", resume_path)
-        return resume_path, resume_latex
+        return resume_path, resume_details
 
     def resume_cv_pipeline(self, job_url: str, user_data_path: str = demo_data_path):
         """Run the Auto Apply Pipeline.
@@ -359,7 +361,7 @@ class AutoApplyModel:
             cv_details, _ = self.cover_letter_generator(job_details, user_data)
 
             # Build resume
-            resume_details, _ = self.resume_builder(job_details, user_data)
+            resume_path, resume_details = self.resume_builder(job_details, user_data)
             # resume_details = read_json("/Users/saurabh/Downloads/JobLLM_Resume_CV/Netflix/Netflix_MachineLearning_resume.json")
 
             # Calculate metrics
