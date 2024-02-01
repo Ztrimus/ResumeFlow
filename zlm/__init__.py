@@ -313,10 +313,12 @@ class AutoApplyModel:
 
             llm = self.get_llm_instance(system_prompt)
             response = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
-            time.sleep(1)
-            resume_details[section] = response[section]
+            time.sleep(2)
+            if section in response:
+                resume_details[section] = response[section]
         
-        resume_details['keywords'] = job_details['keywords']
+        if 'keywords' in job_details:
+            resume_details['keywords'] = job_details['keywords']
         resume_path = job_doc_name(job_details, self.downloads_dir, "resume")
 
         write_json(resume_path, resume_details)

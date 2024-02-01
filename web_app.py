@@ -128,11 +128,11 @@ if get_resume_button or get_cover_letter_button:
                     title = "Cosine Similarity"
                     help_text = "The cosine similarity is a measure of the similarity between two non-zero vectors of an inner product space that measures the cosine of the angle between them."
 
-                st.caption(f"### **:rainbow[{title}]**", help=help_text)
+                st.caption(f"## **:rainbow[{title}]**", help=help_text)
                 col_m_1, col_m_2, col_m_3 = st.columns(3)
-                col_m_1.metric(label=":green[User Personlization Score]", value="0.546", delta="[resume,master_data]", delta_color="off")
-                col_m_2.metric(label=":blue[Job Alignment Score]", value="0.546", delta="[resume,JD]", delta_color="off")
-                col_m_3.metric(label=":violet[Job Match Score]", value="0.546", delta="[master_data,JD]", delta_color="off")
+                col_m_1.metric(label=":green[User Personlization Score]", value=f"{user_personlization:.3f}", delta="[resume,master_data]", delta_color="off")
+                col_m_2.metric(label=":blue[Job Alignment Score]", value=f"{job_alignment:.3f}", delta="[resume,JD]", delta_color="off")
+                col_m_3.metric(label=":violet[Job Match Score]", value=f"{job_match:.3f}", delta="[master_data,JD]", delta_color="off")
 
             displayPDF(resume_path)
             st.toast("Resume generated successfully!", icon="✅")
