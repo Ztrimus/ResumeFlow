@@ -285,49 +285,52 @@ class AutoApplyModel:
         Raises:
             FileNotFoundError: If the system prompt files are not found.
         """
+        try:
+            print("\nGenerating Resume Details...")
+            if is_st_print: st.toast("Generating Resume Details...")
 
-        print("\nGenerating Resume Details...")
-        if is_st_print: st.toast("Generating Resume Details...")
+            resume_details = dict()
+            system_prompt = get_prompt(os.path.join(prompt_path, "persona-job-llm.txt"))
 
-        resume_details = dict()
-        system_prompt = get_prompt(os.path.join(prompt_path, "persona-job-llm.txt"))
+            print("Processing Resume's Personal Info Section...")
+            if is_st_print: st.toast("Processing Resume's Personal Info Section...")
+            # Personal Information Section
+            resume_details["personal"] = { 
+                "name": user_data["name"], 
+                "phone": user_data["phone"], 
+                "email": user_data["email"],
+                "github": user_data["media"]["github"], 
+                "linkedin": user_data["media"]["linkedin"]
+                }
 
-        print("Processing Resume's Personal Info Section...")
-        if is_st_print: st.toast("Processing Resume's Personal Info Section...")
-        # Personal Information Section
-        resume_details["personal"] = { 
-            "name": user_data["name"], 
-            "phone": user_data["phone"], 
-            "email": user_data["email"],
-            "github": user_data["media"]["github"], 
-            "linkedin": user_data["media"]["linkedin"]
-            }
+            # Other Sections
+            for section in ['work', 'education', 'skill_section', 'projects', 'certifications', 'achievements']:
+                section_log = f"Processing Resume's {section.upper()} Section..."
+                print(section_log)
+                if is_st_print: st.toast(section_log)
+                query = get_prompt(os.path.join(prompt_path, "sections", f"{section}.txt"))
+                query = query.replace("<SECTION_DATA>", json.dumps(user_data[section])).replace("<JOB_DESCRIPTION>", json.dumps(job_details))
 
-        # Other Sections
-        for section in ['education', 'work', 'skill_section', 'projects', 'certifications', 'achievements']:
-            section_log = f"Processing Resume's {section.upper()} Section..."
-            print(section_log)
-            if is_st_print: st.toast(section_log)
-            query = get_prompt(os.path.join(prompt_path, "sections", f"{section}.txt"))
-            query = query.replace("<SECTION_DATA>", json.dumps(user_data[section])).replace("<JOB_DESCRIPTION>", json.dumps(job_details))
+                llm = self.get_llm_instance(system_prompt)
+                response = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
+                time.sleep(2)
+                if section in response:
+                    resume_details[section] = response[section]
+            
+            if 'keywords' in job_details:
+                resume_details['keywords'] = job_details['keywords']
+            resume_path = job_doc_name(job_details, self.downloads_dir, "resume")
 
-            llm = self.get_llm_instance(system_prompt)
-            response = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
-            time.sleep(2)
-            if section in response:
-                resume_details[section] = response[section]
-        
-        if 'keywords' in job_details:
-            resume_details['keywords'] = job_details['keywords']
-        resume_path = job_doc_name(job_details, self.downloads_dir, "resume")
+            write_json(resume_path, resume_details)
 
-        write_json(resume_path, resume_details)
+            resume_path = resume_path.replace(".json", ".pdf")
 
-        resume_path = resume_path.replace(".json", ".pdf")
-
-        pdf_data, resume_latex = latex_to_pdf(resume_details, resume_path)
-        print("Resume PDF generated at: ", resume_path)
-        return resume_path, resume_details
+            pdf_data, resume_latex = latex_to_pdf(resume_details, resume_path)
+            print("Resume PDF generated at: ", resume_path)
+            return resume_path, resume_details
+        except Exception as e:
+            print(e)
+            return None, None
 
     def resume_cv_pipeline(self, job_url: str, user_data_path: str = demo_data_path):
         """Run the Auto Apply Pipeline.

@@ -182,9 +182,9 @@ def get_default_download_folder():
 def parse_json_markdown(json_string: str) -> dict:
     try:
         # Try to find JSON string within first and last triple backticks
-        match = re.search(r"""```       # match first occuring triple backticks
-                            (?:json)? # zero or one match of string json in non-capturing group
-                            (.*)```   # greedy match to last triple backticks""", json_string, flags=re.DOTALL|re.VERBOSE)
+        match = re.search(r"""```*
+                            (?:json)?
+                            (.*)```""", json_string, flags=re.DOTALL|re.VERBOSE)
 
         # If no match found, assume the entire string is a JSON string
         if match is None:
