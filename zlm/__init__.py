@@ -9,6 +9,7 @@ Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 """
 import os
 import json
+import streamlit as st
 
 import numpy as np
 
@@ -152,7 +153,7 @@ class AutoApplyModel:
             raise Exception("Invalid LLM Provider")
 
     @measure_execution_time
-    def user_data_extraction(self, user_data_path: str = demo_data_path):
+    def user_data_extraction(self, user_data_path: str = demo_data_path, is_st_print=False):
         """
         Extracts user data from the given file path.
 
@@ -163,8 +164,10 @@ class AutoApplyModel:
             dict: The extracted user data in JSON format.
         """
         print("\nFetching user data...")
+        if is_st_print:
+            st.toast("Fetching user data...")
 
-        if user_data_path is None or user_data_path.strip() == "":
+        if user_data_path is None or (type(user_data_path) is str and user_data_path.strip() == ""):
             user_data_path = demo_data_path
 
         # Read user data
@@ -176,7 +179,7 @@ class AutoApplyModel:
         return user_data
 
     @measure_execution_time
-    def job_details_extraction(self, url: str=None, job_site_content: str=None):
+    def job_details_extraction(self, url: str=None, job_site_content: str=None, is_st_print=False):
         """
         Extracts job details from the specified job URL.
 
@@ -189,6 +192,8 @@ class AutoApplyModel:
         """
         
         print("\nExtracting job details...")
+        if is_st_print:
+            st.toast("Extracting job details...")
 
         try:
             system_prompt = get_prompt(
@@ -205,12 +210,16 @@ class AutoApplyModel:
 
             llm = self.get_llm_instance(system_prompt)
             job_details = llm.get_response(job_site_content, need_json_output=True)
-            job_details["url"] = url
+            if url is not None and url.strip() != "":
+                job_details["url"] = url
             jd_path = job_doc_name(job_details, self.downloads_dir, "jd")
 
             write_json(jd_path, job_details)
-            print("Job Details JSON generated at: ", jd_path)
-            del job_details['url']
+            print_line = f"Job Details JSON generated at: {jd_path}"
+            print(print_line)
+
+            if url is not None and url.strip() != "":
+                del job_details['url']
             return job_details
 
         except Exception as e:
@@ -218,7 +227,7 @@ class AutoApplyModel:
             return None
  
     @measure_execution_time
-    def cover_letter_generator(self, job_details: dict, user_data: dict, need_pdf: bool = True):
+    def cover_letter_generator(self, job_details: dict, user_data: dict, need_pdf: bool = True, is_st_print=False):
         """
         Generates a cover letter based on the provided job details and user data.
 
@@ -233,6 +242,7 @@ class AutoApplyModel:
             None
         """
         print("\nGenerating Cover Letter...")
+        if is_st_print: st.toast("Generating Cover Letter...")
 
         system_prompt = get_prompt(
             os.path.join(prompt_path, "persona-job-llm.txt")
@@ -259,11 +269,11 @@ class AutoApplyModel:
             text_to_pdf(cover_letter, cv_path.replace(".txt", ".pdf"))
             print("Cover Letter PDF generated at: ", cv_path.replace(".txt", ".pdf"))
         
-        return cover_letter
+        return cover_letter, cv_path.replace(".txt", ".pdf")
 
 
     @measure_execution_time
-    def resume_builder(self, job_details: dict, user_data: dict):
+    def resume_builder(self, job_details: dict, user_data: dict, is_st_print=False):
         """
         Builds a resume based on the provided job details and user data.
 
@@ -279,11 +289,13 @@ class AutoApplyModel:
         """
 
         print("\nGenerating Resume Details...")
+        if is_st_print: st.toast("Generating Resume Details...")
 
         resume_details = dict()
         system_prompt = get_prompt(os.path.join(prompt_path, "persona-job-llm.txt"))
 
         print("Processing Resume's Personal Info Section...")
+        if is_st_print: st.toast("Processing Resume's Personal Info Section...")
         # Personal Information Section
         resume_details["personal"] = { 
             "name": user_data["name"], 
@@ -295,7 +307,9 @@ class AutoApplyModel:
 
         # Other Sections
         for section in ['education', 'work', 'skill_section', 'projects', 'certifications', 'achievements']:
-            print(f"Processing Resume's {section.upper()} Section...")
+            section_log = f"Processing Resume's {section.upper()} Section..."
+            print(section_log)
+            if is_st_print: st.toast(section_log)
             query = get_prompt(os.path.join(prompt_path, "sections", f"{section}.txt"))
             query = query.replace("<SECTION_DATA>", json.dumps(user_data[section])).replace("<JOB_DESCRIPTION>", json.dumps(job_details))
 
@@ -310,9 +324,9 @@ class AutoApplyModel:
 
         resume_path = resume_path.replace(".json", ".pdf")
 
-        latex_to_pdf(resume_details, resume_path)
+        pdf_data, resume_latex = latex_to_pdf(resume_details, resume_path)
         print("Resume PDF generated at: ", resume_path)
-        return resume_details
+        return resume_path, resume_latex
 
     def resume_cv_pipeline(self, job_url: str, user_data_path: str = demo_data_path):
         """Run the Auto Apply Pipeline.
@@ -342,10 +356,10 @@ class AutoApplyModel:
             # job_details = read_json("/Users/saurabh/Downloads/JobLLM_Resume_CV/Netflix/Netflix_MachineLearning_JD.json")
 
             # Generate cover letter
-            cv_details = self.cover_letter_generator(job_details, user_data)
+            cv_details, _ = self.cover_letter_generator(job_details, user_data)
 
             # Build resume
-            resume_details = self.resume_builder(job_details, user_data)
+            resume_details, _ = self.resume_builder(job_details, user_data)
             # resume_details = read_json("/Users/saurabh/Downloads/JobLLM_Resume_CV/Netflix/Netflix_MachineLearning_resume.json")
 
             # Calculate metrics

@@ -14,6 +14,7 @@ import time
 import json
 import platform
 import subprocess
+import streamlit as st
 from fpdf import FPDF
 from pathlib import Path
 from datetime import datetime
@@ -96,7 +97,11 @@ def measure_execution_time(func):
         result = func(*args, **kwargs)
         end_time = time.time()
         execution_time = end_time - start_time
-        print(f"Function {func.__name__} took {execution_time:.4f} seconds to execute")
+        func_run_log = f"Function {func.__name__} took {execution_time:.4f} seconds to execute"
+        print(func_run_log)
+        if 'is_st_print' in kwargs and kwargs['is_st_print']:
+            st.write(func_run_log)
+
         return result
 
     return wrapper
