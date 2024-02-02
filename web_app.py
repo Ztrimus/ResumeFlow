@@ -101,17 +101,20 @@ if get_resume_button or get_cover_letter_button:
     
         # Extract user data
         user_data = resume_llm.user_data_extraction(file_path, is_st_print=True)
-        st.write("Outer user_data: ", user_data)
+        with st.status("Extracting user data..."):
+            st.write(user_data)
 
         shutil.rmtree(os.path.dirname(file_path))
 
         # Extract job details
         if url != "":
-            job_details = resume_llm.job_details_extraction(url=url, is_st_print=True)
+            job_details, jd_path = resume_llm.job_details_extraction(url=url, is_st_print=True)
         elif text != "":
-            job_details = resume_llm.job_details_extraction(job_site_content=text, is_st_print=True)
+            job_details, jd_path = resume_llm.job_details_extraction(job_site_content=text, is_st_print=True)
 
-        st.write("Outer Job Details: ", job_details)
+        with st.status("Extracting job details..."):
+            st.write(jd_path)
+            st.write(job_details)
 
         if job_details is not None:
             # Build Resume

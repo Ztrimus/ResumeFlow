@@ -218,7 +218,7 @@ class AutoApplyModel:
 
             if url is not None and url.strip() != "":
                 del job_details['url']
-            return job_details
+            return job_details, jd_path
 
         except Exception as e:
             print(e)
@@ -364,7 +364,7 @@ class AutoApplyModel:
             user_data = self.user_data_extraction(user_data_path)
 
             # Extract job details
-            job_details = self.job_details_extraction(url=job_url)
+            job_details, jd_path = self.job_details_extraction(url=job_url)
             # job_details = read_json("/Users/saurabh/Downloads/JobLLM_Resume_CV/Netflix/Netflix_MachineLearning_JD.json")
 
             # Generate cover letter
