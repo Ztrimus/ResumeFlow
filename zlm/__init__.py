@@ -319,6 +319,7 @@ class AutoApplyModel:
                 st.write(response)
                 st.markdown("---")
                 resume_details[section] = response[section]
+                return self.downloads_dir, resume_details
 
             resume_details['keywords'] = job_details['keywords']
             

@@ -115,6 +115,7 @@ if get_resume_button or get_cover_letter_button:
             # Build Resume
             if get_resume_button:
                 resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st_print=True)
+                st.write("Outer resume_path: ", resume_path)
                 st.write("Outer resume_details: ", resume_details)
                 st.subheader("Generated Resume")
                 
