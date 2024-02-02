@@ -11,12 +11,8 @@ import os
 import json
 import base64
 import shutil
-import subprocess
 import streamlit as st
 
-command = "apt install texlive-latex-base texlive-fonts-recommended texlive-fonts-extra"
-process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
-output, error = process.communicate()
 
 from zlm import AutoApplyModel
 from zlm.utils.metrics import jaccard_similarity, overlap_coefficient, cosine_similarity
