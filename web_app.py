@@ -108,8 +108,6 @@ if get_resume_button or get_cover_letter_button:
             job_details = resume_llm.job_details_extraction(url=url, is_st_print=True)
         elif text != "":
             job_details = resume_llm.job_details_extraction(job_site_content=text, is_st_print=True)
-        
-        st.info(f"job details: {job_details}")
 
         # Build Resume
         if get_resume_button:
