@@ -42,5 +42,7 @@ interface PROJECT_SCHEMA {
   projects: ProjectItem[];
 }
 
-Desired Output:
-Write the Project section according to the PROJECT_SCHEMA schema. On the response, include only the JSON.
+Desired Output(Write the Project section according to the PROJECT_SCHEMA schema):
+{
+  "projects": "RESULT"
+}

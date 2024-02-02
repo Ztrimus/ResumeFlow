@@ -28,5 +28,7 @@ interface SKILL_SECTION_SCHEMA {
   skill_section: SectionItem[];
 }
 
-Desired Output:
-Write the Skills section according to the SKILL_SECTION_SCHEMA schema. On the response, include only the JSON.
+Desired Output(Write the Skills section according to the SKILL_SECTION_SCHEMA schema.):
+{
+  "skill_section": "RESULT"
+}

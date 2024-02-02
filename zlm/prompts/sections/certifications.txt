@@ -29,5 +29,7 @@ interface CERTIFICATION_SCHEMA {
   certifications: CertificationItem[];
 }
 
-Desired Output:
-Write the Certification section according to the CERTIFICATION_SCHEMA schema. On the response, include only the JSON.
+Desired Output(Write the Certification section according to the CERTIFICATION_SCHEMA schema):
+{
+  "certifications": "RESULT"
+}

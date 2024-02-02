@@ -315,6 +315,7 @@ class AutoApplyModel:
 
                 llm = self.get_llm_instance(system_prompt)
                 response = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
+                print(response)
                 st.write(response)
                 st.markdown("---")
                 resume_details[section] = response[section]
