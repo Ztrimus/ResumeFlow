@@ -182,6 +182,10 @@ def get_default_download_folder():
 def parse_json_markdown(json_string: str) -> dict:
     try:
         # Try to find JSON string within first and last triple backticks
+        if json_string[3:13] == "typescript":
+            print(f"{json_string}")
+            json_string = json_string.replace("typescript", "",1)
+
         match = re.search(r"""```*
                             (?:json)?
                             (.*)```""", json_string, flags=re.DOTALL|re.VERBOSE)
