@@ -109,6 +109,8 @@ if get_resume_button or get_cover_letter_button:
         elif text != "":
             job_details = resume_llm.job_details_extraction(job_site_content=text, is_st_print=True)
         
+        st.info(f"job details: {job_details}")
+
         # Build Resume
         if get_resume_button:
             resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st_print=True)
@@ -136,8 +138,6 @@ if get_resume_button or get_cover_letter_button:
                 col_m_2.metric(label=":blue[Job Alignment Score]", value=f"{job_alignment:.3f}", delta="[resume,JD]", delta_color="off")
                 col_m_3.metric(label=":violet[Job Match Score]", value=f"{job_match:.3f}", delta="[master_data,JD]", delta_color="off")
 
-            st.info(resume_path)
-            st.write(resume_details)
             displayPDF(resume_path)
             st.toast("Resume generated successfully!", icon="✅")
             st.markdown("---")
