@@ -47,7 +47,7 @@ def escape_for_latex(data):
 def latex_to_pdf(json_resume, dst_path):
     try:
         module_dir = os.path.dirname(__file__)
-        templates_path = os.path.join(module_dir, '..', 'templates')
+        templates_path = os.path.join(os.path.dirname(module_dir), 'templates')
 
         st.write(f"module_dir: {module_dir}")
         st.write(f"templates_path: {templates_path}")

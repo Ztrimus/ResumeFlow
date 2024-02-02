@@ -12,6 +12,7 @@ import os
 import re
 import time
 import json
+import base64
 import platform
 import subprocess
 import streamlit as st
@@ -126,7 +127,22 @@ def text_to_pdf(text: str, file_path: str):
     # except Exception as e:
     #     print("Unable to open the PDF file.")
 
-import streamlit as st
+def displayPDF(file):
+    # Opening file from file path
+    with open(file, "rb") as f:
+        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+
+    # Embedding PDF in HTML
+    pdf_display =  f"""<embed
+    class="pdfobject"
+    type="application/pdf"
+    title="Embedded PDF"
+    src="data:application/pdf;base64,{base64_pdf}"
+    style="overflow: auto; width: 100%; height: 100vh">"""
+
+    # Displaying File
+    st.markdown(pdf_display, unsafe_allow_html=True)
+
 def save_latex_as_pdf(tex_file_path: str, dst_path: str):
     # Call pdflatex to convert LaTeX to PDF
     prev_loc = os.getcwd()
@@ -141,6 +157,8 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
     os.chdir(prev_loc)
     resulted_pdf_path = tex_file_path.replace(".tex", ".pdf")
     st.write(f"resulted_pdf_path: {resulted_pdf_path}")
+
+    displayPDF(resulted_pdf_path)
 
     os.rename(resulted_pdf_path, dst_path)
 

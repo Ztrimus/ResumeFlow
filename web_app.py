@@ -94,7 +94,6 @@ if get_resume_button or get_cover_letter_button:
         resume_llm = AutoApplyModel(api_key=api_key, provider=provider, downloads_dir=None)
         
         # Save the uploaded file
-        
         os.makedirs("uploads", exist_ok=True)
         file_path = os.path.abspath(os.path.join("uploads", file.name))
         with open(file_path, "wb") as f:
@@ -168,4 +167,4 @@ if get_resume_button or get_cover_letter_button:
                 st.caching.clear_cache()
                 st.rerun()
         else:
-            st.error("Job details not able process. Please paste job description and try again.")
+            st.error("Job details not able process. Please paste job description or try again.")
