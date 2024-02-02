@@ -126,18 +126,21 @@ def text_to_pdf(text: str, file_path: str):
     # except Exception as e:
     #     print("Unable to open the PDF file.")
 
-
+import streamlit as st
 def save_latex_as_pdf(tex_file_path: str, dst_path: str):
     # Call pdflatex to convert LaTeX to PDF
     prev_loc = os.getcwd()
+    st.write(f"prev_loc: {prev_loc}")
     os.chdir(os.path.dirname(tex_file_path))
     result = subprocess.run(
         ["pdflatex", tex_file_path, "&>/dev/null"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
+    st.write(f"result: {result}")
     os.chdir(prev_loc)
     resulted_pdf_path = tex_file_path.replace(".tex", ".pdf")
+    st.write(f"resulted_pdf_path: {resulted_pdf_path}")
 
     os.rename(resulted_pdf_path, dst_path)
 
@@ -148,6 +151,7 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
         # open_file(dst_path)
     except Exception as e:
         print("Unable to open the PDF file.")
+        st.write("Unable to open the PDF file.")
 
     filename_without_ext = os.path.basename(tex_file_path).split(".")[0]
     unnessary_files = [
@@ -155,6 +159,7 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
         for file in os.listdir(os.path.dirname(os.path.realpath(tex_file_path)))
         if file.startswith(filename_without_ext)
     ]
+    st.write(unnessary_files)
     for file in unnessary_files:
         file_path = os.path.join(os.path.dirname(tex_file_path), file)
         if os.path.exists(file_path):
@@ -162,6 +167,8 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
 
     with open(dst_path, "rb") as f:
         pdf_data = f.read()
+    
+    st.write(f"pdf_data: {pdf_data}")
 
     return pdf_data
 

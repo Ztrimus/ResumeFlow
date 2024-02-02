@@ -324,6 +324,7 @@ class AutoApplyModel:
             resume_path = resume_path.replace(".json", ".pdf")
 
             st.write("write_json done, start latex")
+            st.write(f"next iter")
 
             pdf_data, resume_latex = latex_to_pdf(resume_details, resume_path)
             st.write(f"after resume_path: {resume_path}")
