@@ -100,6 +100,7 @@ if get_resume_button or get_cover_letter_button:
     
         # Extract user data
         user_data = resume_llm.user_data_extraction(file_path, is_st_print=True)
+        st.write("Outer user_data: ", user_data)
 
         shutil.rmtree(os.path.dirname(file_path))
 
