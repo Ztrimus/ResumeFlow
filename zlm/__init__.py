@@ -315,8 +315,7 @@ class AutoApplyModel:
 
                 llm = self.get_llm_instance(system_prompt)
                 response = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
-                st.write(resume_details)
-                st.markdown("---")
+                st.toast(resume_details)
                 time.sleep(2)
                 if section in response:
                     resume_details[section] = response[section]
@@ -324,20 +323,18 @@ class AutoApplyModel:
             if 'keywords' in job_details:
                 resume_details['keywords'] = job_details['keywords']
             
-            st.write(f"self.downloads_dir: {self.downloads_dir}")
-            st.markdown("---")
+            st.toast(f"self.downloads_dir: {self.downloads_dir}")
             resume_path = job_doc_name(job_details, self.downloads_dir, "resume")
             
-            st.write(f"resume_path: {resume_path}")
-            st.markdown("---")
+            st.toast(f"resume_path: {resume_path}")
 
             write_json(resume_path, resume_details)
 
             resume_path = resume_path.replace(".json", ".pdf")
 
             pdf_data, resume_latex = latex_to_pdf(resume_details, resume_path)
-            st.write(f"resume_path: {resume_path}")
-            st.write(f"resume_latex: {resume_latex}")
+            st.toast(f"resume_path: {resume_path}")
+            st.toast(f"resume_latex: {resume_latex}")
             print("Resume PDF generated at: ", resume_path)
             return resume_path, resume_details
         except Exception as e:
