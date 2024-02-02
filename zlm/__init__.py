@@ -317,12 +317,12 @@ class AutoApplyModel:
             
             st.write(f"self.downloads_dir: {self.downloads_dir}")
             resume_path = job_doc_name(job_details, self.downloads_dir, "resume")
-            
-            write_json(resume_path, resume_details)
-            resume_path = resume_path.replace(".json", ".pdf")
 
             st.write(f"resume_path: {resume_path}")
             st.write(f"resume_details: {resume_details}")
+            
+            write_json(resume_path, resume_details)
+            resume_path = resume_path.replace(".json", ".pdf")
 
             pdf_data, resume_latex = latex_to_pdf(resume_details, resume_path)
             st.write(f"resume_path: {resume_path}")
