@@ -151,7 +151,7 @@ class AutoApplyModel:
             raise Exception("Invalid LLM Provider")
 
     @measure_execution_time
-    def user_data_extraction(self, user_data_path: str = demo_data_path, is_st_print=False):
+    def user_data_extraction(self, user_data_path: str = demo_data_path):
         """
         Extracts user data from the given file path.
 
@@ -162,8 +162,6 @@ class AutoApplyModel:
             dict: The extracted user data in JSON format.
         """
         print("\nFetching user data...")
-        if is_st_print:
-            st.toast("Fetching user data...")
 
         if user_data_path is None or (type(user_data_path) is str and user_data_path.strip() == ""):
             user_data_path = demo_data_path
@@ -177,7 +175,7 @@ class AutoApplyModel:
         return user_data
 
     @measure_execution_time
-    def job_details_extraction(self, url: str=None, job_site_content: str=None, is_st_print=False):
+    def job_details_extraction(self, url: str=None, job_site_content: str=None):
         """
         Extracts job details from the specified job URL.
 
@@ -190,8 +188,6 @@ class AutoApplyModel:
         """
         
         print("\nExtracting job details...")
-        if is_st_print:
-            st.toast("Extracting job details...")
 
         try:
             system_prompt = get_prompt(
@@ -213,8 +209,7 @@ class AutoApplyModel:
             jd_path = job_doc_name(job_details, self.downloads_dir, "jd")
 
             write_json(jd_path, job_details)
-            print_line = f"Job Details JSON generated at: {jd_path}"
-            print(print_line)
+            print(f"Job Details JSON generated at: {jd_path}")
 
             if url is not None and url.strip() != "":
                 del job_details['url']
@@ -226,7 +221,7 @@ class AutoApplyModel:
             return None
  
     @measure_execution_time
-    def cover_letter_generator(self, job_details: dict, user_data: dict, need_pdf: bool = True, is_st_print=False):
+    def cover_letter_generator(self, job_details: dict, user_data: dict, need_pdf: bool = True):
         """
         Generates a cover letter based on the provided job details and user data.
 
@@ -241,7 +236,6 @@ class AutoApplyModel:
             None
         """
         print("\nGenerating Cover Letter...")
-        if is_st_print: st.toast("Generating Cover Letter...")
 
         system_prompt = get_prompt(
             os.path.join(prompt_path, "persona-job-llm.txt")
@@ -293,9 +287,8 @@ class AutoApplyModel:
             resume_details = dict()
             system_prompt = get_prompt(os.path.join(prompt_path, "persona-job-llm.txt"))
 
-            print("Processing Resume's Personal Info Section...")
-            if is_st_print: st.toast("Processing Resume's Personal Info Section...")
             # Personal Information Section
+            if is_st_print: st.toast("Processing Resume's Personal Info Section...")
             resume_details["personal"] = { 
                 "name": user_data["name"], 
                 "phone": user_data["phone"], 
@@ -303,22 +296,21 @@ class AutoApplyModel:
                 "github": user_data["media"]["github"], 
                 "linkedin": user_data["media"]["linkedin"]
                 }
-            
-            st.write(resume_details)
-            st.markdown("---")
+            with st.status("Resume's Personal Info Section"):            
+                st.write(resume_details)
+
             # Other Sections
             for section in ['work', 'education', 'skill_section', 'projects', 'certifications', 'achievements']:
                 section_log = f"Processing Resume's {section.upper()} Section..."
-                print(section_log)
                 if is_st_print: st.toast(section_log)
                 query = get_prompt(os.path.join(prompt_path, "sections", f"{section}.txt"))
                 query = query.replace("<SECTION_DATA>", json.dumps(user_data[section])).replace("<JOB_DESCRIPTION>", json.dumps(job_details))
 
                 llm = self.get_llm_instance(system_prompt)
                 response = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
-                print(response)
-                st.write(response)
-                st.markdown("---")
+                if is_st_print:
+                    with st.status(f"Resume's {section.upper()} Section"):
+                        st.write(response)
                 resume_details[section] = response[section]
 
             resume_details['keywords'] = job_details['keywords']
@@ -326,11 +318,11 @@ class AutoApplyModel:
             st.write(f"self.downloads_dir: {self.downloads_dir}")
             resume_path = job_doc_name(job_details, self.downloads_dir, "resume")
             
-            st.write(f"resume_path: {resume_path}")
-
             write_json(resume_path, resume_details)
-
             resume_path = resume_path.replace(".json", ".pdf")
+
+            st.write(f"resume_path: {resume_path}")
+            st.write(f"resume_details: {resume_details}")
 
             pdf_data, resume_latex = latex_to_pdf(resume_details, resume_path)
             st.write(f"resume_path: {resume_path}")

@@ -101,7 +101,7 @@ if get_resume_button or get_cover_letter_button:
     
         # Extract user data
         with st.status("Extracting user data..."):
-            user_data = resume_llm.user_data_extraction(file_path, is_st_print=True)
+            user_data = resume_llm.user_data_extraction(file_path)
             st.write(user_data)
 
         shutil.rmtree(os.path.dirname(file_path))
@@ -109,9 +109,9 @@ if get_resume_button or get_cover_letter_button:
         # Extract job details
         with st.status("Extracting job details..."):
             if url != "":
-                job_details = resume_llm.job_details_extraction(url=url, is_st_print=True)
+                job_details = resume_llm.job_details_extraction(url=url)
             elif text != "":
-                job_details = resume_llm.job_details_extraction(job_site_content=text, is_st_print=True)
+                job_details = resume_llm.job_details_extraction(job_site_content=text)
             
             st.write(job_details)
 
@@ -150,10 +150,11 @@ if get_resume_button or get_cover_letter_button:
 
             # Build Cover Letter
             if get_cover_letter_button:
-                cv_details, cv_pdf = resume_llm.cover_letter_generator(job_details, user_data, is_st_print=True)
+                with st.status("Building cover letter..."):
+                    cv_details, cv_pdf = resume_llm.cover_letter_generator(job_details, user_data)
                 st.subheader("Generated Cover Letter")
-                st.markdown("---")
                 st.markdown(cv_details, unsafe_allow_html=True)
+                st.markdown("---")
                 st.toast("cover letter generated successfully!", icon="✅")
             
             st.toast(f"Done", icon="👍🏻")
