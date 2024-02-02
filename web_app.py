@@ -109,6 +109,7 @@ if get_resume_button or get_cover_letter_button:
         elif text != "":
             job_details = resume_llm.job_details_extraction(job_site_content=text, is_st_print=True)
 
+        st.write("outer Job Details: ", job_details)
         # Build Resume
         if get_resume_button:
             resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st_print=True)
