@@ -168,16 +168,10 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
 
 def get_default_download_folder():
     """Get the default download folder for the current operating system."""
-
-    if OS_SYSTEM == "windows":
-        return os.path.join(str(Path.home()), "Downloads", "JobLLM_Resume_CV")
-    elif OS_SYSTEM == "darwin":  # macOS
-        return os.path.join(str(Path.home()), "Downloads", "JobLLM_Resume_CV")
-    elif OS_SYSTEM == "linux":
-        return os.path.join(str(Path.home()), "Downloads", "JobLLM_Resume_CV")
-    else:
-        # Default fallback for other systems
-        return os.path.join(str(Path.home()), "Downloads", "JobLLM_Resume_CV")
+    downlaod_folder_path = os.path.join(str(Path.home()), "Downloads", "JobLLM_Resume_CV")
+    print(f"downlaod_folder_path: {downlaod_folder_path}")
+    os.makedirs(downlaod_folder_path, exist_ok=True)
+    return downlaod_folder_path
 
 def parse_json_markdown(json_string: str) -> dict:
     try:
