@@ -100,31 +100,31 @@ if get_resume_button or get_cover_letter_button:
             f.write(file.getbuffer())
     
         # Extract user data
-        user_data = resume_llm.user_data_extraction(file_path, is_st_print=True)
         with st.status("Extracting user data..."):
+            user_data = resume_llm.user_data_extraction(file_path, is_st_print=True)
             st.write(user_data)
 
         shutil.rmtree(os.path.dirname(file_path))
 
         # Extract job details
-        if url != "":
-            job_details = resume_llm.job_details_extraction(url=url, is_st_print=True)
-        elif text != "":
-            job_details = resume_llm.job_details_extraction(job_site_content=text, is_st_print=True)
-
         with st.status("Extracting job details..."):
+            if url != "":
+                job_details = resume_llm.job_details_extraction(url=url, is_st_print=True)
+            elif text != "":
+                job_details = resume_llm.job_details_extraction(job_site_content=text, is_st_print=True)
+            
             st.write(job_details)
 
         if job_details is not None:
             # Build Resume
             if get_resume_button:
-                resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st_print=True)
-                st.write("Outer resume_path: ", resume_path)
-                st.write("Outer resume_details: ", resume_details)
-                st.subheader("Generated Resume")
+                with st.status("Building resume..."):
+                    resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st_print=True)
+                    st.write("Outer resume_path: ", resume_path)
+                    st.write("Outer resume_details: ", resume_details)
                 
                 # Calculate metrics
-                st.subheader("Metrics")
+                st.subheader("Resume Metrics")
                 for metric in ['overlap_coefficient', 'cosine_similarity']:
                     user_personlization = globals()[metric](json.dumps(resume_details), json.dumps(user_data))
                     job_alignment = globals()[metric](json.dumps(resume_details), json.dumps(job_details))
@@ -143,6 +143,7 @@ if get_resume_button or get_cover_letter_button:
                     col_m_2.metric(label=":blue[Job Alignment Score]", value=f"{job_alignment:.3f}", delta="[resume,JD]", delta_color="off")
                     col_m_3.metric(label=":violet[Job Match Score]", value=f"{job_match:.3f}", delta="[master_data,JD]", delta_color="off")
 
+                st.subheader("Generated Resume")
                 displayPDF(resume_path)
                 st.toast("Resume generated successfully!", icon="✅")
                 st.markdown("---")

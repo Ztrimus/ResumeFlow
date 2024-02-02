@@ -219,7 +219,7 @@ class AutoApplyModel:
             if url is not None and url.strip() != "":
                 del job_details['url']
             
-            return job_details, print_line
+            return job_details
 
         except Exception as e:
             print(e)
