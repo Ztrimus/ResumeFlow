@@ -151,7 +151,7 @@ class AutoApplyModel:
             raise Exception("Invalid LLM Provider")
 
     @measure_execution_time
-    def user_data_extraction(self, user_data_path: str = demo_data_path):
+    def user_data_extraction(self, user_data_path: str = demo_data_path, is_st=False):
         """
         Extracts user data from the given file path.
 
@@ -175,7 +175,7 @@ class AutoApplyModel:
         return user_data
 
     @measure_execution_time
-    def job_details_extraction(self, url: str=None, job_site_content: str=None):
+    def job_details_extraction(self, url: str=None, job_site_content: str=None, is_st=False):
         """
         Extracts job details from the specified job URL.
 
@@ -221,7 +221,7 @@ class AutoApplyModel:
             return None
  
     @measure_execution_time
-    def cover_letter_generator(self, job_details: dict, user_data: dict, need_pdf: bool = True):
+    def cover_letter_generator(self, job_details: dict, user_data: dict, need_pdf: bool = True, is_st=False):
         """
         Generates a cover letter based on the provided job details and user data.
 
@@ -266,7 +266,7 @@ class AutoApplyModel:
 
 
     @measure_execution_time
-    def resume_builder(self, job_details: dict, user_data: dict, is_st_print=False):
+    def resume_builder(self, job_details: dict, user_data: dict, is_st=False):
         """
         Builds a resume based on the provided job details and user data.
 
@@ -282,13 +282,13 @@ class AutoApplyModel:
         """
         try:
             print("\nGenerating Resume Details...")
-            if is_st_print: st.toast("Generating Resume Details...")
+            if is_st: st.toast("Generating Resume Details...")
 
             resume_details = dict()
             system_prompt = get_prompt(os.path.join(prompt_path, "persona-job-llm.txt"))
 
             # Personal Information Section
-            if is_st_print: st.toast("Processing Resume's Personal Info Section...")
+            if is_st: st.toast("Processing Resume's Personal Info Section...")
             resume_details["personal"] = { 
                 "name": user_data["name"], 
                 "phone": user_data["phone"], 
@@ -296,37 +296,38 @@ class AutoApplyModel:
                 "github": user_data["media"]["github"], 
                 "linkedin": user_data["media"]["linkedin"]
                 }
-            with st.status("Resume's Personal Info Section"):            
-                st.write(resume_details)
+            st.markdown("**Personal Info Section**")
+            st.write(resume_details)
 
             # Other Sections
             for section in ['work', 'education', 'skill_section', 'projects', 'certifications', 'achievements']:
                 section_log = f"Processing Resume's {section.upper()} Section..."
-                if is_st_print: st.toast(section_log)
+                if is_st: st.toast(section_log)
                 query = get_prompt(os.path.join(prompt_path, "sections", f"{section}.txt"))
                 query = query.replace("<SECTION_DATA>", json.dumps(user_data[section])).replace("<JOB_DESCRIPTION>", json.dumps(job_details))
 
                 llm = self.get_llm_instance(system_prompt)
                 response = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
-                if is_st_print:
-                    with st.status(f"Resume's {section.upper()} Section"):
-                        st.write(response)
                 resume_details[section] = response[section]
+                
+                if is_st:
+                    st.markdown(f"**{section.upper()} Section**")
+                    st.write(response)
 
             resume_details['keywords'] = job_details['keywords']
             
             st.write(f"self.downloads_dir: {self.downloads_dir}")
             resume_path = job_doc_name(job_details, self.downloads_dir, "resume")
 
-            st.write(f"resume_path: {resume_path}")
-            st.write(f"resume_details: {resume_details}")
-            
+            st.write("before resum json storing")
             write_json(resume_path, resume_details)
             resume_path = resume_path.replace(".json", ".pdf")
 
+            st.write("write_json done, start latex")
+
             pdf_data, resume_latex = latex_to_pdf(resume_details, resume_path)
-            st.write(f"resume_path: {resume_path}")
-            st.write(f"resume_latex: {resume_latex}")
+            st.write(f"after resume_path: {resume_path}")
+            st.write(f"after resume_latex: {resume_latex}")
             print("Resume PDF generated at: ", resume_path)
             return resume_path, resume_details
         except Exception as e:

@@ -101,7 +101,7 @@ if get_resume_button or get_cover_letter_button:
     
         # Extract user data
         with st.status("Extracting user data..."):
-            user_data = resume_llm.user_data_extraction(file_path)
+            user_data = resume_llm.user_data_extraction(file_path, is_st=True)
             st.write(user_data)
 
         shutil.rmtree(os.path.dirname(file_path))
@@ -109,9 +109,9 @@ if get_resume_button or get_cover_letter_button:
         # Extract job details
         with st.status("Extracting job details..."):
             if url != "":
-                job_details = resume_llm.job_details_extraction(url=url)
+                job_details = resume_llm.job_details_extraction(url=url, is_st=True)
             elif text != "":
-                job_details = resume_llm.job_details_extraction(job_site_content=text)
+                job_details = resume_llm.job_details_extraction(job_site_content=text, is_st=True)
             
             st.write(job_details)
 
@@ -119,7 +119,7 @@ if get_resume_button or get_cover_letter_button:
             # Build Resume
             if get_resume_button:
                 with st.status("Building resume..."):
-                    resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st_print=True)
+                    resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st=True)
                     st.write("Outer resume_path: ", resume_path)
                     st.write("Outer resume_details: ", resume_details)
                 
@@ -151,7 +151,7 @@ if get_resume_button or get_cover_letter_button:
             # Build Cover Letter
             if get_cover_letter_button:
                 with st.status("Building cover letter..."):
-                    cv_details, cv_pdf = resume_llm.cover_letter_generator(job_details, user_data)
+                    cv_details, cv_pdf = resume_llm.cover_letter_generator(job_details, user_data, is_st=True)
                 st.subheader("Generated Cover Letter")
                 st.markdown(cv_details, unsafe_allow_html=True)
                 st.markdown("---")

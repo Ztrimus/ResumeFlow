@@ -99,7 +99,7 @@ def measure_execution_time(func):
         execution_time = end_time - start_time
         func_run_log = f"Function {func.__name__} took {execution_time:.4f} seconds to execute"
         print(func_run_log)
-        if 'is_st_print' in kwargs and kwargs['is_st_print']:
+        if 'is_st' in kwargs and kwargs['is_st']:
             st.write(func_run_log)
 
         return result
@@ -177,8 +177,10 @@ def parse_json_markdown(json_string: str) -> dict:
     try:
         # Try to find JSON string within first and last triple backticks
         if json_string[3:13] == "typescript":
-            print(f"{json_string}")
             json_string = json_string.replace("typescript", "",1)
+        
+        if json_string[:4] == "JSON":
+            json_string = json_string.replace("JSON", "",1)
 
         match = re.search(r"""```*
                             (?:json)?
