@@ -70,7 +70,10 @@ def latex_to_pdf(json_resume, dst_path):
         st.write(f"escaped_json_resume: {escaped_json_resume}")
 
         resume_latex = use_template(latex_jinja_env, escaped_json_resume)
-        st.write(f"resume_latex: {resume_latex}")
+        st.write(f"resume_latex")
+        st.markdown("---")
+        st.write(resume_latex)
+        st.markdown("---")
 
         tex_temp_path = os.path.join(os.path.realpath(templates_path), os.path.basename(dst_path).replace(".pdf", ".tex"))
         st.write(f"tex_temp_path: {tex_temp_path}")

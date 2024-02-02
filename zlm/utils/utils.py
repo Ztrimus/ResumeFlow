@@ -159,6 +159,14 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
     st.write(f"resulted_pdf_path: {resulted_pdf_path}")
     st.write(f"dst_path: {dst_path}")
 
+    with open(resulted_pdf_path, "rb") as pdf_file:
+        PDFbyte = pdf_file.read()
+
+    st.download_button(label="Export_Report",
+                        data=PDFbyte,
+                        file_name="test.pdf",
+                        mime='application/octet-stream')
+
     displayPDF(resulted_pdf_path)
 
     os.rename(resulted_pdf_path, dst_path)
@@ -175,17 +183,17 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
         print("Unable to open the PDF file.")
         st.write("Unable to open the PDF file.")
 
-    filename_without_ext = os.path.basename(tex_file_path).split(".")[0]
-    unnessary_files = [
-        file
-        for file in os.listdir(os.path.dirname(os.path.realpath(tex_file_path)))
-        if file.startswith(filename_without_ext)
-    ]
-    st.write(unnessary_files)
-    for file in unnessary_files:
-        file_path = os.path.join(os.path.dirname(tex_file_path), file)
-        if os.path.exists(file_path):
-            os.remove(file_path)
+    # filename_without_ext = os.path.basename(tex_file_path).split(".")[0]
+    # unnessary_files = [
+    #     file
+    #     for file in os.listdir(os.path.dirname(os.path.realpath(tex_file_path)))
+    #     if file.startswith(filename_without_ext)
+    # ]
+    # st.write(unnessary_files)
+    # for file in unnessary_files:
+    #     file_path = os.path.join(os.path.dirname(tex_file_path), file)
+    #     if os.path.exists(file_path):
+    #         os.remove(file_path)
 
     with open(dst_path, "rb") as f:
         pdf_data = f.read()
