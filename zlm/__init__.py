@@ -333,6 +333,7 @@ class AutoApplyModel:
             return resume_path, resume_details
         except Exception as e:
             print(e)
+            st.write("Error: \n\n",e)
             return None, None
 
     def resume_cv_pipeline(self, job_url: str, user_data_path: str = demo_data_path):
