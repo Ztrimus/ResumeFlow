@@ -110,51 +110,54 @@ if get_resume_button or get_cover_letter_button:
             job_details = resume_llm.job_details_extraction(job_site_content=text, is_st_print=True)
 
         st.write("outer Job Details: ", job_details)
-        # Build Resume
-        if get_resume_button:
-            resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st_print=True)
-            st.subheader("Generated Resume")
+        if job_details is not None:
+            # Build Resume
+            if get_resume_button:
+                resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st_print=True)
+                st.subheader("Generated Resume")
 
-            print(f"\n\nResume Details\n---------------{resume_details}\n---------------\n\n")
+                print(f"\n\nResume Details\n---------------{resume_details}\n---------------\n\n")
+                
+                # Calculate metrics
+                st.subheader("Metrics")
+                for metric in ['overlap_coefficient', 'cosine_similarity']:
+                    user_personlization = globals()[metric](json.dumps(resume_details), json.dumps(user_data))
+                    job_alignment = globals()[metric](json.dumps(resume_details), json.dumps(job_details))
+                    job_match = globals()[metric](json.dumps(user_data), json.dumps(job_details))
+
+                    if metric == "overlap_coefficient":
+                        title = "Overlap Coefficient"
+                        help_text = "The overlap coefficient is a measure of the overlap between two sets, and is defined as the size of the intersection divided by the smaller of the size of the two sets."
+                    elif metric == "cosine_similarity":
+                        title = "Cosine Similarity"
+                        help_text = "The cosine similarity is a measure of the similarity between two non-zero vectors of an inner product space that measures the cosine of the angle between them."
+
+                    st.caption(f"## **:rainbow[{title}]**", help=help_text)
+                    col_m_1, col_m_2, col_m_3 = st.columns(3)
+                    col_m_1.metric(label=":green[User Personlization Score]", value=f"{user_personlization:.3f}", delta="[resume,master_data]", delta_color="off")
+                    col_m_2.metric(label=":blue[Job Alignment Score]", value=f"{job_alignment:.3f}", delta="[resume,JD]", delta_color="off")
+                    col_m_3.metric(label=":violet[Job Match Score]", value=f"{job_match:.3f}", delta="[master_data,JD]", delta_color="off")
+
+                displayPDF(resume_path)
+                st.toast("Resume generated successfully!", icon="✅")
+                st.markdown("---")
+
+            # Build Cover Letter
+            if get_cover_letter_button:
+                cv_details, cv_pdf = resume_llm.cover_letter_generator(job_details, user_data, is_st_print=True)
+                st.subheader("Generated Cover Letter")
+                st.markdown("---")
+                st.markdown(cv_details, unsafe_allow_html=True)
+                st.toast("cover letter generated successfully!", icon="✅")
             
-            # Calculate metrics
-            st.subheader("Metrics")
-            for metric in ['overlap_coefficient', 'cosine_similarity']:
-                user_personlization = globals()[metric](json.dumps(resume_details), json.dumps(user_data))
-                job_alignment = globals()[metric](json.dumps(resume_details), json.dumps(job_details))
-                job_match = globals()[metric](json.dumps(user_data), json.dumps(job_details))
+            st.toast(f"Done", icon="👍🏻")
+            st.success(f"Done", icon="👍🏻")
+            st.balloons()
+            
+            refresh = st.button("Refresh")
 
-                if metric == "overlap_coefficient":
-                    title = "Overlap Coefficient"
-                    help_text = "The overlap coefficient is a measure of the overlap between two sets, and is defined as the size of the intersection divided by the smaller of the size of the two sets."
-                elif metric == "cosine_similarity":
-                    title = "Cosine Similarity"
-                    help_text = "The cosine similarity is a measure of the similarity between two non-zero vectors of an inner product space that measures the cosine of the angle between them."
-
-                st.caption(f"## **:rainbow[{title}]**", help=help_text)
-                col_m_1, col_m_2, col_m_3 = st.columns(3)
-                col_m_1.metric(label=":green[User Personlization Score]", value=f"{user_personlization:.3f}", delta="[resume,master_data]", delta_color="off")
-                col_m_2.metric(label=":blue[Job Alignment Score]", value=f"{job_alignment:.3f}", delta="[resume,JD]", delta_color="off")
-                col_m_3.metric(label=":violet[Job Match Score]", value=f"{job_match:.3f}", delta="[master_data,JD]", delta_color="off")
-
-            displayPDF(resume_path)
-            st.toast("Resume generated successfully!", icon="✅")
-            st.markdown("---")
-
-        # Build Cover Letter
-        if get_cover_letter_button:
-            cv_details, cv_pdf = resume_llm.cover_letter_generator(job_details, user_data, is_st_print=True)
-            st.subheader("Generated Cover Letter")
-            st.markdown("---")
-            st.markdown(cv_details, unsafe_allow_html=True)
-            st.toast("cover letter generated successfully!", icon="✅")
-        
-        st.toast(f"Done", icon="👍🏻")
-        st.success(f"Done", icon="👍🏻")
-        st.balloons()
-        
-        refresh = st.button("Refresh")
-
-        if refresh:
-            st.caching.clear_cache()
-            st.rerun()
+            if refresh:
+                st.caching.clear_cache()
+                st.rerun()
+        else:
+            st.error("Job details not able process. Please paste job description and try again.")
