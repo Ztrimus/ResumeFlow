@@ -302,7 +302,9 @@ class AutoApplyModel:
                 "github": user_data["media"]["github"], 
                 "linkedin": user_data["media"]["linkedin"]
                 }
-
+            
+            st.write(resume_details)
+            st.markdown("---")
             # Other Sections
             for section in ['work', 'education', 'skill_section', 'projects', 'certifications', 'achievements']:
                 section_log = f"Processing Resume's {section.upper()} Section..."
@@ -313,7 +315,8 @@ class AutoApplyModel:
 
                 llm = self.get_llm_instance(system_prompt)
                 response = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
-                st.info(response)
+                st.write(resume_details)
+                st.markdown("---")
                 time.sleep(2)
                 if section in response:
                     resume_details[section] = response[section]
@@ -321,18 +324,20 @@ class AutoApplyModel:
             if 'keywords' in job_details:
                 resume_details['keywords'] = job_details['keywords']
             
-            st.info(f"self.downloads_dir: {self.downloads_dir}")
+            st.write(f"self.downloads_dir: {self.downloads_dir}")
+            st.markdown("---")
             resume_path = job_doc_name(job_details, self.downloads_dir, "resume")
             
-            st.info(f"resume_path: {resume_path}")
+            st.write(f"resume_path: {resume_path}")
+            st.markdown("---")
 
             write_json(resume_path, resume_details)
 
             resume_path = resume_path.replace(".json", ".pdf")
 
             pdf_data, resume_latex = latex_to_pdf(resume_details, resume_path)
-            st.info(f"resume_path: {resume_path}")
-            st.info(f"resume_latex: {resume_latex}")
+            st.write(f"resume_path: {resume_path}")
+            st.write(f"resume_latex: {resume_latex}")
             print("Resume PDF generated at: ", resume_path)
             return resume_path, resume_details
         except Exception as e:
