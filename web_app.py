@@ -136,6 +136,8 @@ if get_resume_button or get_cover_letter_button:
                 col_m_2.metric(label=":blue[Job Alignment Score]", value=f"{job_alignment:.3f}", delta="[resume,JD]", delta_color="off")
                 col_m_3.metric(label=":violet[Job Match Score]", value=f"{job_match:.3f}", delta="[master_data,JD]", delta_color="off")
 
+            st.info(resume_path)
+            st.write(resume_details)
             displayPDF(resume_path)
             st.toast("Resume generated successfully!", icon="✅")
             st.markdown("---")
