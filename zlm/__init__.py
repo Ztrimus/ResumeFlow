@@ -208,7 +208,6 @@ class AutoApplyModel:
 
             llm = self.get_llm_instance(system_prompt)
             job_details = llm.get_response(job_site_content, need_json_output=True)
-            st.write(f"job_details: {job_details}")
             if url is not None and url.strip() != "":
                 job_details["url"] = url
             jd_path = job_doc_name(job_details, self.downloads_dir, "jd")
@@ -319,7 +318,6 @@ class AutoApplyModel:
                 st.write(response)
                 st.markdown("---")
                 resume_details[section] = response[section]
-                return self.downloads_dir, resume_details
 
             resume_details['keywords'] = job_details['keywords']
             
