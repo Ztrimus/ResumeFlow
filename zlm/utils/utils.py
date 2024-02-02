@@ -157,10 +157,14 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
     os.chdir(prev_loc)
     resulted_pdf_path = tex_file_path.replace(".tex", ".pdf")
     st.write(f"resulted_pdf_path: {resulted_pdf_path}")
+    st.write(f"dst_path: {dst_path}")
 
     displayPDF(resulted_pdf_path)
 
     os.rename(resulted_pdf_path, dst_path)
+    st.write("after renaming the file...")
+    st.write(f"resulted_pdf_path: {resulted_pdf_path}")
+    st.write(f"dst_path: {dst_path}")
 
     if result.returncode != 0:
         print("Exit-code not 0, check result!")
