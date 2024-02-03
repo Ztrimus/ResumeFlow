@@ -316,25 +316,19 @@ class AutoApplyModel:
 
             resume_details['keywords'] = job_details['keywords']
             
-            st.write(f"self.downloads_dir: {self.downloads_dir}")
             resume_path = job_doc_name(job_details, self.downloads_dir, "resume")
 
-            st.write("before resum json storing")
             write_json(resume_path, resume_details)
             resume_path = resume_path.replace(".json", ".pdf")
 
-            st.write("write_json done, start latex")
-            st.write(f"next iter")
-
-            st.write(f"before latex_to_pdf resume_path: {resume_path}")
             pdf_data, resume_latex = latex_to_pdf(resume_details, resume_path)
-            st.write(f"after resume_latex: {resume_latex}")
             print("Resume PDF generated at: ", resume_path)
+
             return resume_path, resume_details
         except Exception as e:
             print(e)
             st.write("Error: \n\n",e)
-            return None, None
+            return resume_path, resume_details
 
     def resume_cv_pipeline(self, job_url: str, user_data_path: str = demo_data_path):
         """Run the Auto Apply Pipeline.

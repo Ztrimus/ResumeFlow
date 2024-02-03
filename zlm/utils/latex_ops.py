@@ -49,9 +49,6 @@ def latex_to_pdf(json_resume, dst_path):
         module_dir = os.path.dirname(__file__)
         templates_path = os.path.join(os.path.dirname(module_dir), 'templates')
 
-        st.write(f"module_dir: {module_dir}")
-        st.write(f"templates_path: {templates_path}")
-
         latex_jinja_env = jinja2.Environment(
             block_start_string="\BLOCK{",
             block_end_string="}",
@@ -67,20 +64,14 @@ def latex_to_pdf(json_resume, dst_path):
         )
 
         escaped_json_resume = escape_for_latex(json_resume)
-        st.write(f"escaped_json_resume: {escaped_json_resume}")
 
         resume_latex = use_template(latex_jinja_env, escaped_json_resume)
-        st.write(f"resume_latex")
-        st.markdown("---")
-        st.write(resume_latex)
-        st.markdown("---")
 
         tex_temp_path = os.path.join(os.path.realpath(templates_path), os.path.basename(dst_path).replace(".pdf", ".tex"))
-        st.write(f"tex_temp_path: {tex_temp_path}")
 
         write_file(tex_temp_path, resume_latex)
-        st.write("wrote latex on tex_temp_path...")
-        return save_latex_as_pdf(tex_temp_path, dst_path), resume_latex
+        pdf_data = save_latex_as_pdf(tex_temp_path, dst_path)
+        return pdf_data, resume_latex
     except Exception as e:
         print(e)
         return None
