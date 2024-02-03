@@ -157,12 +157,12 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
     os.chdir(prev_loc)
     resulted_pdf_path = tex_file_path.replace(".tex", ".pdf")
 
-    with open(dst_path, "rb") as pdf_file:
+    with open(resulted_pdf_path, "rb") as pdf_file:
         PDFbyte = pdf_file.read()
 
     st.download_button(label="Export Report",
                         data=PDFbyte,
-                        file_name=os.path.basename(dst_path),
+                        file_name=os.path.basename(resulted_pdf_path),
                         mime='application/octet-stream')
 
     displayPDF(resulted_pdf_path)
