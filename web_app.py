@@ -111,9 +111,9 @@ if get_resume_button or get_cover_letter_button:
                 with open(resume_path, "rb") as pdf_file:
                     PDFbyte = pdf_file.read()
 
-                st.download_button(label="ExportReport",
+                st.download_button(label="Download Resume ⬇",
                                     data=PDFbyte,
-                                    file_name='test.pdf',
+                                    file_name=os.path.basename(resume_path),
                                     mime='application/octet-stream')
                 
                 # Calculate metrics
