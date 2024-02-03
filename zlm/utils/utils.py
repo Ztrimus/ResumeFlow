@@ -12,6 +12,7 @@ import os
 import re
 import time
 import json
+import shutil
 import base64
 import platform
 import subprocess
@@ -156,12 +157,6 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
     os.chdir(prev_loc)
     resulted_pdf_path = tex_file_path.replace(".tex", ".pdf")
 
-    displayPDF(resulted_pdf_path)
-
-    os.rename(resulted_pdf_path, dst_path)
-
-    st.write(f"Renaming: {dst_path}")
-
     with open(dst_path, "rb") as pdf_file:
         PDFbyte = pdf_file.read()
 
@@ -169,6 +164,12 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
                         data=PDFbyte,
                         file_name=os.path.basename(dst_path),
                         mime='application/octet-stream')
+
+    displayPDF(resulted_pdf_path)
+
+    shutil.move(resulted_pdf_path, dst_path)
+
+    st.write(f"Renaming: {dst_path}")
 
     if result.returncode != 0:
         print("Exit-code not 0, check result!")
