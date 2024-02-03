@@ -106,7 +106,15 @@ if get_resume_button or get_cover_letter_button:
                 with st.status("Building resume..."):
                     resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st=True)
                     st.write("Outer resume_path: ", resume_path)
-                    st.write("Outer resume_details: ", resume_details)
+                    st.write("Outer resume_details is None: ", resume_details is None)
+                    
+                    with open(resume_path, "rb") as pdf_file:
+                        PDFbyte = pdf_file.read()
+
+                    st.download_button(label="Export Report",
+                                        data=PDFbyte,
+                                        file_name=os.path.basename(resume_path),
+                                        mime='application/octet-stream')
                 
                 # Calculate metrics
                 st.subheader("Resume Metrics")

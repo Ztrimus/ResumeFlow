@@ -160,6 +160,8 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
 
     os.rename(resulted_pdf_path, dst_path)
 
+    st.write(f"Renaming: {dst_path}")
+
     with open(dst_path, "rb") as pdf_file:
         PDFbyte = pdf_file.read()
 
