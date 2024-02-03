@@ -144,7 +144,7 @@ def displayPDF(file):
     # Displaying File
     st.markdown(pdf_display, unsafe_allow_html=True)
 
-def save_latex_as_pdf(tex_file_path: str, dst_path: str):
+def save_latex_as_pdf(tex_file_path: str):
     # Call pdflatex to convert LaTeX to PDF
     prev_loc = os.getcwd()
     os.chdir(os.path.dirname(tex_file_path))
@@ -164,12 +164,6 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
                         data=PDFbyte,
                         file_name=os.path.basename(resulted_pdf_path),
                         mime='application/octet-stream')
-
-    displayPDF(resulted_pdf_path)
-
-    shutil.move(resulted_pdf_path, dst_path)
-
-    st.write(f"Renaming: {dst_path}")
 
     if result.returncode != 0:
         print("Exit-code not 0, check result!")
@@ -197,7 +191,7 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
     
     # st.write(f"pdf_data: {pdf_data}")
 
-    return dst_path
+    return resulted_pdf_path
 
 
 def get_default_download_folder():
