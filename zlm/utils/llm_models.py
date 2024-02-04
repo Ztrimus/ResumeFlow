@@ -9,10 +9,11 @@ Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 '''
 import json
 import textwrap
+import pandas as pd
+import streamlit as st
 from openai import OpenAI
 import google.generativeai as genai
 from zlm.utils.utils import parse_json_markdown
-import pandas as pd
 
 class ChatGPT:
     def __init__(self, api_key, system_prompt):
@@ -70,7 +71,9 @@ class Gemini:
                     "max_output_tokens": 4000 if expecting_longer_output else None,
                     }
                 )
-            
+            with st.status("Generating response..."):
+                st.write(f"content.text: {content.text}")
+
             if need_json_output:
                 return parse_json_markdown(content.text)
             else:
