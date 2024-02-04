@@ -104,8 +104,7 @@ if get_resume_button or get_cover_letter_button:
             # Build Resume
             if get_resume_button:
                 with st.status("Building resume..."):
-                    # resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st=True)
-                    resume_path, resume_details = "/Users/saurabh/AA/convergent/projects/job-llm/output/Itron_Intern-Software_resume.pdf", read_json("/Users/saurabh/AA/convergent/projects/job-llm/output/Itron_Intern-Software_resume.json")
+                    resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st=True)
                     st.write("Outer resume_path: ", resume_path)
                     st.write("Outer resume_details is None: ", resume_details is None)
                 
