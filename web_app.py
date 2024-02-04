@@ -76,7 +76,11 @@ if get_resume_button or get_cover_letter_button:
         st.toast(":red[Please enter a job posting URL or paste the job description to get started]", icon="⚠️") 
     
     if file is not None and (url != "" or text != ""):
-        resume_llm = AutoApplyModel(api_key=api_key, provider=provider, downloads_dir=None)
+        download_resume_path = os.path.join(os.path.dirname(__file__), "output")
+
+        st.write(f"download_resume_path: {download_resume_path}")
+
+        resume_llm = AutoApplyModel(api_key=api_key, provider=provider, downloads_dir=download_resume_path)
         
         # Save the uploaded file
         os.makedirs("uploads", exist_ok=True)
