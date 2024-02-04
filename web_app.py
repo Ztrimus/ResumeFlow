@@ -15,7 +15,7 @@ import streamlit as st
 
 
 from zlm import AutoApplyModel
-from zlm.utils.utils import displayPDF
+from zlm.utils.utils import display_pdf, download_pdf, read_file, read_json
 from zlm.utils.metrics import jaccard_similarity, overlap_coefficient, cosine_similarity
 
 st.set_page_config(
@@ -104,17 +104,10 @@ if get_resume_button or get_cover_letter_button:
             # Build Resume
             if get_resume_button:
                 with st.status("Building resume..."):
-                    resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st=True)
+                    # resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st=True)
+                    resume_path, resume_details = "/Users/saurabh/AA/convergent/projects/job-llm/output/Itron_Intern-Software_resume.pdf", read_json("/Users/saurabh/AA/convergent/projects/job-llm/output/Itron_Intern-Software_resume.json")
                     st.write("Outer resume_path: ", resume_path)
                     st.write("Outer resume_details is None: ", resume_details is None)
-                    
-                with open(resume_path, "rb") as pdf_file:
-                    PDFbyte = pdf_file.read()
-
-                st.download_button(label="Download Resume ⬇",
-                                    data=PDFbyte,
-                                    file_name=os.path.basename(resume_path),
-                                    mime='application/octet-stream')
                 
                 # Calculate metrics
                 st.subheader("Resume Metrics")
@@ -136,8 +129,18 @@ if get_resume_button or get_cover_letter_button:
                     col_m_2.metric(label=":blue[Job Alignment Score]", value=f"{job_alignment:.3f}", delta="[resume,JD]", delta_color="off")
                     col_m_3.metric(label=":violet[Job Match Score]", value=f"{job_match:.3f}", delta="[master_data,JD]", delta_color="off")
 
+                
                 st.subheader("Generated Resume")
-                displayPDF(resume_path)
+                pdf_data = read_file(resume_path, "rb")
+
+                st.download_button(label="Download Resume ⬇",
+                                    data=pdf_data,
+                                    file_name=os.path.basename(resume_path),
+                                    on_click=download_pdf(resume_path),
+                                    key="download_pdf_button",
+                                    mime="application/pdf")
+                
+                display_pdf(resume_path)
                 st.toast("Resume generated successfully!", icon="✅")
                 st.markdown("---")
 

@@ -17,6 +17,7 @@ import base64
 import platform
 import subprocess
 import streamlit as st
+import streamlit.components.v1 as components
 from fpdf import FPDF
 from pathlib import Path
 from datetime import datetime
@@ -28,8 +29,8 @@ def write_file(file_path, data):
         file.write(data)
 
 
-def read_file(file_path):
-    with open(file_path, "r") as file:
+def read_file(file_path, mode="r"):
+    with open(file_path, mode) as file:
         file_contents = file.read()
     return file_contents
 
@@ -128,23 +129,67 @@ def text_to_pdf(text: str, file_path: str):
     # except Exception as e:
     #     print("Unable to open the PDF file.")
 
-def displayPDF(file):
-    # Opening file from file path
-    with open(file, "rb") as f:
-        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+def download_pdf(pdf_path: str):
+    bytes_data = read_file(pdf_path, "rb")
+    base64_pdf = base64.b64encode(bytes_data).decode('utf-8')
 
-    # Embedding PDF in HTML
-    pdf_display =  f"""<embed
-    class="pdfobject"
-    type="application/pdf"
-    title="Embedded PDF"
-    src="data:application/pdf;base64,{base64_pdf}"
-    style="overflow: auto; width: 100%; height: 100vh">"""
+    dl_link = f"""
+    <html>
+    <head>
+    <title>Start Auto Download file</title>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+    $('<a href="data:application/pdf;base64,{base64_pdf}" download="{os.path.basename(pdf_path)}">')[0].click().remove();
+    </script>
+    </head>
+    </html>
+    """
+    components.html(
+        dl_link,
+        height=0,
+    )
+    # with open(pdf_path, "rb") as f:
+    #     pdf_bytes = f.read()
 
-    # Displaying File
+    # st.download_button(label="Download Resume ⬇",
+    #                     data=pdf_bytes,
+    #                     file_name=os.path.basename(pdf_path),
+    #                     mime="application/pdf")
+    # pass
+
+def display_pdf(file):
+    # Read file as bytes:
+    bytes_data = read_file(file, "rb")
+
+    # Convert to utf-8
+    base64_pdf = base64.b64encode(bytes_data).decode('utf-8')
+
+    # Embed PDF in HTML
+    pdf_display = F'<iframe src="data:application/pdf;base64,{base64_pdf}" type="application/pdf" style="width:100%; height:100vh;"></iframe>'
+
+    # Display file
     st.markdown(pdf_display, unsafe_allow_html=True)
 
-def save_latex_as_pdf(tex_file_path: str):
+    # # Opening file from file path
+    # with open(file, "rb") as f:
+    #     try:
+    #         base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+    #     except Exception as e:
+    #         base64_pdf = base64.b64encode(f.read())
+    
+    # st.write(f"base64_pdf: {base64_pdf}")
+    # # Embedding PDF in HTML
+    # pdf_display =  f"""<embed
+    # class="pdfobject"
+    # type="application/pdf"
+    # title="Embedded PDF"
+    # src="data:application/pdf;base64,{base64_pdf}"
+    # style="overflow: auto; width: 100%; height: 100vh">"""
+
+    # # Displaying File
+    # st.markdown(pdf_display, unsafe_allow_html=True)
+
+def save_latex_as_pdf(tex_file_path: str, dst_path: str):
     # Call pdflatex to convert LaTeX to PDF
     prev_loc = os.getcwd()
     os.chdir(os.path.dirname(tex_file_path))
@@ -157,12 +202,14 @@ def save_latex_as_pdf(tex_file_path: str):
     os.chdir(prev_loc)
     resulted_pdf_path = tex_file_path.replace(".tex", ".pdf")
 
-    with open(resulted_pdf_path, "rb") as pdf_file:
+    os.rename(resulted_pdf_path, dst_path)
+
+    with open(dst_path, "rb") as pdf_file:
         PDFbyte = pdf_file.read()
 
     st.download_button(label="Export Report",
                         data=PDFbyte,
-                        file_name=os.path.basename(resulted_pdf_path),
+                        file_name=os.path.basename(dst_path),
                         mime='application/octet-stream')
 
     if result.returncode != 0:
@@ -191,7 +238,7 @@ def save_latex_as_pdf(tex_file_path: str):
     
     # st.write(f"pdf_data: {pdf_data}")
 
-    return resulted_pdf_path
+    return dst_path
 
 
 def get_default_download_folder():
