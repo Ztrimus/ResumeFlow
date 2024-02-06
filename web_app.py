@@ -152,7 +152,7 @@ if get_resume_button or get_cover_letter_button:
             
             display_pdf(resume_path)
             st.toast("Resume generated successfully!", icon="✅")
-            st.markdown("---")
+            st.markdown("---") 
 
         # Build Cover Letter
         if get_cover_letter_button:
