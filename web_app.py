@@ -43,9 +43,9 @@ col_text, col_url,_,_ = st.columns(4)
 with col_text:
     st.write("Job Description Text")
 with col_url:
-    is_url_button = st.toggle('Job URL', True)
+    is_url_button = st.toggle('Job URL', False)
 
-
+url, text = "", ""
 if is_url_button:
     url = st.text_input("Enter job posting URL:", placeholder="Enter job posting URL here...", label_visibility="collapsed")
 else:
@@ -78,7 +78,7 @@ if get_resume_button or get_cover_letter_button:
     if file is not None and (url != "" or text != ""):
         download_resume_path = os.path.join(os.path.dirname(__file__), "output")
 
-        st.write(f"download_resume_path: {download_resume_path}")
+        # st.write(f"download_resume_path: {download_resume_path}")
 
         resume_llm = AutoApplyModel(api_key=api_key, provider=provider, downloads_dir=download_resume_path)
         
@@ -95,6 +95,10 @@ if get_resume_button or get_cover_letter_button:
 
         shutil.rmtree(os.path.dirname(file_path))
 
+        if user_data is None:
+            st.error("User data not able process. Please upload a valid file or try again.")
+            st.stop()
+
         # Extract job details
         with st.status("Extracting job details..."):
             if url != "":
@@ -104,66 +108,73 @@ if get_resume_button or get_cover_letter_button:
             
             st.write(job_details)
 
-        if job_details is not None:
-            # Build Resume
-            if get_resume_button:
-                with st.status("Building resume..."):
-                    resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st=True)
-                    st.write("Outer resume_path: ", resume_path)
-                    st.write("Outer resume_details is None: ", resume_details is None)
-                
-                # Calculate metrics
-                st.subheader("Resume Metrics")
-                for metric in ['overlap_coefficient', 'cosine_similarity']:
-                    user_personlization = globals()[metric](json.dumps(resume_details), json.dumps(user_data))
-                    job_alignment = globals()[metric](json.dumps(resume_details), json.dumps(job_details))
-                    job_match = globals()[metric](json.dumps(user_data), json.dumps(job_details))
-
-                    if metric == "overlap_coefficient":
-                        title = "Overlap Coefficient"
-                        help_text = "The overlap coefficient is a measure of the overlap between two sets, and is defined as the size of the intersection divided by the smaller of the size of the two sets."
-                    elif metric == "cosine_similarity":
-                        title = "Cosine Similarity"
-                        help_text = "The cosine similarity is a measure of the similarity between two non-zero vectors of an inner product space that measures the cosine of the angle between them."
-
-                    st.caption(f"## **:rainbow[{title}]**", help=help_text)
-                    col_m_1, col_m_2, col_m_3 = st.columns(3)
-                    col_m_1.metric(label=":green[User Personlization Score]", value=f"{user_personlization:.3f}", delta="[resume,master_data]", delta_color="off")
-                    col_m_2.metric(label=":blue[Job Alignment Score]", value=f"{job_alignment:.3f}", delta="[resume,JD]", delta_color="off")
-                    col_m_3.metric(label=":violet[Job Match Score]", value=f"{job_match:.3f}", delta="[master_data,JD]", delta_color="off")
-
-                
-                st.subheader("Generated Resume")
-                pdf_data = read_file(resume_path, "rb")
-
-                st.download_button(label="Download Resume ⬇",
-                                    data=pdf_data,
-                                    file_name=os.path.basename(resume_path),
-                                    on_click=download_pdf(resume_path),
-                                    key="download_pdf_button",
-                                    mime="application/pdf")
-                
-                display_pdf(resume_path)
-                st.toast("Resume generated successfully!", icon="✅")
-                st.markdown("---")
-
-            # Build Cover Letter
-            if get_cover_letter_button:
-                with st.status("Building cover letter..."):
-                    cv_details, cv_pdf = resume_llm.cover_letter_generator(job_details, user_data, is_st=True)
-                st.subheader("Generated Cover Letter")
-                st.markdown(cv_details, unsafe_allow_html=True)
-                st.markdown("---")
-                st.toast("cover letter generated successfully!", icon="✅")
-            
-            st.toast(f"Done", icon="👍🏻")
-            st.success(f"Done", icon="👍🏻")
-            st.balloons()
-            
-            refresh = st.button("Refresh")
-
-            if refresh:
-                st.caching.clear_cache()
-                st.rerun()
-        else:
+        if job_details is None:
             st.error("Job details not able process. Please paste job description or try again.")
+            st.stop()
+
+        # Build Resume
+        if get_resume_button:
+            with st.status("Building resume..."):
+                resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st=True)
+                # st.write("Outer resume_path: ", resume_path)
+                # st.write("Outer resume_details is None: ", resume_details is None)
+            
+            # Calculate metrics
+            st.subheader("Resume Metrics")
+            for metric in ['overlap_coefficient', 'cosine_similarity']:
+                user_personlization = globals()[metric](json.dumps(resume_details), json.dumps(user_data))
+                job_alignment = globals()[metric](json.dumps(resume_details), json.dumps(job_details))
+                job_match = globals()[metric](json.dumps(user_data), json.dumps(job_details))
+
+                if metric == "overlap_coefficient":
+                    title = "Overlap Coefficient"
+                    help_text = "The overlap coefficient is a measure of the overlap between two sets, and is defined as the size of the intersection divided by the smaller of the size of the two sets."
+                elif metric == "cosine_similarity":
+                    title = "Cosine Similarity"
+                    help_text = "The cosine similarity is a measure of the similarity between two non-zero vectors of an inner product space that measures the cosine of the angle between them."
+
+                st.caption(f"## **:rainbow[{title}]**", help=help_text)
+                col_m_1, col_m_2, col_m_3 = st.columns(3)
+                col_m_1.metric(label=":green[User Personlization Score]", value=f"{user_personlization:.3f}", delta="[resume,master_data]", delta_color="off")
+                col_m_2.metric(label=":blue[Job Alignment Score]", value=f"{job_alignment:.3f}", delta="[resume,JD]", delta_color="off")
+                col_m_3.metric(label=":violet[Job Match Score]", value=f"{job_match:.3f}", delta="[master_data,JD]", delta_color="off")
+
+            
+            st.subheader("Generated Resume")
+            pdf_data = read_file(resume_path, "rb")
+
+            st.download_button(label="Download Resume ⬇",
+                                data=pdf_data,
+                                file_name=os.path.basename(resume_path),
+                                on_click=download_pdf(resume_path),
+                                key="download_pdf_button",
+                                mime="application/pdf")
+            
+            display_pdf(resume_path)
+            st.toast("Resume generated successfully!", icon="✅")
+            st.markdown("---")
+
+        # Build Cover Letter
+        if get_cover_letter_button:
+            with st.status("Building cover letter..."):
+                cv_details, cv_path = resume_llm.cover_letter_generator(job_details, user_data, is_st=True)
+            st.subheader("Generated Cover Letter")
+            cv_data = read_file(cv_path, "rb")
+            st.download_button(label="Download ⬇",
+                            data=cv_data,
+                            file_name=os.path.basename(cv_path),
+                            key="download_cv_button",
+                            mime="application/pdf")
+            st.markdown(cv_details, unsafe_allow_html=True)
+            st.markdown("---")
+            st.toast("cover letter generated successfully!", icon="✅")
+        
+        st.toast(f"Done", icon="👍🏻")
+        st.success(f"Done", icon="👍🏻")
+        st.balloons()
+        
+        refresh = st.button("Refresh")
+
+        if refresh:
+            st.caching.clear_cache()
+            st.rerun()
