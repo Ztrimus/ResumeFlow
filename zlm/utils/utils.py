@@ -204,13 +204,13 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
 
     os.rename(resulted_pdf_path, dst_path)
 
-    with open(dst_path, "rb") as pdf_file:
-        PDFbyte = pdf_file.read()
+    # with open(dst_path, "rb") as pdf_file:
+    #     PDFbyte = pdf_file.read()
 
-    st.download_button(label="Export Report",
-                        data=PDFbyte,
-                        file_name=os.path.basename(dst_path),
-                        mime='application/octet-stream')
+    # st.download_button(label="Export Report",
+    #                     data=PDFbyte,
+    #                     file_name=os.path.basename(dst_path),
+    #                     mime='application/octet-stream')
 
     if result.returncode != 0:
         print("Exit-code not 0, check result!")
@@ -251,11 +251,14 @@ def get_default_download_folder():
 def parse_json_markdown(json_string: str) -> dict:
     try:
         # Try to find JSON string within first and last triple backticks
-        if json_string[3:13] == "typescript":
-            json_string = json_string.replace("typescript", "",1)
+        if json_string[3:13].lower() == "typescript":
+            json_string = json_string.replace(json_string[3:13], "",1)
         
-        if json_string[:4] == "JSON":
-            json_string = json_string.replace("JSON", "",1)
+        if json_string[3:7].lower() == "json":
+            json_string = json_string.replace(json_string[3:7], "",1)
+        
+        if 'JSON_OUTPUT_ACCORDING_TO_RESUME_DATA_SCHEMA' in json_string:
+            json_string = json_string.replace("JSON_OUTPUT_ACCORDING_TO_RESUME_DATA_SCHEMA", "",1)
 
         match = re.search(r"""```*
                             (?:json)?
@@ -273,10 +276,15 @@ def parse_json_markdown(json_string: str) -> dict:
 
         # Parse the JSON string into a Python dictionary while allowing control characters by setting strict to False
         parsed = json.loads(json_str, strict=False)
+        if parsed is None:
+            st.write("jsob_string")
+            st.write(json_string)
 
         return parsed
     except Exception as e:
         print(e)
+        st.write("error jsob_string")
+        st.write(json_string)
         return None
 
 def get_prompt(system_prompt_path: str) -> str:
