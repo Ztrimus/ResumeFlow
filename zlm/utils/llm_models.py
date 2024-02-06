@@ -71,8 +71,6 @@ class Gemini:
                     "max_output_tokens": 4000 if expecting_longer_output else None,
                     }
                 )
-            with st.status("Generating response..."):
-                st.write(f"content.text: {content.text}")
 
             if need_json_output:
                 return parse_json_markdown(content.text)
