@@ -102,9 +102,9 @@ if get_resume_button or get_cover_letter_button:
         # Extract job details
         with st.status("Extracting job details..."):
             if url != "":
-                job_details = resume_llm.job_details_extraction(url=url, is_st=True)
+                job_details, jd_path = resume_llm.job_details_extraction(url=url, is_st=True)
             elif text != "":
-                job_details = resume_llm.job_details_extraction(job_site_content=text, is_st=True)
+                job_details, jd_path = resume_llm.job_details_extraction(job_site_content=text, is_st=True)
             
             st.write(job_details)
 
