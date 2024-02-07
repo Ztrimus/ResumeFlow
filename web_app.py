@@ -119,6 +119,18 @@ if get_resume_button or get_cover_letter_button:
                 # st.write("Outer resume_path: ", resume_path)
                 # st.write("Outer resume_details is None: ", resume_details is None)
             
+            st.subheader("Generated Resume")
+            pdf_data = read_file(resume_path, "rb")
+
+            st.download_button(label="Download Resume ⬇",
+                                data=pdf_data,
+                                file_name=os.path.basename(resume_path),
+                                on_click=download_pdf(resume_path),
+                                key="download_pdf_button",
+                                mime="application/pdf")
+            
+            display_pdf(resume_path)
+            st.toast("Resume generated successfully!", icon="✅")
             # Calculate metrics
             st.subheader("Resume Metrics")
             for metric in ['overlap_coefficient', 'cosine_similarity']:
@@ -138,21 +150,7 @@ if get_resume_button or get_cover_letter_button:
                 col_m_1.metric(label=":green[User Personlization Score]", value=f"{user_personlization:.3f}", delta="[resume,master_data]", delta_color="off")
                 col_m_2.metric(label=":blue[Job Alignment Score]", value=f"{job_alignment:.3f}", delta="[resume,JD]", delta_color="off")
                 col_m_3.metric(label=":violet[Job Match Score]", value=f"{job_match:.3f}", delta="[master_data,JD]", delta_color="off")
-
-            
-            st.subheader("Generated Resume")
-            pdf_data = read_file(resume_path, "rb")
-
-            st.download_button(label="Download Resume ⬇",
-                                data=pdf_data,
-                                file_name=os.path.basename(resume_path),
-                                on_click=download_pdf(resume_path),
-                                key="download_pdf_button",
-                                mime="application/pdf")
-            
-            display_pdf(resume_path)
-            st.toast("Resume generated successfully!", icon="✅")
-            st.markdown("---") 
+            st.markdown("---")
 
         # Build Cover Letter
         if get_cover_letter_button:
@@ -163,6 +161,7 @@ if get_resume_button or get_cover_letter_button:
             st.download_button(label="Download ⬇",
                             data=cv_data,
                             file_name=os.path.basename(cv_path),
+                            on_click=download_pdf(resume_path),
                             key="download_cv_button",
                             mime="application/pdf")
             st.markdown(cv_details, unsafe_allow_html=True)
