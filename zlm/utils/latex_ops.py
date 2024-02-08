@@ -8,8 +8,9 @@ Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 -----------------------------------------------------------------------
 '''
 
-import jinja2
 import os
+import jinja2
+import streamlit as st
 from zlm.utils.utils import write_file, save_latex_as_pdf
 
 def escape_for_latex(data):
@@ -46,7 +47,7 @@ def escape_for_latex(data):
 def latex_to_pdf(json_resume, dst_path):
     try:
         module_dir = os.path.dirname(__file__)
-        templates_path = os.path.join(module_dir, '..', 'templates')
+        templates_path = os.path.join(os.path.dirname(module_dir), 'templates')
 
         latex_jinja_env = jinja2.Environment(
             block_start_string="\BLOCK{",
@@ -65,9 +66,12 @@ def latex_to_pdf(json_resume, dst_path):
         escaped_json_resume = escape_for_latex(json_resume)
 
         resume_latex = use_template(latex_jinja_env, escaped_json_resume)
+
         tex_temp_path = os.path.join(os.path.realpath(templates_path), os.path.basename(dst_path).replace(".pdf", ".tex"))
+
         write_file(tex_temp_path, resume_latex)
-        return save_latex_as_pdf(tex_temp_path, dst_path), resume_latex
+        resume_pdf_path = save_latex_as_pdf(tex_temp_path, dst_path)
+        return resume_pdf_path, resume_latex
     except Exception as e:
         print(e)
         return None

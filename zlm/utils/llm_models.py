@@ -9,10 +9,11 @@ Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 '''
 import json
 import textwrap
+import pandas as pd
+import streamlit as st
 from openai import OpenAI
 import google.generativeai as genai
 from zlm.utils.utils import parse_json_markdown
-import pandas as pd
 
 class ChatGPT:
     def __init__(self, api_key, system_prompt):
@@ -70,7 +71,7 @@ class Gemini:
                     "max_output_tokens": 4000 if expecting_longer_output else None,
                     }
                 )
-            
+
             if need_json_output:
                 return parse_json_markdown(content.text)
             else:
@@ -180,14 +181,14 @@ class Llama2:
         return response
 
 # DO: https://ai.google.dev/tutorials/python_quickstart#use_embeddings
-def compute_embedding(self, chunks):
-    try:
-        embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-        vector_embedding = FAISS.from_texts( texts = chunks, embedding=embeddings)
-        return vector_embedding
-    except Exception as e:
-        print(e)
-        return None
+# def compute_embedding(self, chunks):
+#     try:
+#         embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+#         vector_embedding = FAISS.from_texts( texts = chunks, embedding=embeddings)
+#         return vector_embedding
+#     except Exception as e:
+#         print(e)
+#         return None
 
 # Define a function to compute embeddings for the text   
 # def compute_embedding(self, text):
