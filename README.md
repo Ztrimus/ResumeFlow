@@ -1,6 +1,6 @@
 # ResumeFlow: An LLM-facilitated Pipeline for Personalized Resume Generation and Refinement 
 
-<img src="resources/auto_job_apply_workflow.jpg" alt="Auto Job Aligned Personalized Resume Generation Pipeline" width="auto">
+<img src="https://github.com/Ztrimus/job-llm/blob/8aa96f62069a74edcf5e72e72e8a0c7e3b020504/resources/auto_job_apply_workflow.jpg" alt="Auto Job Aligned Personalized Resume Generation Pipeline" width="auto">
 Auto Job Aligned Personalized Resume Generation Pipeline
 
 Project source can be:
