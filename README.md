@@ -1,7 +1,7 @@
 # Streamlining Job Applications with LLM Automation Pipeline
 
 <p align="center">
-  <img src="resources/auto_job_apply_workflow.png" alt="Auto Job Apply Pipeline" width="auto" height="500">
+  <img src="resources/auto_job_apply_workflow.jpg" alt="Auto Job Apply Pipeline" width="auto">
 </p>
 
 Project source can be:
