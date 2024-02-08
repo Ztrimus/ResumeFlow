@@ -1,20 +1,20 @@
-# Streamlining Job Applications with LLM Automation Pipeline
+# ResumeFlow: An LLM-facilitated Pipeline for Personalized Resume Generation and Refinement 
 
-<p align="center">
-  <img src="resources/auto_job_apply_workflow.jpg" alt="Auto Job Apply Pipeline" width="auto">
-</p>
+<img src="resources/auto_job_apply_workflow.jpg" alt="Auto Job Aligned Personalized Resume Generation Pipeline" width="auto">
+Auto Job Aligned Personalized Resume Generation Pipeline
 
 Project source can be:
-
- - downloaded from https://github.com/Ztrimus/job-llm.git
- - Installed from https://pypi.org/project/zlm/
+ - access as Web Tool from https://job-aligned-resume.streamlit.app/
+ - Install as Python Package from https://pypi.org/project/zlm/
+ - download from https://github.com/Ztrimus/job-llm.git
 
 All other known bugs and fixes can be sent to following emails with the subject _"[BUG] JOB LLM"_. Reported bugs/fixes will be submitted to correction.
 
 #### Author & Contributor List
 
  - [Saurabh Zinjad - Ztrimus](https://linkedin.com/in/saurabhzinjad) | szinjad@asu.edu
- - [Amey Bhilegaonkar - ameygoes](https://www.linkedin.com/in/amey-bhilegaonkar/) | abhilega@asu.edu
+ - [Amey Bhilegaonkar - ameygoes](https://www.linkedin.com/in/amey-bhilegaonkar) | abhilega@asu.edu
+ - [Amrita Bhattacharjee - AmritaBh](https://www.linkedin.com/in/amritabh) | abhatt43@asu.edu
 
 ## 1. Introduction:
 
@@ -35,7 +35,7 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
 ### 2.1. Prerequisites
 
  - OS : Linux, Mac
- - Python : 3.10.12 and above
+ - Python : 3.11.6 and above
  - LLM API key: [OpenAI](https://openai.com/pricing) OR [Gemini Pro](https://ai.google.dev/)
 
 ### 2.2. Package Installation - Use as Library
@@ -50,8 +50,9 @@ pip install zlm
 from zlm import AutoApplyModel
 
 job_llm = AutoApplyModel(
-    provider="ENTER PROVIDER 'gemini' or 'openai'",
     api_key="PROVIDE_API_KEY", 
+    provider="ENTER PROVIDER <gemini> or <openai>",
+    downloads_dir="[optional] ENTER FOLDER PATH WHERE FILE GET DOWNLOADED, By default, 'downloads' folder"
 )
 
 job_llm.resume_cv_pipeline(
@@ -102,15 +103,16 @@ cd job-llm
     --provider="openai" # openai, gemini, together, g4f
 ```
 ## 3. References
+ - [Prompt engineering Guidelines](https://platform.openai.com/docs/guides/prompt-engineering)
  - [Overleaf LaTex Resume Template](https://www.overleaf.com/latex/templates/jakes-resume-anonymous/cstpnrbkhndn)
  - [Combining LaTeX with Python](https://tug.org/tug2019/slides/slides-ziegenhagen-python.pdf)
  - [OpenAI Documentation](https://platform.openai.com/docs/api-reference/chat/create)
 
 ## 4. Limitation and Further growth :
- - Evaluation of generated resumes: metrics can be
-     - **Content Preservation**: overlap b/w keywords from resume and master data.
-     - **Goodness of resume for certain job**: Overlap b/w generated resume and job description.
- - Streamlit app development
- - When ship as package give option for
-     - Passing OPENAI_API_KEY
-     - Where to Download folder or path
+ - ~~Evaluation of generated resumes: metrics can be~~
+     - ~~**Content Preservation**: overlap b/w keywords from resume and master data.~~
+     - ~~**Goodness of resume for certain job**: Overlap b/w generated resume and job description.~~
+ - ~~Streamlit app development~~
+ - ~~When ship as package give option for~~
+     - ~~Passing OPENAI_API_KEY~~
+     - ~~Where to Download folder or path~~
