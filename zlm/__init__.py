@@ -1,12 +1,12 @@
-"""
+'''
 -----------------------------------------------------------------------
-File: auto_apply_model.py
-Creation Time: Nov 21st 2023 2:49 am
+File: __init__.py
+Creation Time: Feb 8th 2024, 2:59 pm
 Author: Saurabh Zinjad
-Developer Email: zinjadsaurabh1997@gmail.com
-Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
+Developer Email: saurabhzinjad@gmail.com
+Copyright (c) 2023-2024 Saurabh Zinjad. All rights reserved | https://github.com/Ztrimus
 -----------------------------------------------------------------------
-"""
+'''
 import os
 import json
 
