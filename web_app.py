@@ -34,14 +34,14 @@ st.header("Get :green[Job Aligned] :orange[Personalized] Resume", divider='rainb
 col_text, col_url,_,_ = st.columns(4)
 with col_text:
     st.write("Job Description Text")
-# with col_url:
-#     is_url_button = st.toggle('Job URL', False)
+with col_url:
+    is_url_button = st.toggle('Job URL', False)
 
 url, text = "", ""
-# if is_url_button:
-#     url = st.text_input("Enter job posting URL:", placeholder="Enter job posting URL here...", label_visibility="collapsed")
-# else:
-text = st.text_area("Paste job description text:", max_chars=5500, height=200, placeholder="Paste job description text here...", label_visibility="collapsed")
+if is_url_button:
+    url = st.text_input("Enter job posting URL:", placeholder="Enter job posting URL here...", label_visibility="collapsed")
+else:
+    text = st.text_area("Paste job description text:", max_chars=5500, height=200, placeholder="Paste job description text here...", label_visibility="collapsed")
 
 file = st.file_uploader("Upload your resume or work related data (json, pdf)", type=["json", "pdf"])
 
