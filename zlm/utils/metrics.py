@@ -7,19 +7,21 @@ Developer Email: saurabhzinjad@gmail.com
 Copyright (c) 2023-2024 Saurabh Zinjad. All rights reserved | https://github.com/Ztrimus
 -----------------------------------------------------------------------
 '''
+import re
 import json
 import math
+import numpy as np
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics import pairwise
+from zlm.utils.utils import key_value_chunking
+
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 nltk.download('stopwords')
-import re
-import numpy as np
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics import pairwise
-from zlm.utils.utils import key_value_chunking
-import pandas as pd
+nltk.download('punkt')
 
 def remove_urls(list_of_strings):
     """Removes strings containing URLs from a list using regular expressions."""
