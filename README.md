@@ -12,9 +12,9 @@ All other known bugs and fixes can be sent to following emails with the subject 
 
 #### Author & Contributor List
 
- - [Saurabh Zinjad - Ztrimus](https://linkedin.com/in/saurabhzinjad) | szinjad@asu.edu
- - [Amey Bhilegaonkar - ameygoes](https://www.linkedin.com/in/amey-bhilegaonkar) | abhilega@asu.edu
- - [Amrita Bhattacharjee - AmritaBh](https://www.linkedin.com/in/amritabh) | abhatt43@asu.edu
+ - [Saurabh Zinjad](https://linkedin.com/in/saurabhzinjad) | [Ztrimus](https://github.com/Ztrimus) | szinjad@asu.edu
+ - [Amey Bhilegaonkar](https://www.linkedin.com/in/amey-bhilegaonkar) | [ameygoes](https://github.com/ameygoes) | abhilega@asu.edu
+ - [Amrita Bhattacharjee](https://www.linkedin.com/in/amritabh) | [Amritabh](https://github.com/Amritabh) | abhatt43@asu.edu
 
 ## 1. Introduction:
 
