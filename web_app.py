@@ -31,27 +31,27 @@ st.set_page_config(
 st.header("Get :green[Job Aligned] :orange[Personalized] Resume", divider='rainbow')
 # st.subheader("Skip the writing, land the interview")
 
+col_text, col_url,_,_ = st.columns(4)
+with col_text:
+    st.write("Job Description Text")
+# with col_url:
+#     is_url_button = st.toggle('Job URL', False)
+
+url, text = "", ""
+# if is_url_button:
+#     url = st.text_input("Enter job posting URL:", placeholder="Enter job posting URL here...", label_visibility="collapsed")
+# else:
+text = st.text_area("Paste job description text:", max_chars=5500, height=200, placeholder="Paste job description text here...", label_visibility="collapsed")
+
+file = st.file_uploader("Upload your resume or work related data (json, pdf)", type=["json", "pdf"])
+
 col_1, col_2 = st.columns(2)
 with col_1:
-    provider = st.selectbox("Select LLM provider([OpenAI](https://openai.com/blog/openai-api), [Gemini Pro](https://ai.google.dev/)):", ["gemini", "openai"])
+    provider = st.selectbox("Select LLM provider([OpenAI](https://openai.com/blog/openai-api), [Gemini Pro](https://ai.google.dev/)):", ["gemini-pro", "gpt-4"])
 with col_2:
     api_key = st.text_input("Enter API key:", type="password")
     if api_key == "":
         api_key = None
-
-col_text, col_url,_,_ = st.columns(4)
-with col_text:
-    st.write("Job Description Text")
-with col_url:
-    is_url_button = st.toggle('Job URL', False)
-
-url, text = "", ""
-if is_url_button:
-    url = st.text_input("Enter job posting URL:", placeholder="Enter job posting URL here...", label_visibility="collapsed")
-else:
-    text = st.text_area("Paste job description text:", max_chars=5500, height=250, placeholder="Paste job description text here...", label_visibility="collapsed")
-
-file = st.file_uploader("Upload your resume or work related data (json, pdf)", type=["json", "pdf"])
 st.markdown("---") 
 
 # Buttons side-by-side with styling
@@ -80,7 +80,9 @@ if get_resume_button or get_cover_letter_button:
 
         # st.write(f"download_resume_path: {download_resume_path}")
 
-        resume_llm = AutoApplyModel(api_key=api_key, provider=provider, downloads_dir=download_resume_path)
+        llm_mapping = {'gpt-4':'openai', 'gemini-pro':'gemini'}
+
+        resume_llm = AutoApplyModel(api_key=api_key, provider=llm_mapping[provider], downloads_dir=download_resume_path)
         
         # Save the uploaded file
         os.makedirs("uploads", exist_ok=True)
@@ -161,7 +163,7 @@ if get_resume_button or get_cover_letter_button:
             st.download_button(label="Download ⬇",
                             data=cv_data,
                             file_name=os.path.basename(cv_path),
-                            on_click=download_pdf(resume_path),
+                            on_click=download_pdf(cv_path),
                             key="download_cv_button",
                             mime="application/pdf")
             st.markdown(cv_details, unsafe_allow_html=True)

@@ -102,8 +102,8 @@ def measure_execution_time(func):
         execution_time = end_time - start_time
         func_run_log = f"Function {func.__name__} took {execution_time:.4f} seconds to execute"
         print(func_run_log)
-        if 'is_st' in kwargs and kwargs['is_st']:
-            st.write(func_run_log)
+        # if 'is_st' in kwargs and kwargs['is_st']:
+        #     st.write(func_run_log)
 
         return result
 
