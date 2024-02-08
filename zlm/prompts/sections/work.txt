@@ -43,5 +43,7 @@ interface WORK_SCHEMA {
   work: WorkItem[];
 }
 
-Desired Output:
-Write the Work section according to the WORK_SCHEMA schema. On the response, include only the JSON.
+Desired Output(Write the Work section according to the WORK_SCHEMA schema. On the response):
+{
+  "work": "RESULT"
+}
