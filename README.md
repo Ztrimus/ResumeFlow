@@ -4,7 +4,6 @@
 [![GitHub issues open](https://img.shields.io/github/issues/Ztrimus/job-llm.svg?)](https://github.com/Ztrimus/job-llm/issues)
 
 <img src="https://github.com/Ztrimus/job-llm/blob/main/resources/auto_job_apply_workflow.jpg" alt="Auto Job Aligned Personalized Resume Generation Pipeline" width="auto">
-Auto Job Aligned Personalized Resume Generation Pipeline
 
 Project source can be:
  - access as Web Tool from https://job-aligned-resume.streamlit.app/
