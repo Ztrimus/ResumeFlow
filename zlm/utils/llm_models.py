@@ -9,14 +9,16 @@ Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 '''
 import json
 import textwrap
+import pandas as pd
+import streamlit as st
 from openai import OpenAI
 import google.generativeai as genai
 from zlm.utils.utils import parse_json_markdown
-import pandas as pd
 
 class ChatGPT:
     def __init__(self, api_key, system_prompt):
-        self.system_prompt = {"role": "system", "content": system_prompt}
+        if system_prompt.strip():
+            self.system_prompt = {"role": "system", "content": system_prompt}
         self.client = OpenAI(api_key=api_key)
     
     def get_response(self, prompt, expecting_longer_output=False, need_json_output=False):
@@ -54,7 +56,7 @@ class Gemini:
     # TODO: Test and Improve support for Gemini API
     def __init__(self, api_key, system_prompt):
         genai.configure(api_key=api_key)
-        self.system_prompt = "System Prompt\n======\n" + system_prompt
+        self.system_prompt = "System Prompt\n======\n" + system_prompt if system_prompt.strip() else ""
     
     def get_response(self, prompt, expecting_longer_output=False, need_json_output=False):
         try:
@@ -67,10 +69,9 @@ class Gemini:
                 generation_config={
                     "temperature": 0.7,
                     "max_output_tokens": 4000 if expecting_longer_output else None,
-                    "top_k": 5,
                     }
                 )
-            
+
             if need_json_output:
                 return parse_json_markdown(content.text)
             else:
@@ -167,7 +168,7 @@ class Llama2:
         prompt_ids = tokenizer(prompt, return_tensors="pt")
         prompt_size = prompt_ids['input_ids'].size()[1]
 
-        generate_ids = model.generate(prompt_ids.input_ids.to(model.device), **self.generation_kwargs)
+        generate_ids = self.model.generate(prompt_ids.input_ids.to(self.model.device), **self.generation_kwargs)
         generate_ids = generate_ids.squeeze()
 
         response = tokenizer.decode(generate_ids.squeeze()[prompt_size+1:], skip_special_tokens=True).strip()
@@ -180,14 +181,14 @@ class Llama2:
         return response
 
 # DO: https://ai.google.dev/tutorials/python_quickstart#use_embeddings
-def compute_embedding(self, chunks):
-    try:
-        embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-        vector_embedding = FAISS.from_texts( texts = chunks, embedding=embeddings)
-        return vector_embedding
-    except Exception as e:
-        print(e)
-        return None
+# def compute_embedding(self, chunks):
+#     try:
+#         embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+#         vector_embedding = FAISS.from_texts( texts = chunks, embedding=embeddings)
+#         return vector_embedding
+#     except Exception as e:
+#         print(e)
+#         return None
 
 # Define a function to compute embeddings for the text   
 # def compute_embedding(self, text):

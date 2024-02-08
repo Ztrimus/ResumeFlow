@@ -35,5 +35,7 @@ interface EDUCATION_SCHEMA {
   education: EducationItem[];
 }
 
-Desired Output:
-Write the education section according to the EDUCATION_SCHEMA schema. On the response, include only the JSON.
+Desired Output(Write the education section according to the EDUCATION_SCHEMA schema):
+{
+  "education": "RESULT"
+}

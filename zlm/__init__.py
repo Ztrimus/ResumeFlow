@@ -9,6 +9,8 @@ Copyright (c) 2023-2024 Saurabh Zinjad. All rights reserved | https://github.com
 '''
 import os
 import json
+import time
+import streamlit as st
 
 import numpy as np
 
@@ -25,11 +27,8 @@ from zlm.utils.utils import (
     job_doc_name,
     text_to_pdf,
     get_prompt,
-    jaccard_similarity
 )
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.vectorstores import FAISS
+from zlm.utils.metrics import jaccard_similarity, overlap_coefficient, cosine_similarity, vector_embedding_similarity
 
 
 module_dir = os.path.dirname(__file__)
@@ -51,7 +50,7 @@ class AutoApplyModel:
 
     Methods:
         get_prompt(system_prompt_path: str) -> str: Returns the system prompt from the specified path.
-        get_resume_to_json(pdf_path: str) -> dict: Extracts resume details from the specified PDF path.
+        resume_to_json(pdf_path: str) -> dict: Extracts resume details from the specified PDF path.
         user_data_extraction(user_data_path: str) -> dict: Extracts user data from the specified path.
         job_details_extraction(url: str) -> dict: Extracts job details from the specified job URL.
         resume_builder(job_details: dict, user_data: dict) -> dict: Generates a resume based on job details and user data.
@@ -83,19 +82,19 @@ class AutoApplyModel:
         else:
             self.downloads_dir = downloads_dir
     
-    def load_and_split_documents(self, data, chunk_size=1024, chunk_overlap=100):
-        try:
-            # DO: Decide apt chunk size and overlap. start small(128/256) for granular semnatic info to large(512/1024) chunks for broad context.
-            text_splitter = RecursiveCharacterTextSplitter(
-                chunk_size=chunk_size, 
-                chunk_overlap=chunk_overlap,
-                length_function=len
-            )
-            chunks = text_splitter.split_text(data)
-            return chunks
-        except Exception as e:
-            print(e)
-            return None
+    # def load_and_split_documents(self, data, chunk_size=1024, chunk_overlap=100):
+    #     try:
+    #         # DO: Decide apt chunk size and overlap. start small(128/256) for granular semnatic info to large(512/1024) chunks for broad context.
+    #         text_splitter = RecursiveCharacterTextSplitter(
+    #             chunk_size=chunk_size, 
+    #             chunk_overlap=chunk_overlap,
+    #             length_function=len
+    #         )
+    #         chunks = text_splitter.split_text(data)
+    #         return chunks
+    #     except Exception as e:
+    #         print(e)
+    #         return None
     
     # Define a function to perform similarity search between user and job description
     def find_similar_points(self, user_embeddings, job_embeddings):
@@ -123,7 +122,7 @@ class AutoApplyModel:
             
         # qa = RetrievalQA(vector_store=user_embeddings, query_vector_store=job_embeddings, k=3)
 
-    def get_resume_to_json(self, pdf_path):
+    def resume_to_json(self, pdf_path):
         """
         Converts a resume in PDF format to JSON format.
 
@@ -152,7 +151,7 @@ class AutoApplyModel:
             raise Exception("Invalid LLM Provider")
 
     @measure_execution_time
-    def user_data_extraction(self, user_data_path: str = demo_data_path):
+    def user_data_extraction(self, user_data_path: str = demo_data_path, is_st=False):
         """
         Extracts user data from the given file path.
 
@@ -164,19 +163,19 @@ class AutoApplyModel:
         """
         print("\nFetching user data...")
 
-        if user_data_path is None or user_data_path.strip() == "":
+        if user_data_path is None or (type(user_data_path) is str and user_data_path.strip() == ""):
             user_data_path = demo_data_path
 
         # Read user data
         if os.path.splitext(user_data_path)[1] == ".pdf":
-            user_data = self.get_resume_to_json(user_data_path)
+            user_data = self.resume_to_json(user_data_path)
         else:
             user_data = read_json(user_data_path)
         
         return user_data
 
     @measure_execution_time
-    def job_details_extraction(self, url: str=None, job_site_content: str=None):
+    def job_details_extraction(self, url: str=None, job_site_content: str=None, is_st=False):
         """
         Extracts job details from the specified job URL.
 
@@ -200,25 +199,29 @@ class AutoApplyModel:
             # TODO: Handle case where it returns None. sometime, website take time to load, but scraper complete before that.
             if url is not None and url.strip() != "":
                 job_site_content = get_url_content(url)
-                while job_site_content is None:
-                    job_site_content = get_url_content(url)
+                if job_site_content is None:
+                    raise Exception("Unable to web scrape the job description.")
 
             llm = self.get_llm_instance(system_prompt)
             job_details = llm.get_response(job_site_content, need_json_output=True)
-            job_details["url"] = url
+            if url is not None and url.strip() != "":
+                job_details["url"] = url
             jd_path = job_doc_name(job_details, self.downloads_dir, "jd")
 
             write_json(jd_path, job_details)
-            print("Job Details JSON generated at: ", jd_path)
-            del job_details['url']
-            return job_details
+            print(f"Job Details JSON generated at: {jd_path}")
+
+            if url is not None and url.strip() != "":
+                del job_details['url']
+            
+            return job_details, jd_path
 
         except Exception as e:
             print(e)
             return None
  
     @measure_execution_time
-    def cover_letter_generator(self, job_details: dict, user_data: dict, need_pdf: bool = True):
+    def cover_letter_generator(self, job_details: dict, user_data: dict, need_pdf: bool = True, is_st=False):
         """
         Generates a cover letter based on the provided job details and user data.
 
@@ -259,11 +262,11 @@ class AutoApplyModel:
             text_to_pdf(cover_letter, cv_path.replace(".txt", ".pdf"))
             print("Cover Letter PDF generated at: ", cv_path.replace(".txt", ".pdf"))
         
-        return cover_letter
+        return cover_letter, cv_path.replace(".txt", ".pdf")
 
 
     @measure_execution_time
-    def resume_builder(self, job_details: dict, user_data: dict):
+    def resume_builder(self, job_details: dict, user_data: dict, is_st=False):
         """
         Builds a resume based on the provided job details and user data.
 
@@ -277,42 +280,56 @@ class AutoApplyModel:
         Raises:
             FileNotFoundError: If the system prompt files are not found.
         """
+        try:
+            print("\nGenerating Resume Details...")
+            if is_st: st.toast("Generating Resume Details...")
 
-        print("\nGenerating Resume Details...")
+            resume_details = dict()
+            system_prompt = get_prompt(os.path.join(prompt_path, "persona-job-llm.txt"))
 
-        resume_details = dict()
-        system_prompt = get_prompt(os.path.join(prompt_path, "persona-job-llm.txt"))
+            # Personal Information Section
+            if is_st: st.toast("Processing Resume's Personal Info Section...")
+            resume_details["personal"] = { 
+                "name": user_data["name"], 
+                "phone": user_data["phone"], 
+                "email": user_data["email"],
+                "github": user_data["media"]["github"], 
+                "linkedin": user_data["media"]["linkedin"]
+                }
+            st.markdown("**Personal Info Section**")
+            st.write(resume_details)
 
-        print("Processing Resume's Personal Info Section...")
-        # Personal Information Section
-        resume_details["personal"] = { 
-            "name": user_data["name"], 
-            "phone": user_data["phone"], 
-            "email": user_data["email"],
-            "github": user_data["media"]["github"], 
-            "linkedin": user_data["media"]["linkedin"]
-            }
+            # Other Sections
+            for section in ['work', 'education', 'skill_section', 'projects', 'certifications', 'achievements']:
+                section_log = f"Processing Resume's {section.upper()} Section..."
+                if is_st: st.toast(section_log)
+                query = get_prompt(os.path.join(prompt_path, "sections", f"{section}.txt"))
+                query = query.replace("<SECTION_DATA>", json.dumps(user_data[section])).replace("<JOB_DESCRIPTION>", json.dumps(job_details))
 
-        # Other Sections
-        for section in ['education', 'work', 'skill_section', 'projects', 'certifications', 'achievements']:
-            print(f"Processing Resume's {section.upper()} Section...")
-            query = get_prompt(os.path.join(prompt_path, "sections", f"{section}.txt"))
-            query = query.replace("<SECTION_DATA>", json.dumps(user_data[section])).replace("<JOB_DESCRIPTION>", json.dumps(job_details))
+                llm = self.get_llm_instance(system_prompt)
+                response = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
+                resume_details[section] = response[section]
+                
+                if is_st:
+                    st.markdown(f"**{section.upper()} Section**")
+                    st.write(response)
 
-            llm = self.get_llm_instance(system_prompt)
-            response = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
-            resume_details[section] = response[section]
-        
-        resume_details['keywords'] = job_details['keywords']
-        resume_path = job_doc_name(job_details, self.downloads_dir, "resume")
+            resume_details['keywords'] = job_details['keywords']
+            
+            resume_path = job_doc_name(job_details, self.downloads_dir, "resume")
 
-        write_json(resume_path, resume_details)
+            write_json(resume_path, resume_details)
+            resume_path = resume_path.replace(".json", ".pdf")
+            # st.write(f"resume_path: {resume_path}")
 
-        resume_path = resume_path.replace(".json", ".pdf")
+            resume_pdf_path, resume_latex = latex_to_pdf(resume_details, resume_path)
+            # st.write(f"resume_pdf_path: {resume_pdf_path}")
 
-        latex_to_pdf(resume_details, resume_path)
-        print("Resume PDF generated at: ", resume_path)
-        return resume_details
+            return resume_path, resume_details
+        except Exception as e:
+            print(e)
+            st.write("Error: \n\n",e)
+            return resume_path, resume_details
 
     def resume_cv_pipeline(self, job_url: str, user_data_path: str = demo_data_path):
         """Run the Auto Apply Pipeline.
@@ -333,22 +350,40 @@ class AutoApplyModel:
             if job_url is None and len(job_url.strip()) == "":
                 print("Job URL is required.")
                 return
-
+            
+            # Extract user data
             user_data = self.user_data_extraction(user_data_path)
 
-            job_details = self.job_details_extraction(url=job_url)
+            # Extract job details
+            job_details, jd_path = self.job_details_extraction(url=job_url)
+            # job_details = read_json("/Users/saurabh/Downloads/JobLLM_Resume_CV/Netflix/Netflix_MachineLearning_JD.json")
 
-            resume_details = self.resume_builder(job_details, user_data)
-            
-            cv_details = self.cover_letter_generator(job_details, user_data)
+            # Generate cover letter
+            cv_details, cv_path = self.cover_letter_generator(job_details, user_data)
 
-            content_preservation = jaccard_similarity(json.dumps(resume_details), json.dumps(user_data))
-            goodness = jaccard_similarity(json.dumps(resume_details), json.dumps(job_details))
+            # Build resume
+            resume_path, resume_details = self.resume_builder(job_details, user_data)
+            # resume_details = read_json("/Users/saurabh/Downloads/JobLLM_Resume_CV/Netflix/Netflix_MachineLearning_resume.json")
 
-            print("Content Preservation: ", content_preservation)
-            print("Resume's Goodness Over JD: ", goodness)
+            # Calculate metrics
+            for metric in ['jaccard_similarity', 'overlap_coefficient', 'cosine_similarity']:
+                print(f"\nCalculating {metric}...")
 
-            print("Done!!!")
+                if metric == 'vector_embedding_similarity':
+                    llm = self.get_llm_instance('')
+                    user_personlization = globals()[metric](llm, json.dumps(resume_details), json.dumps(user_data))
+                    job_alignment = globals()[metric](llm, json.dumps(resume_details), json.dumps(job_details))
+                    job_match = globals()[metric](llm, json.dumps(user_data), json.dumps(job_details))
+                else:
+                    user_personlization = globals()[metric](json.dumps(resume_details), json.dumps(user_data))
+                    job_alignment = globals()[metric](json.dumps(resume_details), json.dumps(job_details))
+                    job_match = globals()[metric](json.dumps(user_data), json.dumps(job_details))
+
+                print("User Personlization Score(resume,master_data): ", user_personlization)
+                print("Job Alignment Score(resume,JD): ", job_alignment)
+                print("Job Match Score(master_data,JD): ", job_match)
+
+            print("\nDone!!!")
         except Exception as e:
             print(e)
             return None
