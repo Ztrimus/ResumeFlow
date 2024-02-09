@@ -204,19 +204,19 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
 
     os.rename(resulted_pdf_path, dst_path)
 
-    # with open(dst_path, "rb") as pdf_file:
-    #     PDFbyte = pdf_file.read()
+    with open(dst_path, "rb") as pdf_file:
+        PDFbyte = pdf_file.read()
 
-    # st.download_button(label="Export Report",
-    #                     data=PDFbyte,
-    #                     file_name=os.path.basename(dst_path),
-    #                     mime='application/octet-stream')
+    st.download_button(label="Export Report",
+                        data=PDFbyte,
+                        file_name=os.path.basename(dst_path),
+                        mime='application/octet-stream')
 
     if result.returncode != 0:
         print("Exit-code not 0, check result!")
     try:
-        pass
-        # open_file(dst_path)
+        # pass
+        open_file(dst_path)
     except Exception as e:
         print("Unable to open the PDF file.")
         st.write("Unable to open the PDF file.")
@@ -233,10 +233,10 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
         if os.path.exists(file_path):
             os.remove(file_path)
 
-    # with open(dst_path, "rb") as f:
-    #     pdf_data = f.read()
+    with open(dst_path, "rb") as f:
+        pdf_data = f.read()
     
-    # st.write(f"pdf_data: {pdf_data}")
+    st.write(f"pdf_data: {pdf_data}")
 
     return dst_path
 
