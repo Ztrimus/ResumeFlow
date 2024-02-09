@@ -206,11 +206,12 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
 
     with open(dst_path, "rb") as pdf_file:
         PDFbyte = pdf_file.read()
-
-    st.download_button(label="Export Report",
-                        data=PDFbyte,
-                        file_name=os.path.basename(dst_path),
-                        mime='application/octet-stream')
+    
+    st.download_button(label="Export Data",
+                                data=PDFbyte,
+                                file_name=os.path.basename(dst_path),
+                                key="download_pdf_button_",
+                                mime="application/pdf")
 
     if result.returncode != 0:
         print("Exit-code not 0, check result!")
