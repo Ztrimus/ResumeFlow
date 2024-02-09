@@ -233,10 +233,10 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
         if os.path.exists(file_path):
             os.remove(file_path)
 
-    with open(dst_path, "rb") as f:
-        pdf_data = f.read()
+    # with open(dst_path, "rb") as f:
+    #     pdf_data = f.read()
     
-    st.write(f"pdf_data: {pdf_data}")
+    # st.write(f"pdf_data: {pdf_data}")
 
     return dst_path
 
