@@ -73,9 +73,15 @@ class Gemini:
                 )
 
             if need_json_output:
-                return parse_json_markdown(content.text)
+                result = parse_json_markdown(content.text)
             else:
-                return content.text
+                result = content.text
+            
+            if result is None:
+                st.write("LLM Response")
+                st.write(content.text)
+
+            return result
         
         except Exception as e:
             print(e)

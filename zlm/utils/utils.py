@@ -283,7 +283,7 @@ def parse_json_markdown(json_string: str) -> dict:
         return parsed
     except Exception as e:
         print(e)
-        st.write("error jsob_string")
+        st.write("error json_string")
         st.write(json_string)
         return None
 

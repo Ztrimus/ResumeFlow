@@ -9,7 +9,6 @@ Copyright (c) 2023-2024 Saurabh Zinjad. All rights reserved | https://github.com
 '''
 import os
 import json
-import base64
 import shutil
 import streamlit as st
 
