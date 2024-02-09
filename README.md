@@ -3,12 +3,13 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub issues open](https://img.shields.io/github/issues/Ztrimus/job-llm.svg?)](https://github.com/Ztrimus/job-llm/issues)
 
-<img src="https://github.com/Ztrimus/job-llm/blob/main/resources/auto_job_apply_workflow.jpg" alt="Auto Job Aligned Personalized Resume Generation Pipeline" width="auto">
+[![Click here to see image of "Auto Job Aligned Personalized Resume Generation Pipeline"](https://github.com/Ztrimus/job-llm/blob/main/resources/auto_job_apply_workflow.jpg)](https://github.com/Ztrimus/job-llm/blob/main/resources/auto_job_apply_workflow.jpg)
+<br>For **Video Demonstration** visit the YouTube link: https://youtu.be/Agl7ugyu1N4
 
-Project source can be:
- - access as Web Tool from https://job-aligned-resume.streamlit.app/
- - Install as Python Package from https://pypi.org/project/zlm/
- - download from https://github.com/Ztrimus/job-llm.git
+Project can be:
+ - Access as a **Web Tool** from https://job-aligned-resume.streamlit.app/
+ - Install as a **Python Package** from https://pypi.org/project/zlm/
+ - download as **Source Code** from https://github.com/Ztrimus/job-llm.git
 
 All other known bugs and fixes can be sent to following emails with the subject _"[BUG] JOB LLM"_. Reported bugs/fixes will be submitted to correction.
 
