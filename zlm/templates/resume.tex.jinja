@@ -57,6 +57,7 @@
 \BLOCK{ endif }
 
 %==== EDUCATION SECTION ====%
+\BLOCK{ if education }
 \begin{rSection}{Education}
     \BLOCK{ for school in education }
         \BLOCK{ if school.university }
@@ -73,6 +74,7 @@
         \BLOCK{ endif } 
     \BLOCK{ endfor }
 \end{rSection}
+\BLOCK{ endif }
 
 % ==== PROJECTS SECTION =====%
 \BLOCK{ if projects }

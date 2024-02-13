@@ -42,7 +42,7 @@ interface PROJECT_SCHEMA {
   projects: ProjectItem[];
 }
 
-Desired Output(Write the Project section according to the PROJECT_SCHEMA schema):
+Desired Output - Use json template in output & Write the Project section according to the PROJECT_SCHEMA schema:
 {
   "projects": "RESULT"
 }

@@ -29,7 +29,7 @@ interface CERTIFICATION_SCHEMA {
   certifications: CertificationItem[];
 }
 
-Desired Output(Write the Certification section according to the CERTIFICATION_SCHEMA schema):
+Desired Output - Use json template in output & Write the Certification section according to the CERTIFICATION_SCHEMA schema:
 {
   "certifications": "RESULT"
 }

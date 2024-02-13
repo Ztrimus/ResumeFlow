@@ -28,7 +28,7 @@ interface ACHIEVEMENTS_SCHEMA {
   achievements: string[];
 }
 
-Desired Output(Write the Achievements section according to the ACHIEVEMENTS_SCHEMA schema):
+Desired Output - Use json template in output & Write the Achievements section according to the ACHIEVEMENTS_SCHEMA schema:
 {
   "achievements": "RESULT"
 }

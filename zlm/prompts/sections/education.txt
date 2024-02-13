@@ -35,7 +35,7 @@ interface EDUCATION_SCHEMA {
   education: EducationItem[];
 }
 
-Desired Output(Write the education section according to the EDUCATION_SCHEMA schema):
+Desired Output - Use json template in output & Write the education section according to the EDUCATION_SCHEMA schema:
 {
   "education": "RESULT"
 }

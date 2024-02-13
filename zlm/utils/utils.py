@@ -276,10 +276,7 @@ def parse_json_markdown(json_string: str) -> dict:
         json_str = json_str.strip()
 
         # Parse the JSON string into a Python dictionary while allowing control characters by setting strict to False
-        parsed = json.loads(json_str, strict=False)
-        if parsed is None:
-            st.write("jsob_string")
-            st.write(json_string)
+        parsed = json.loads(json_str, encoding="utf-8", strict=False)
 
         return parsed
     except Exception as e:
