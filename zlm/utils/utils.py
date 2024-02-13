@@ -12,7 +12,6 @@ import os
 import re
 import time
 import json
-import shutil
 import base64
 import platform
 import subprocess
@@ -21,6 +20,7 @@ import streamlit.components.v1 as components
 from fpdf import FPDF
 from pathlib import Path
 from datetime import datetime
+from langchain_core.output_parsers import JsonOutputParser
 OS_SYSTEM = platform.system().lower()
 
 
@@ -261,22 +261,24 @@ def parse_json_markdown(json_string: str) -> dict:
         if 'JSON_OUTPUT_ACCORDING_TO_RESUME_DATA_SCHEMA' in json_string:
             json_string = json_string.replace("JSON_OUTPUT_ACCORDING_TO_RESUME_DATA_SCHEMA", "",1)
 
-        match = re.search(r"""```*
-                            (?:json)?
-                            (.*)```""", json_string, flags=re.DOTALL|re.VERBOSE)
+        # match = re.search(r"""```*
+        #                     (?:json)?
+        #                     (.*)```""", json_string, flags=re.DOTALL|re.VERBOSE)
 
-        # If no match found, assume the entire string is a JSON string
-        if match is None:
-            json_str = json_string
-        else:
-            # If match found, use the content within the backticks
-            json_str = match.group(1)
+        # # If no match found, assume the entire string is a JSON string
+        # if match is None:
+        #     json_str = json_string
+        # else:
+        #     # If match found, use the content within the backticks
+        #     json_str = match.group(1)
 
-        # Strip whitespace and newlines from the start and end
-        json_str = json_str.strip()
+        # # Strip whitespace and newlines from the start and end
+        # json_str = json_str.strip()
 
-        # Parse the JSON string into a Python dictionary while allowing control characters by setting strict to False
-        parsed = json.loads(json_str)
+        # # Parse the JSON string into a Python dictionary while allowing control characters by setting strict to False
+        # parsed = json.loads(json_str)
+        parser = JsonOutputParser()
+        parsed = parser.parse(json_string)
 
         return parsed
     except Exception as e:

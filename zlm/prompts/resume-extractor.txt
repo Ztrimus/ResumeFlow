@@ -80,3 +80,5 @@ interface RESUME_DATA_SCHEMA {
 
 Desired Output: Write the Well-formatted JSON adhering to the RESUME_DATA_SCHEMA schema, handling missing values with empty strings or "None".
 <JSON_OUTPUT_ACCORDING_TO_RESUME_DATA_SCHEMA>
+
+The results should contain valid JSON only, without any delimiter or characters making invalid JSON format.

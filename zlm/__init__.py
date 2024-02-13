@@ -309,8 +309,9 @@ class AutoApplyModel:
                 llm = self.get_llm_instance(system_prompt)
                 response = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
                 if response is not None:
-                    if response[section]:
-                        resume_details[section] = response[section]
+                    if section in response:
+                        if response[section]:
+                            resume_details[section] = response[section]
                 
                 if is_st:
                     st.markdown(f"**{section.upper()} Section**")
