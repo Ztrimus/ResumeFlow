@@ -117,8 +117,8 @@ if get_resume_button or get_cover_letter_button:
         if get_resume_button:
             with st.status("Building resume..."):
                 resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st=True)
-                st.write("Outer resume_path: ", resume_path)
-                st.write("Outer resume_details is None: ", resume_details is None)
+                # st.write("Outer resume_path: ", resume_path)
+                # st.write("Outer resume_details is None: ", resume_details is None)
             
             st.subheader("Generated Resume")
             pdf_data = read_file(resume_path, "rb")
