@@ -1,11 +1,11 @@
 # ResumeFlow: An LLM-facilitated Pipeline for Personalized Resume Generation and Refinement 
 
-[![Demo Page](https://img.shields.io/badge/Project-Demo-FF4B4B?logo=streamlit)](https://job-aligned-resume.streamlit.app/){:target="_blank"}
-[![arxiv paper](https://img.shields.io/badge/arXiv-Paper-B31B1B?logo=arxiv)](https://arxiv.org/abs/2402.06221){:target="_blank"}
-[![PyPI Latest Release](https://img.shields.io/pypi/v/zlm.svg?label=PyPI&color=3775A9&logo=pypi)](https://pypi.org/project/zlm/){:target="_blank"}
-[![PyPI Downloads](https://img.shields.io/pypi/dm/zlm.svg?label=PyPI%20downloads&color=blueviolet&target=blank)](https://pypi.org/project/zlm/){:target="_blank"}
-[![GitHub issues open](https://img.shields.io/github/issues/Ztrimus/job-llm.svg?color=orange&label=Issues&logo=github)](https://github.com/Ztrimus/job-llm/issues){:target="_blank"}
-[![License: MIT](https://img.shields.io/badge/License-MIT-success.svg?logo)](https://github.com/Ztrimus/job-llm/blob/main/LICENSE){:target="_blank"}
+[![Demo Page](https://img.shields.io/badge/Project-Demo-FF4B4B?logo=streamlit)](https://job-aligned-resume.streamlit.app/)
+[![arxiv paper](https://img.shields.io/badge/arXiv-Paper-B31B1B?logo=arxiv)](https://arxiv.org/abs/2402.06221)
+[![PyPI Latest Release](https://img.shields.io/pypi/v/zlm.svg?label=PyPI&color=3775A9&logo=pypi)](https://pypi.org/project/zlm/)
+[![PyPI Downloads](https://img.shields.io/pypi/dm/zlm.svg?label=PyPI%20downloads&color=blueviolet&target=blank)](https://pypi.org/project/zlm/)
+[![GitHub issues open](https://img.shields.io/github/issues/Ztrimus/job-llm.svg?color=orange&label=Issues&logo=github)](https://github.com/Ztrimus/job-llm/issues)
+[![License: MIT](https://img.shields.io/badge/License-MIT-success.svg?logo)](https://github.com/Ztrimus/job-llm/blob/main/LICENSE)
 
 [![Click here to see image of "Auto Job Aligned Personalized Resume Generation Pipeline"](https://github.com/Ztrimus/job-llm/blob/main/resources/auto_job_apply_workflow.jpg)](https://github.com/Ztrimus/job-llm/blob/main/resources/auto_job_apply_workflow.jpg)
 <br>For **Video Demonstration** visit the YouTube link: https://youtu.be/Agl7ugyu1N4
