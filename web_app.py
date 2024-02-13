@@ -49,8 +49,6 @@ with col_1:
     provider = st.selectbox("Select LLM provider([OpenAI](https://openai.com/blog/openai-api), [Gemini Pro](https://ai.google.dev/)):", ["gemini-pro", "gpt-4"])
 with col_2:
     api_key = st.text_input("Enter API key:", type="password")
-    if api_key == "":
-        api_key = None
 st.markdown("---") 
 
 # Buttons side-by-side with styling
@@ -73,6 +71,9 @@ if get_resume_button or get_cover_letter_button:
     
     if url == "" and text == "":
         st.toast(":red[Please enter a job posting URL or paste the job description to get started]", icon="⚠️") 
+    
+    if api_key == "":
+        st.toast(":red[Please enter the API key to get started]", icon="⚠️")
     
     if file is not None and (url != "" or text != ""):
         download_resume_path = os.path.join(os.path.dirname(__file__), "output")
