@@ -216,8 +216,8 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
     if result.returncode != 0:
         print("Exit-code not 0, check result!")
     try:
-        # pass
-        open_file(dst_path)
+        pass
+        # open_file(dst_path)
     except Exception as e:
         print("Unable to open the PDF file.")
         st.write("Unable to open the PDF file.")
