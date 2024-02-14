@@ -18,9 +18,10 @@ from zlm.utils.utils import display_pdf, download_pdf, read_file, read_json
 from zlm.utils.metrics import jaccard_similarity, overlap_coefficient, cosine_similarity
 
 st.set_page_config(
-    page_title="Resume Generation!",
+    page_title="Resume Generator",
     page_icon="📑",
     menu_items={
+        'Get help': 'https://www.youtube.com/watch?v=Agl7ugyu1N4',
         'About': 'https://github.com/Ztrimus/job-llm',
         'Report a bug': "https://github.com/Ztrimus/job-llm/issues",
     }
@@ -55,13 +56,13 @@ try:
     # Buttons side-by-side with styling
     col1, col2, col3 = st.columns(3)
     with col1:
-        get_resume_button = st.button("Get Resume", key="get_resume", type="primary")
+        get_resume_button = st.button("Get Resume", key="get_resume", type="primary", use_container_width=True)
 
     with col2:
-        get_cover_letter_button = st.button("Get Cover Letter", key="get_cover_letter", type="primary")
+        get_cover_letter_button = st.button("Get Cover Letter", key="get_cover_letter", type="primary", use_container_width=True)
 
     with col3:
-        get_both = st.button("Resume + Cover letter", key="both", type="primary")
+        get_both = st.button("Resume + Cover letter", key="both", type="primary", use_container_width=True)
         if get_both:
             get_resume_button = True
             get_cover_letter_button = True
@@ -103,7 +104,7 @@ try:
 
             if user_data is None:
                 st.error("User data not able process. Please upload a valid file")
-                st.subheader("Please try again")
+                st.markdown("<h2 style='text-align: center;'>Please try again</h2>", unsafe_allow_html=True)
                 st.stop()
 
             # Extract job details
@@ -112,12 +113,11 @@ try:
                     job_details, jd_path = resume_llm.job_details_extraction(url=url, is_st=True)
                 elif text != "":
                     job_details, jd_path = resume_llm.job_details_extraction(job_site_content=text, is_st=True)
-                
                 st.write(job_details)
 
             if job_details is None:
                 st.error("Job details not able process. Please paste job description or try again.")
-                st.subheader("Please try again")
+                st.markdown("<h2 style='text-align: center;'>Please try again!</h2>", unsafe_allow_html=True)
                 st.stop()
 
             # Build Resume
@@ -185,7 +185,11 @@ try:
             if refresh:
                 st.caching.clear_cache()
                 st.rerun()
+            
+            st.link_button("Report feedback, issues or feature requests", "https://github.com/Ztrimus/job-llm/issues", use_container_width=True)
 except Exception as e:
     st.error(f"An error occurred: {e}")
-    st.subheader("Please try again")
+    st.markdown("<h2 style='text-align: center;'>Please try again!</h2>", unsafe_allow_html=True)
     st.stop()
+
+st.link_button("Report feedback, issues or feature requests", "https://github.com/Ztrimus/job-llm/issues", use_container_width=True)
