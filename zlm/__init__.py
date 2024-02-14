@@ -218,6 +218,7 @@ class AutoApplyModel:
 
         except Exception as e:
             print(e)
+            st.error(f"Error in Job Details Extraction, {e}")
             return None
  
     @measure_execution_time
@@ -300,7 +301,7 @@ class AutoApplyModel:
             st.write(resume_details)
 
             # Other Sections
-            for section in ['work', 'education', 'skill_section', 'projects', 'certifications', 'achievements']:
+            for section in ['work_experience', 'education', 'skill_section', 'projects', 'certifications', 'achievements']:
                 section_log = f"Processing Resume's {section.upper()} Section..."
                 if is_st: st.toast(section_log)
                 query = get_prompt(os.path.join(prompt_path, "sections", f"{section}.txt"))
@@ -308,10 +309,14 @@ class AutoApplyModel:
 
                 llm = self.get_llm_instance(system_prompt)
                 response = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
-                if response is not None:
+
+                if response is not None and isinstance(response, dict):
                     if section in response:
                         if response[section]:
-                            resume_details[section] = response[section]
+                            if section == "skill_section":
+                                resume_details[section] = [i for i in response['skill_section'] if len(i['skills'])]
+                            else:
+                                resume_details[section] = response[section]
                 
                 if is_st:
                     st.markdown(f"**{section.upper()} Section**")
