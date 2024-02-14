@@ -30,19 +30,32 @@ Consider following Job description delimited by <JOB_DETAIL></JOB_DETAIL> tag.
 <JOB_DESCRIPTION>
 </JOB_DETAIL>
 
-Consider following TypeScript Interface for JSON schema:
-interface ProjectItem {
+Desired Output:
+Provide JSON object as output like following:
+"projects": [
+    {
+      "name": "Search Engine for All file types - Sunhack Hackathon - Meta & Amazon Sponsored",
+      "type": "Hackathon",
+      "link": "https://devpost.com/software/team-soul-1fjgwo",
+      "from": "Nov 2023",
+      "to": "Nov 2023",
+      "description": [
+        "1st runner up prize in crafted AI persona, to explore LLM's subtle contextual understanding and create innovative collaborations between humans and machines.",
+        "Devised a TabNet Classifier Model having 98.7% accuracy in detecting forest fire through IoT sensor data, deployed on AWS and edge devices 'Silvanet Wildfire Sensors' using technologies TinyML, Docker, Redis, and celery.",
+        and So on ...
+      ]
+    }
+    and So on ...
+  ]
+
+You can consider following class to provide JSON object as output:
+class ProjectItem {
   name: string;
   link: string;
   from: string;
   to: string;
   description: string[];
 }
-interface PROJECT_SCHEMA {
+class PROJECT_SCHEMA {
   projects: ProjectItem[];
-}
-
-Desired Output - Use json template in output & Write the Project section according to the PROJECT_SCHEMA schema:
-{
-  "projects": "RESULT"
 }

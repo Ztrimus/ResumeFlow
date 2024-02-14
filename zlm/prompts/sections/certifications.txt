@@ -19,17 +19,30 @@ Consider following Job description delimited by <JOB_DETAIL></JOB_DETAIL> tag.
 <JOB_DESCRIPTION>
 </JOB_DETAIL>
 
-Consider following TypeScript Interface for JSON schema:
-interface CertificationItem {
+Desired Output:
+Provide JSON object as output like following:
+{
+  "certifications": [
+    {
+      "name": "Deep Learning Specialization",
+      "by": "DeepLearning.AI, Coursera Inc.",
+      "link": "https://www.coursera.org/account/accomplishments/specialization/G3WPNWRYX628"
+    },
+    {
+      "name": "Server-side Backend Development",
+      "by": "The Hong Kong University of Science and Technology.",
+      "link": "https://www.coursera.org/account/accomplishments/verify/TYMQX23D4HRQ"
+    }
+    ...
+  ],
+}
+
+You can consider following class to provide JSON object as output:
+class CertificationItem {
   name: string;
   issuer: string;
   link: string;
 }
-interface CERTIFICATION_SCHEMA {
+class CERTIFICATION_SCHEMA {
   certifications: CertificationItem[];
-}
-
-Desired Output - Use json template in output & Write the Certification section according to the CERTIFICATION_SCHEMA schema:
-{
-  "certifications": "RESULT"
 }

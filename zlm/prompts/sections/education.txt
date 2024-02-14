@@ -22,8 +22,29 @@ Consider following Job description delimited by <JOB_DETAIL></JOB_DETAIL> tag.
 <JOB_DESCRIPTION>
 </JOB_DETAIL>
 
-Consider following TypeScript Interface for JSON schema:
-interface EducationItem {
+Desired Output:
+Provide JSON object as output like following:
+{
+  "education": [
+    {
+      "degree": "Masters of Science - Computer Science (Thesis)",
+      "university": "Arizona State University, Tempe, USA",
+      "from": "Aug 2023",
+      "to": "May 2025",
+      "grade": "3.8/4",
+      "coursework": [
+        "Operational Deep Learning",
+        "Software verification, Validation and Testing",
+        "Social Media Mining",
+        ...
+      ]
+    }
+    ....
+  ],
+}
+
+You can consider following class to provide JSON object as output:
+class EducationItem {
   degree: string;
   university: string;
   from: string;
@@ -31,11 +52,6 @@ interface EducationItem {
   grade: string;
   classes: string[];
 }
-interface EDUCATION_SCHEMA {
+class EDUCATION_SCHEMA {
   education: EducationItem[];
-}
-
-Desired Output - Use json template in output & Write the education section according to the EDUCATION_SCHEMA schema:
-{
-  "education": "RESULT"
 }

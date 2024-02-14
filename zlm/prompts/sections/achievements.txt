@@ -23,12 +23,18 @@ Consider following Job description delimited by <JOB_DETAIL></JOB_DETAIL> tag.
 <JOB_DESCRIPTION>
 </JOB_DETAIL>
 
-Consider following TypeScript Interface for JSON schema:
-interface ACHIEVEMENTS_SCHEMA {
-  achievements: string[];
+Desired Output:
+Provide JSON object as output like following:
+{
+  "achievements": [
+    "Won E-yantra Robotics Competition 2018 - IITB.",
+    "1st prize in “Prompt Engineering Hackathon 2023 for Humanities”",
+    "Received the 'Extra Miller - 2021' award at Winjit Technologies for outstanding performance. ",
+    ...
+  ]
 }
 
-Desired Output - Use json template in output & Write the Achievements section according to the ACHIEVEMENTS_SCHEMA schema:
-{
-  "achievements": "RESULT"
+You can consider following class to provide JSON object as output:
+class ACHIEVEMENTS_SCHEMA {
+  achievements: string[];
 }

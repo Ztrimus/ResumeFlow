@@ -19,16 +19,25 @@ Consider following Job description delimited by <JOB_DETAIL></JOB_DETAIL> tag.
 <JOB_DESCRIPTION>
 </JOB_DETAIL>
 
-Consider following TypeScript Interface for JSON schema:
-interface SectionItem {
+Desired Output:
+Provide JSON object as output like following:
+"skill_section": [
+    {
+      "name": "Programming Languages",
+      "skills": ["Python", "JavaScript", "C#", and so on ...]
+    },
+    {
+      "name": "Cloud and DevOps",
+      "skills": [ "Azure", "AWS", and so on ... ]
+    },
+    and so on ...
+  ],
+
+You can consider following class to provide JSON object as output:
+class SectionItem {
   name: string;
   skills: string[]
 }
-interface SKILL_SECTION_SCHEMA {
+class SKILL_SECTION_SCHEMA {
   skill_section: SectionItem[];
-}
-
-Desired Output - Use json template in output & Write the Skills section according to the SKILL_SECTION_SCHEMA schema:
-{
-  "skill_section": "RESULT"
 }
