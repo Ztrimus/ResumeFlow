@@ -44,6 +44,8 @@ class ChatGPT:
         
         except Exception as e:
             print(e)
+            st.error(f"Error in OpenAI API, {e}")
+            st.subheader("Please try again")
     
     def get_embedding(self, text, model="text-embedding-ada-002", task_type="retrieval_document"):
         try:
@@ -85,6 +87,8 @@ class Gemini:
         
         except Exception as e:
             print(e)
+            st.error(f"Error in Gemini API, {e}")
+            st.subheader("Please try again")
             return None
     
     def get_embedding(self, content, model="models/embedding-001", task_type="retrieval_document"):
