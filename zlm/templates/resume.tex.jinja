@@ -41,7 +41,7 @@
     \begin{rSection}{Work Experience}
         \BLOCK{ for exp in work }
             \begin{rSubsection}
-                {\VAR{exp.role}}{\VAR{exp.from} - \VAR{exp.to}}
+                {\VAR{exp.role}}{\BLOCK{ if exp.from }\VAR{exp.from} -\BLOCK{ endif } \BLOCK{ if exp.from }\VAR{exp.to}\BLOCK{ endif }}
                 \BLOCK{ if exp.link}
                     {\normalfont{\textit{\href{\VAR{exp.link}}{\VAR{exp.company}}}}}
                 \BLOCK{else}

@@ -30,8 +30,37 @@ Consider following Job description delimited by <JOB_DETAIL></JOB_DETAIL> tag.
 <JOB_DESCRIPTION>
 </JOB_DETAIL>
 
-Consider following TypeScript Interface for JSON schema:
-interface WorkItem {
+Desired Output:
+Provide JSON object as output like following:
+{
+  "work": [
+    {
+      "role": "Software Engineer",
+      "company": "Winjit Technologies, Pune, India",
+      "from": "Jan 2020",
+      "to": "Jun 2022",
+      "description": [
+        "Engineered 10+ RESTful APIs Architecture and Distributed services; Designed 30+ low-latency responsive UI/UX application features with high-quality web architecture; Managed and optimized large-scale Databases. (Systems Design)",  
+        "Initiated and Designed a standardized solution for dynamic forms generation, with customizable CSS capabilities feature, which reduces development time by 8x; Led and collaborated with a 12 member cross-functional team. (Idea Generation)"  
+        and so on ...
+      ]
+    },
+    {
+      "role": "Research Intern",
+      "company": "IMATMI, Robbinsville, New Jersey (Remote)",
+      "from": "Mar 2019",
+      "to": "Aug 2019",
+      "description": [
+        "Conducted research and developed a range of ML and statistical models to design analytical tools and streamline HR processes, optimizing talent management systems for increased efficiency.",
+        "Created 'goals and action plan generation' tool for employees, considering their weaknesses to facilitate professional growth.",
+        and so on ...
+      ]
+    }
+  ],
+}
+
+You can consider following class to provide JSON object as output:
+class WorkItem {
   role: string;
   company: string; // only company name, not location
   location: string;
@@ -39,11 +68,6 @@ interface WorkItem {
   to: string;
   description: string[];
 }
-interface WORK_SCHEMA {
+class WORK_SCHEMA {
   work: WorkItem[];
-}
-
-Desired Output - Use json template in output & Write the Work section according to the WORK_SCHEMA schema. On the response:
-{
-  "work": "RESULT"
 }
