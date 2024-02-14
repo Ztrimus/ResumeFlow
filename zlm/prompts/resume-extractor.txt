@@ -28,7 +28,6 @@ interface Education {
   to: string;
   grade?: string;
   coursework?: string[];
-  classes?: string[];
 }
 
 interface SkillSection {
@@ -71,7 +70,7 @@ interface RESUME_DATA_SCHEMA {
   media: Media;
   education: Education[];
   skill_section: SkillSection[];
-  work: Work[];
+  work_experience: Work[];
   projects: Project[];
   certifications: Certification[];
   achievements: Achievements;

@@ -36,13 +36,3 @@ Provide JSON object as output like following:
     ...
   ],
 }
-
-You can consider following class to provide JSON object as output:
-class CertificationItem {
-  name: string;
-  issuer: string;
-  link: string;
-}
-class CERTIFICATION_SCHEMA {
-  certifications: CertificationItem[];
-}

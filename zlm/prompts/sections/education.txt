@@ -42,16 +42,3 @@ Provide JSON object as output like following:
     ....
   ],
 }
-
-You can consider following class to provide JSON object as output:
-class EducationItem {
-  degree: string;
-  university: string;
-  from: string;
-  to: string;
-  grade: string;
-  classes: string[];
-}
-class EDUCATION_SCHEMA {
-  education: EducationItem[];
-}

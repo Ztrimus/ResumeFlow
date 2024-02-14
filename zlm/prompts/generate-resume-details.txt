@@ -21,7 +21,7 @@ Output the response in JSON format only - below I have given example delimited b
   "personal": { "name": "", "phone": "+1 111-222-3333", "email": "", "github": "", "linkedin": ""
   },
   "education": [
-    { "degree": "", "university": "", "from": "", "to": "", "grade": "", "classes": [] },
+    { "degree": "", "university": "", "from": "", "to": "", "grade": "", "coursework": [] },
     ...
   ],
   "skill_section": [

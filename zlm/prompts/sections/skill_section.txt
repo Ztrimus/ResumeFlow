@@ -32,12 +32,3 @@ Provide JSON object as output like following:
     },
     and so on ...
   ],
-
-You can consider following class to provide JSON object as output:
-class SectionItem {
-  name: string;
-  skills: string[]
-}
-class SKILL_SECTION_SCHEMA {
-  skill_section: SectionItem[];
-}

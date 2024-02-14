@@ -1,0 +1,62 @@
+You are going to write a JSON resume section of "Work Experience" for an applicant applying for job posts.
+
+Step to follow:
+1. Analyze my Work details to match job requirements.
+2. Create a JSON resume section that highlights strongest matches
+3. Optimize JSON section for clarity and relevance to the job description.
+
+Instructions:
+1. Focus: Craft three highly relevant work experiences aligned with the job description.
+2. Content:
+  2.1. Bullet points: 3 per experience, closely mirroring job requirements.
+  2.2. Impact: Quantify each bullet point for measurable results.
+  2.3. Storytelling: Utilize STAR methodology (Situation, Task, Action, Result) implicitly within each bullet point.
+  2.4. Action Verbs: Showcase soft skills with strong, active verbs.
+  2.5. Honesty: Prioritize truthfulness and objective language.
+  2.6. Structure: Each bullet point follows "Did X by doing Y, achieved Z" format.
+  2.7. Specificity: Prioritize relevance to the specific job over general achievements.
+3. Style:
+  3.1. Clarity: Clear expression trumps impressiveness.
+  3.2. Voice: Use active voice whenever possible.
+  3.3. Proofreading: Ensure impeccable spelling and grammar.
+
+Consider following Work Details delimited by <WORK></WORK> tag.
+<WORK>
+<SECTION_DATA>
+</WORK>
+
+Consider following Job description delimited by <JOB_DETAIL></JOB_DETAIL> tag.
+<JOB_DETAIL>
+<JOB_DESCRIPTION>
+</JOB_DETAIL>
+
+Desired Output:
+Provide JSON object as output like following:
+{
+  "work_experience": [
+    {
+      "role": "Software Engineer",
+      "company": "Winjit Technologies",
+      "location": "Pune, India"
+      "from": "Jan 2020",
+      "to": "Jun 2022",
+      "description": [
+        "Engineered 10+ RESTful APIs Architecture and Distributed services; Designed 30+ low-latency responsive UI/UX application features with high-quality web architecture; Managed and optimized large-scale Databases. (Systems Design)",  
+        "Initiated and Designed a standardized solution for dynamic forms generation, with customizable CSS capabilities feature, which reduces development time by 8x; Led and collaborated with a 12 member cross-functional team. (Idea Generation)"  
+        and so on ...
+      ]
+    },
+    {
+      "role": "Research Intern",
+      "company": "IMATMI, Robbinsville",
+      "location": "New Jersey (Remote)"
+      "from": "Mar 2019",
+      "to": "Aug 2019",
+      "description": [
+        "Conducted research and developed a range of ML and statistical models to design analytical tools and streamline HR processes, optimizing talent management systems for increased efficiency.",
+        "Created 'goals and action plan generation' tool for employees, considering their weaknesses to facilitate professional growth.",
+        and so on ...
+      ]
+    }
+  ],
+}

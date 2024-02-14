@@ -47,15 +47,3 @@ Provide JSON object as output like following:
     }
     and So on ...
   ]
-
-You can consider following class to provide JSON object as output:
-class ProjectItem {
-  name: string;
-  link: string;
-  from: string;
-  to: string;
-  description: string[];
-}
-class PROJECT_SCHEMA {
-  projects: ProjectItem[];
-}
