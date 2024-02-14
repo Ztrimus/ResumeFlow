@@ -218,8 +218,9 @@ class AutoApplyModel:
 
         except Exception as e:
             print(e)
-            st.error(f"Error in Job Details Extraction, {e}")
-            return None
+            st.write("Please try pasting the job description text instead of the URL.")
+            st.error(f"Error in Job Details Parsing, {e}")
+            return None, None
  
     @measure_execution_time
     def cover_letter_generator(self, job_details: dict, user_data: dict, need_pdf: bool = True, is_st=False):

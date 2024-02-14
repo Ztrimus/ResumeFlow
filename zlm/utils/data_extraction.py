@@ -40,8 +40,6 @@ def get_url_content(url: str):
         return text_content
     except Exception as e:
         print(e)
-        st.write("Please try pasting the job description text instead of the URL.")
-        st.error(f"Error: {e}")
         return None
 
 def extract_text(pdf_path: str):

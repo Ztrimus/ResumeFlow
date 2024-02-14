@@ -44,14 +44,14 @@ try:
     else:
         text = st.text_area("Paste job description text:", max_chars=5500, height=200, placeholder="Paste job description text here...", label_visibility="collapsed")
 
-    file = st.file_uploader("Upload your resume or work related data (json, pdf)", type=["json", "pdf"])
+    file = st.file_uploader("Upload your resume or any work-related data(JSON, PDF). [Recommended templates](https://github.com/Ztrimus/job-llm/tree/main/zlm/demo_data)", type=["json", "pdf"])
 
     col_1, col_2 = st.columns(2)
     with col_1:
         provider = st.selectbox("Select LLM provider([OpenAI](https://openai.com/blog/openai-api), [Gemini Pro](https://ai.google.dev/)):", ["gemini-pro", "gpt-4"])
     with col_2:
         api_key = st.text_input("Enter API key:", type="password")
-    st.markdown("---") 
+    st.markdown("<sub><sup>GPT-4 is recommended for better results.</sup></sub>", unsafe_allow_html=True)
 
     # Buttons side-by-side with styling
     col1, col2, col3 = st.columns(3)
@@ -104,7 +104,7 @@ try:
 
             if user_data is None:
                 st.error("User data not able process. Please upload a valid file")
-                st.markdown("<h2 style='text-align: center;'>Please try again</h2>", unsafe_allow_html=True)
+                st.markdown("<h3 style='text-align: center;'>Please try again</h3>", unsafe_allow_html=True)
                 st.stop()
 
             # Extract job details
@@ -116,8 +116,8 @@ try:
                 st.write(job_details)
 
             if job_details is None:
-                st.error("Job details not able process. Please paste job description or try again.")
-                st.markdown("<h2 style='text-align: center;'>Please try again!</h2>", unsafe_allow_html=True)
+                st.error("Please paste job description. Job details not able process.")
+                st.markdown("<h3 style='text-align: center;'>Please paste job description text and try again!</h3>", unsafe_allow_html=True)
                 st.stop()
 
             # Build Resume
@@ -189,7 +189,7 @@ try:
             st.link_button("Report feedback, issues or feature requests", "https://github.com/Ztrimus/job-llm/issues", use_container_width=True)
 except Exception as e:
     st.error(f"An error occurred: {e}")
-    st.markdown("<h2 style='text-align: center;'>Please try again!</h2>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center;'>Please try again!</h3>", unsafe_allow_html=True)
     st.stop()
 
 st.link_button("Report feedback, issues or feature requests", "https://github.com/Ztrimus/job-llm/issues", use_container_width=True)

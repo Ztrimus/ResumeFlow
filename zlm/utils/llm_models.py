@@ -45,7 +45,7 @@ class ChatGPT:
         except Exception as e:
             print(e)
             st.error(f"Error in OpenAI API, {e}")
-            st.markdown("<h2 style='text-align: center;'>Please try again!</h2>", unsafe_allow_html=True)
+            st.markdown("<h3 style='text-align: center;'>Please try again!</h3>", unsafe_allow_html=True)
     
     def get_embedding(self, text, model="text-embedding-ada-002", task_type="retrieval_document"):
         try:
@@ -81,14 +81,14 @@ class Gemini:
             
             if result is None:
                 st.write("LLM Response")
-                st.write(content.text)
+                st.markdown(f"```json\n{content.text}\n```")
 
             return result
         
         except Exception as e:
             print(e)
             st.error(f"Error in Gemini API, {e}")
-            st.markdown("<h2 style='text-align: center;'>Please try again!</h2>", unsafe_allow_html=True)
+            st.markdown("<h3 style='text-align: center;'>Please try again!</h3>", unsafe_allow_html=True)
             return None
     
     def get_embedding(self, content, model="models/embedding-001", task_type="retrieval_document"):
