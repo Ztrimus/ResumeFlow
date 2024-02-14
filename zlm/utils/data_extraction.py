@@ -12,6 +12,7 @@ import json
 import PyPDF2
 import requests
 from bs4 import BeautifulSoup
+import streamlit as st
 
 def get_url_content(url: str):
     """ Extract text content from any given web page
@@ -39,6 +40,8 @@ def get_url_content(url: str):
         return text_content
     except Exception as e:
         print(e)
+        st.write("Please try pasting the job description text instead of the URL.")
+        st.error(f"Error: {e}")
         return None
 
 def extract_text(pdf_path: str):
