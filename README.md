@@ -14,9 +14,8 @@ Project can be:
  - Access as a **Web Tool** from https://job-aligned-resume.streamlit.app/
  - Install as a **Python Package** from https://pypi.org/project/zlm/
  - download as **Source Code** from https://github.com/Ztrimus/job-llm.git
-
-All other known bugs and fixes can be sent to following emails with the subject _"[BUG] JOB LLM"_. Reported bugs/fixes will be submitted to correction.
-
+ 
+All other known bugs and fixes can be reported on the [GitHub issues](https://github.com/Ztrimus/job-llm/issues) or sent to the following email addresses with the subject "[BUG] Job LLM"
 #### Author & Contributor List
 
  - [Saurabh Zinjad](https://linkedin.com/in/saurabhzinjad) | [Ztrimus](https://github.com/Ztrimus) | szinjad@asu.edu
