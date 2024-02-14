@@ -255,11 +255,12 @@ def parse_json_markdown(json_string: str) -> dict:
         if json_string[3:13].lower() == "typescript":
             json_string = json_string.replace(json_string[3:13], "",1)
         
+        if 'JSON_OUTPUT_ACCORDING_TO_RESUME_DATA_SCHEMA' in json_string:
+            json_string = json_string.replace("JSON_OUTPUT_ACCORDING_TO_RESUME_DATA_SCHEMA", "",1)
+        
         if json_string[3:7].lower() == "json":
             json_string = json_string.replace(json_string[3:7], "",1)
         
-        if 'JSON_OUTPUT_ACCORDING_TO_RESUME_DATA_SCHEMA' in json_string:
-            json_string = json_string.replace("JSON_OUTPUT_ACCORDING_TO_RESUME_DATA_SCHEMA", "",1)
 
         # match = re.search(r"""```*
         #                     (?:json)?
@@ -283,8 +284,6 @@ def parse_json_markdown(json_string: str) -> dict:
         return parsed
     except Exception as e:
         print(e)
-        st.write("error json_string")
-        st.write(json_string)
         return None
 
 def get_prompt(system_prompt_path: str) -> str:

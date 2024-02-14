@@ -37,9 +37,9 @@
 \begin{document}
 
 %===== WORK EXPERIENCE SECTION =====%
-\BLOCK{ if work }
+\BLOCK{ if work_experience }
     \begin{rSection}{Work Experience}
-        \BLOCK{ for exp in work }
+        \BLOCK{ for exp in work_experience }
             \begin{rSubsection}
                 {\VAR{exp.role}}{\BLOCK{ if exp.from }\VAR{exp.from} -\BLOCK{ endif } \BLOCK{ if exp.from }\VAR{exp.to}\BLOCK{ endif }}
                 \BLOCK{ if exp.link}
@@ -68,8 +68,8 @@
             \BLOCK{ if school.grade }
                 \hfill {(GPA: \VAR{school.grade})}
             \BLOCK{ endif } 
-            \BLOCK{ if school.classes }
-                \textbf{\textit{Relevant Courses:}} \textit{\VAR{', '.join(school.classes)}}
+            \BLOCK{ if school.coursework }
+                \textbf{\textit{Relevant Courses:}} \textit{\VAR{', '.join(school.coursework)}}
             \BLOCK{ endif } 
         \BLOCK{ endif } 
     \BLOCK{ endfor }
@@ -100,7 +100,7 @@
     \begin{rSection}{Technical Skills}
         \begin{tabular}{ @{} l @{\hspace{1ex}} l }
             \BLOCK{ for section in skill_section }
-                \textbf{\VAR{section.name}}: \VAR{', '.join(section.skills)}\\
+                    \textbf{\VAR{section.name}}: \VAR{', '.join(section.skills)}\\
             \BLOCK{ endfor }
             \BLOCK{ if certifications }\textbf{Certifications:} 
                     \BLOCK{ for certification in certifications }
