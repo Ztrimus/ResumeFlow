@@ -1,6 +1,5 @@
 texlive-latex-base
 texlive-fonts-recommended
 texlive-fonts-extra
-pdftoppm
 poppler-utils
-pdftocairo
+poppler
