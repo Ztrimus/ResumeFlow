@@ -15,7 +15,10 @@ Project can be:
  - Install as a **Python Package** from https://pypi.org/project/zlm/
  - download as **Source Code** from https://github.com/Ztrimus/job-llm.git
  
-All other known bugs and fixes can be reported on the [GitHub issues](https://github.com/Ztrimus/job-llm/issues) or sent to the following email addresses with the subject "[BUG] Job LLM"
+All other known bugs, fixes, feedbacks, and feature requests can be reported on the [GitHub issues](https://github.com/Ztrimus/job-llm/issues) page.
+
+**Empower others, just like they helped you!** Contribute to this open source project & make a difference. ✨ *Create a branch, improve the code, & raise a pull request!*
+
 #### Author & Contributor List
 
  - [Saurabh Zinjad](https://linkedin.com/in/saurabhzinjad) | [Ztrimus](https://github.com/Ztrimus) | szinjad@asu.edu
@@ -34,7 +37,7 @@ Because, Solving a task using machine learning methods requires a series of step
 
 We're aiming to create a automated system that makes applying for jobs a breeze. Job hunting has many stages, and we see a chance to automate things and use LLM (Language Model) to make it even smoother. We're looking at different ways, both the usual and some new ideas, to integrate LLM into the job application process. The goal is to reduce how much you have to do and let LLM do its thing, making the whole process easier for you.
 
-### 1.3. Refer [Project Report](./resources/Project%20Report.pdf) for more details.
+### 1.3. Refer to this [Paper](https://arxiv.org/abs/2402.06221) for more details.
 
 ## 2. Setup, Installation and Usage
 
