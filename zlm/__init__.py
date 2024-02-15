@@ -239,32 +239,37 @@ class AutoApplyModel:
         """
         print("\nGenerating Cover Letter...")
 
-        system_prompt = get_prompt(
-            os.path.join(prompt_path, "persona-job-llm.txt")
-        ) + get_prompt(
-            os.path.join(prompt_path, "generate-cover-letter.txt")
-        )
-        query = f"""Provided Job description delimited by triple backticks(```) and \
-                    my resume or work information below delimited by triple dashes(---).
-                    ```
-                    {json.dumps(job_details)}
-                    ```
+        try:
+            system_prompt = get_prompt(
+                os.path.join(prompt_path, "persona-job-llm.txt")
+            ) + get_prompt(
+                os.path.join(prompt_path, "generate-cover-letter.txt")
+            )
+            query = f"""Provided Job description delimited by triple backticks(```) and \
+                        my resume or work information below delimited by triple dashes(---).
+                        ```
+                        {json.dumps(job_details)}
+                        ```
 
-                    ---
-                    {json.dumps(user_data)}
-                    ---
-                """
+                        ---
+                        {json.dumps(user_data)}
+                        ---
+                    """
 
-        llm = self.get_llm_instance(system_prompt)
-        cover_letter = llm.get_response(query, expecting_longer_output=True)
-        cv_path = job_doc_name(job_details, self.downloads_dir, "cv")
-        write_file(cv_path, cover_letter)
-        print("Cover Letter generated at: ", cv_path)
-        if need_pdf:
-            text_to_pdf(cover_letter, cv_path.replace(".txt", ".pdf"))
-            print("Cover Letter PDF generated at: ", cv_path.replace(".txt", ".pdf"))
-        
-        return cover_letter, cv_path.replace(".txt", ".pdf")
+            llm = self.get_llm_instance(system_prompt)
+            cover_letter = llm.get_response(query, expecting_longer_output=True)
+            cv_path = job_doc_name(job_details, self.downloads_dir, "cv")
+            write_file(cv_path, cover_letter)
+            print("Cover Letter generated at: ", cv_path)
+            if need_pdf:
+                text_to_pdf(cover_letter, cv_path.replace(".txt", ".pdf"))
+                print("Cover Letter PDF generated at: ", cv_path.replace(".txt", ".pdf"))
+            
+            return cover_letter, cv_path.replace(".txt", ".pdf")
+        except Exception as e:
+            print(e)
+            st.write("Error: \n\n",e)
+            return None, None
 
 
     @measure_execution_time

@@ -51,7 +51,7 @@ try:
         provider = st.selectbox("Select LLM provider([OpenAI](https://openai.com/blog/openai-api), [Gemini Pro](https://ai.google.dev/)):", ["gemini-pro", "gpt-4"])
     with col_2:
         api_key = st.text_input("Enter API key:", type="password")
-    st.markdown("<sub><sup>GPT-4 is recommended for better results.</sup></sub>", unsafe_allow_html=True)
+    st.markdown("<sub><sup>💡 GPT-4 is recommended for better results.</sup></sub>", unsafe_allow_html=True)
 
     # Buttons side-by-side with styling
     col1, col2, col3 = st.columns(3)
@@ -126,16 +126,19 @@ try:
                     resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st=True)
                     # st.write("Outer resume_path: ", resume_path)
                     # st.write("Outer resume_details is None: ", resume_details is None)
-                
-                st.subheader("Generated Resume")
-                pdf_data = read_file(resume_path, "rb")
+                resume_col_1, resume_col_2 = st.columns([0.7, 0.3])
+                with resume_col_1:
+                    st.subheader("Generated Resume")
+                with resume_col_2:
+                    pdf_data = read_file(resume_path, "rb")
 
-                st.download_button(label="Download Resume ⬇",
-                                    data=pdf_data,
-                                    file_name=os.path.basename(resume_path),
-                                    on_click=download_pdf(resume_path),
-                                    key="download_pdf_button",
-                                    mime="application/pdf")
+                    st.download_button(label="Download Resume ⬇",
+                                        data=pdf_data,
+                                        file_name=os.path.basename(resume_path),
+                                        # on_click=download_pdf(resume_path),
+                                        key="download_pdf_button",
+                                        mime="application/pdf",
+                                        use_container_width=True)
                 
                 display_pdf(resume_path, type="image")
                 st.toast("Resume generated successfully!", icon="✅")
@@ -164,14 +167,18 @@ try:
             if get_cover_letter_button:
                 with st.status("Building cover letter..."):
                     cv_details, cv_path = resume_llm.cover_letter_generator(job_details, user_data, is_st=True)
-                st.subheader("Generated Cover Letter")
-                cv_data = read_file(cv_path, "rb")
-                st.download_button(label="Download ⬇",
-                                data=cv_data,
-                                file_name=os.path.basename(cv_path),
-                                on_click=download_pdf(cv_path),
-                                key="download_cv_button",
-                                mime="application/pdf")
+                cv_col_1, cv_col_2 = st.columns([0.7, 0.3])
+                with cv_col_1:
+                    st.subheader("Generated Cover Letter")
+                with cv_col_2:
+                    cv_data = read_file(cv_path, "rb")
+                    st.download_button(label="Download CV ⬇",
+                                    data=cv_data,
+                                    file_name=os.path.basename(cv_path),
+                                    # on_click=download_pdf(cv_path),
+                                    key="download_cv_button",
+                                    mime="application/pdf", 
+                                    use_container_width=True)
                 st.markdown(cv_details, unsafe_allow_html=True)
                 st.markdown("---")
                 st.toast("cover letter generated successfully!", icon="✅")
@@ -185,8 +192,7 @@ try:
             if refresh:
                 st.caching.clear_cache()
                 st.rerun()
-            
-            st.link_button("Report Feedback, Issues, or Contribute!", "https://github.com/Ztrimus/job-llm/issues", use_container_width=True)
+        
 except Exception as e:
     st.error(f"An error occurred: {e}")
     st.markdown("<h3 style='text-align: center;'>Please try again!</h3>", unsafe_allow_html=True)
