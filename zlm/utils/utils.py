@@ -157,37 +157,38 @@ def download_pdf(pdf_path: str):
     #                     mime="application/pdf")
     # pass
 
-def display_pdf(file):
-    # Read file as bytes:
-    bytes_data = read_file(file, "rb")
+from pdf2image import convert_from_path
 
-    # Convert to utf-8
-    base64_pdf = base64.b64encode(bytes_data).decode('utf-8')
+def display_pdf(file, type="pdf"):
+    if type == 'image':
+        # Store Pdf with convert_from_path function
+        pages = convert_from_path(file)
+        for page in pages:
+            st.image(page, use_column_width=True)
 
-    # Embed PDF in HTML
-    pdf_display = F'<iframe src="data:application/pdf;base64,{base64_pdf}" type="application/pdf" style="width:100%; height:100vh;"></iframe>'
+    if type == "pdf":
+        # Read file as bytes:
+        bytes_data = read_file(file, "rb")
 
-    # Display file
-    st.markdown(pdf_display, unsafe_allow_html=True)
+        # Convert to utf-8
+        try:
+            base64_pdf = base64.b64encode(bytes_data).decode('utf-8')
+        except Exception as e:
+            base64_pdf = base64.b64encode(bytes_data)
 
-    # # Opening file from file path
-    # with open(file, "rb") as f:
-    #     try:
-    #         base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-    #     except Exception as e:
-    #         base64_pdf = base64.b64encode(f.read())
-    
-    # st.write(f"base64_pdf: {base64_pdf}")
-    # # Embedding PDF in HTML
-    # pdf_display =  f"""<embed
-    # class="pdfobject"
-    # type="application/pdf"
-    # title="Embedded PDF"
-    # src="data:application/pdf;base64,{base64_pdf}"
-    # style="overflow: auto; width: 100%; height: 100vh">"""
+        # Iframe Embedding of PDF in HTML
+        pdf_display = F'<iframe src="data:application/pdf;base64,{base64_pdf}" type="application/pdf" style="width:100%; height:100vh;"></iframe>'
+        
+        # # Embedding PDF in HTML
+        # pdf_display =  f"""<embed
+        # class="pdfobject"
+        # type="application/pdf"
+        # title="Embedded PDF"
+        # src="data:application/pdf;base64,{base64_pdf}"
+        # style="overflow: auto; width: 100%; height: 100vh">"""
 
-    # # Displaying File
-    # st.markdown(pdf_display, unsafe_allow_html=True)
+        # Display file
+        st.markdown(pdf_display, unsafe_allow_html=True)
 
 def save_latex_as_pdf(tex_file_path: str, dst_path: str):
     # Call pdflatex to convert LaTeX to PDF

@@ -44,7 +44,7 @@ try:
     else:
         text = st.text_area("Paste job description text:", max_chars=5500, height=200, placeholder="Paste job description text here...", label_visibility="collapsed")
 
-    file = st.file_uploader("Upload your resume or any work-related data(JSON, PDF). [Recommended templates](https://github.com/Ztrimus/job-llm/tree/main/zlm/demo_data)", type=["json", "pdf"])
+    file = st.file_uploader("Upload your resume or any work-related data(PDF, JSON). [Recommended templates](https://github.com/Ztrimus/job-llm/tree/main/zlm/demo_data)", type=["json", "pdf"])
 
     col_1, col_2 = st.columns(2)
     with col_1:
@@ -137,7 +137,7 @@ try:
                                     key="download_pdf_button",
                                     mime="application/pdf")
                 
-                display_pdf(resume_path)
+                display_pdf(resume_path, type="image")
                 st.toast("Resume generated successfully!", icon="✅")
                 # Calculate metrics
                 st.subheader("Resume Metrics")
@@ -186,10 +186,10 @@ try:
                 st.caching.clear_cache()
                 st.rerun()
             
-            st.link_button("Report feedback, issues or feature requests", "https://github.com/Ztrimus/job-llm/issues", use_container_width=True)
+            st.link_button("Report Feedback, Issues, or Contribute!", "https://github.com/Ztrimus/job-llm/issues", use_container_width=True)
 except Exception as e:
     st.error(f"An error occurred: {e}")
     st.markdown("<h3 style='text-align: center;'>Please try again!</h3>", unsafe_allow_html=True)
     st.stop()
 
-st.link_button("Report feedback, issues or feature requests", "https://github.com/Ztrimus/job-llm/issues", use_container_width=True)
+st.link_button("Report Feedback, Issues, or Contribute!", "https://github.com/Ztrimus/job-llm/issues", use_container_width=True)

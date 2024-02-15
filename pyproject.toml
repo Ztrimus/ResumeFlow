@@ -19,6 +19,8 @@ streamlit = "^1.30.0"
 nltk = "^3.8.1"
 scikit-learn = "^1.4.0"
 langchain = "^0.1.6"
+pdf2image = "^1.17.0"
+poppler-utils = "^0.1.0"
 
 
 [build-system]
