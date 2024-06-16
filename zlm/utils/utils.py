@@ -202,17 +202,10 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
 
     os.chdir(prev_loc)
     resulted_pdf_path = tex_file_path.replace(".tex", ".pdf")
+    dst_tex_path = dst_path.replace(".pdf", ".tex")
 
     os.rename(resulted_pdf_path, dst_path)
-
-    # with open(dst_path, "rb") as pdf_file:
-    #     PDFbyte = pdf_file.read()
-    
-    # st.download_button(label="Export Data",
-    #                             data=PDFbyte,
-    #                             file_name=os.path.basename(dst_path),
-    #                             key="download_pdf_button_",
-    #                             mime="application/pdf")
+    os.rename(tex_file_path, dst_tex_path)
 
     if result.returncode != 0:
         print("Exit-code not 0, check result!")
@@ -234,14 +227,6 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
         file_path = os.path.join(os.path.dirname(tex_file_path), file)
         if os.path.exists(file_path):
             os.remove(file_path)
-
-    # with open(dst_path, "rb") as f:
-    #     pdf_data = f.read()
-    
-    # st.write(f"pdf_data: {pdf_data}")
-
-    return dst_path
-
 
 def get_default_download_folder():
     """Get the default download folder for the current operating system."""
