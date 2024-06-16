@@ -15,17 +15,17 @@
   },
   "education": [
     {
-      "degree": "Masters of Science - Computer Science (Thesis)",
+      "degree": "Masters of Science - Computer Science - Thesis Advised by Dr. Huan Liu, Amrita Bhattacharjee",
       "university": "Arizona State University, Tempe, USA",
       "from": "Aug 2023",
       "to": "May 2025",
       "grade": "3.8/4",
       "coursework": [
-        "Statistical Machine Learning",
-        "Operational Deep Learning",
-        "Software verification, Validation and Testing",
+        "Operationalizing Deep Learning",
         "AI Safety and Assessment",
         "Social Media Mining",
+        "Statistical Machine Learning",
+        "Software verification, Validation and Testing",
         "Knowledge Representation and Reasoning Algorithms"
       ]
     },
@@ -150,15 +150,15 @@
   ],
   "projects": [
     {
-      "name": "Streamlining Job Applications with LLM Automation Pipeline",
+      "name": "LLM-facilitated Pipeline for Personalized Resume Generation",
       "type": "Project",
-      "link": "https://pypi.org/project/zlm/",
-      "from": "Oct 2023",
-      "to": "Dec 2023",
+      "link": "https://github.com/Ztrimus/job-llm",
+      "from": "Nov 2023",
+      "to": "Feb 2024",
       "description": [
-        "Make your job hunting experience easier by using LLMs to automate tasks like creating personalized resumes and cover letters tailored to specific jobs, as well as submitting applications, saving users time and effort.",
-        "Developed Python library to optimize the job application workflow that generates curated resumes and personalized cover letters tailored to specific job roles.",
-        "Utilized advanced techniques including Prompt Engineering, Web Scraping, and integration of various Large Language Models to enhance the effectiveness of the application."
+        "As the First Author, Led the proposal and development of \"ResumeFlow,\" a pioneering tool powered by Large Language Models (LLMs), enabling users to generate personalized resumes tailored to specific job postings in seconds.",
+        "Designed an innovative pipeline utilizing the advanced capabilities of LLMs (e.g., GPT-4, Google's Gemini) for information extraction and language understanding, applying prompt engineering and web scraping to extract job and resume details, and generate tailored resumes.",
+        "Developed Python library to enable seamless integration and optimized with any job application workflow and system."
       ]
     },
     {
@@ -168,7 +168,7 @@
       "from": "Nov 2023",
       "to": "Nov 2023",
       "description": [
-        "Big Data Awards in Python FAST API and angular development, providing efficient data access and retrieval.",
+        "Big Data Awards in providing efficient data access and retrieval using FAST APIs and angular development.",
         "Converted and stored every file type data as vector embeddings, ensuring low-latency search capabilities.",
         "Used Machine Learning techniques such as BERT, OCR, ResNet50, and Image Captioning to parse Image features.",
         "Contributed to Elasticsearch implementation for blazing-fast search responses, with millisecond response times."

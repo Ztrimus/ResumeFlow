@@ -45,7 +45,7 @@ We're aiming to create a automated system that makes applying for jobs a breeze.
 
  - OS : Linux, Mac
  - Python : 3.11.6 and above
- - LLM API key: [OpenAI](https://openai.com/pricing) OR [Gemini Pro](https://ai.google.dev/)
+ - LLM API key: [OpenAI](https://platform.openai.com/account/api-keys) OR [Gemini Pro](https://ai.google.dev/)
 
 ### 2.2. Package Installation - Use as Library
 

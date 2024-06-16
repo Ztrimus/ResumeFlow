@@ -70,8 +70,8 @@ def latex_to_pdf(json_resume, dst_path):
         tex_temp_path = os.path.join(os.path.realpath(templates_path), os.path.basename(dst_path).replace(".pdf", ".tex"))
 
         write_file(tex_temp_path, resume_latex)
-        resume_pdf_path = save_latex_as_pdf(tex_temp_path, dst_path)
-        return resume_pdf_path, resume_latex
+        save_latex_as_pdf(tex_temp_path, dst_path)
+        return resume_latex
     except Exception as e:
         print(e)
         return None

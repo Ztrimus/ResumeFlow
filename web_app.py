@@ -9,9 +9,10 @@ Copyright (c) 2023-2024 Saurabh Zinjad. All rights reserved | https://github.com
 '''
 import os
 import json
+import base64
 import shutil
+import zipfile
 import streamlit as st
-
 
 from zlm import AutoApplyModel
 from zlm.utils.utils import display_pdf, download_pdf, read_file, read_json
@@ -26,6 +27,61 @@ st.set_page_config(
         'Report a bug': "https://github.com/Ztrimus/job-llm/issues",
     }
 )
+
+if os.path.exists("output"):
+    shutil.rmtree("output")
+
+def encode_tex_file(file_path):
+    try:
+        file_paths = [file_path.replace('.pdf', '.tex'), 'zlm/templates/resume.cls']
+        zip_file_path = file_path.replace('.pdf', '.zip')
+
+        # Create a zip file
+        with zipfile.ZipFile(zip_file_path, 'w') as zipf:
+            for file_path in file_paths:
+                zipf.write(file_path, os.path.basename(file_path))
+
+        # Read the zip file content as bytes
+        with open(zip_file_path, 'rb') as zip_file:
+            zip_content = zip_file.read()
+
+        # Encode the data using Base64
+        encoded_zip = base64.b64encode(zip_content).decode('utf-8')
+
+        return encoded_zip
+    
+    except Exception as e:
+        st.error(f"An error occurred while encoding the file: {e}")
+        print(e)
+        return None
+
+def create_overleaf_button(resume_path):
+    tex_content = encode_tex_file(resume_path)
+    html_code = f"""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Overleaf Button</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body style="background: transparent;">
+        <div style="max-height: 30px !important;">
+            <form action="https://www.overleaf.com/docs" method="post" target="_blank" height="20px">
+                <input type="text" name="snip_uri" style="display: none;"
+                    value="data:application/zip;base64,{tex_content}">
+                <input class="btn btn-success rounded-pill w-100" type="submit" value="Edit in Overleaf 🍃">
+            </form>
+        </div>
+        <!-- Bootstrap JS and dependencies -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+    </html>
+    """
+    st.components.v1.html(html_code, height=40)
 
 try:
     # st.markdown("<h1 style='text-align: center; color: grey;'>Get :green[Job Aligned] :orange[Killer] Resume :sunglasses:</h1>", unsafe_allow_html=True)
@@ -126,7 +182,7 @@ try:
                     resume_path, resume_details = resume_llm.resume_builder(job_details, user_data, is_st=True)
                     # st.write("Outer resume_path: ", resume_path)
                     # st.write("Outer resume_details is None: ", resume_details is None)
-                resume_col_1, resume_col_2 = st.columns([0.7, 0.3])
+                resume_col_1, resume_col_2, resume_col_3 = st.columns([0.35, 0.3, 0.25])
                 with resume_col_1:
                     st.subheader("Generated Resume")
                 with resume_col_2:
@@ -139,6 +195,9 @@ try:
                                         key="download_pdf_button",
                                         mime="application/pdf",
                                         use_container_width=True)
+                with resume_col_3:
+                    # Create and display "Edit in Overleaf" button
+                    create_overleaf_button(resume_path)
                 
                 display_pdf(resume_path, type="image")
                 st.toast("Resume generated successfully!", icon="✅")
