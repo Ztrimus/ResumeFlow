@@ -9,26 +9,20 @@ Copyright (c) 2023-2024 Saurabh Zinjad. All rights reserved | https://github.com
 '''
 import os
 import json
-import time
+import re
+import validators
+import numpy as np
 import streamlit as st
 
-import numpy as np
 
+from zlm.utils import utils
+from zlm.utils.latex_ops import latex_to_pdf
 from zlm.utils.llm_models import ChatGPT, Gemini, TogetherAI
 from zlm.utils.data_extraction import get_url_content, extract_text
-from zlm.utils.latex_ops import latex_to_pdf
-from zlm.utils.utils import (
-    get_default_download_folder,
-    key_value_chunking,
-    measure_execution_time,
-    read_json,
-    write_file,
-    write_json,
-    job_doc_name,
-    text_to_pdf,
-    get_prompt,
-)
 from zlm.utils.metrics import jaccard_similarity, overlap_coefficient, cosine_similarity, vector_embedding_similarity
+
+from langchain_community.document_loaders import UnstructuredURLLoader
+from langchain_community.document_loaders import PlaywrightURLLoader
 
 
 module_dir = os.path.dirname(__file__)
@@ -59,42 +53,26 @@ class AutoApplyModel:
     """
 
     def __init__(
-        self, api_key: str, provider: str, downloads_dir: str = get_default_download_folder()
+        self, api_key: str, provider: str, downloads_dir: str = utils.get_default_download_folder()
     ):
 
         if provider is None or provider.strip() == "":
-            self.provider = "openai"
+            self.provider = "gemini"
         else:
             self.provider = provider
 
         if api_key is None or api_key.strip() == "os":
             if provider == "openai":
                 self.api_key = os.environ.get("OPENAI_API_KEY")
-            elif provider == "together":
-                self.api_key = os.environ.get("TOGETHER_KEY")
             elif provider == "gemini":
                 self.api_key = os.environ.get("GEMINI_API_KEY")
         else:
             self.api_key = api_key
 
         if downloads_dir is None or downloads_dir.strip() == "":
-            self.downloads_dir = get_default_download_folder()
+            self.downloads_dir = utils.get_default_download_folder()
         else:
             self.downloads_dir = downloads_dir
-    
-    # def load_and_split_documents(self, data, chunk_size=1024, chunk_overlap=100):
-    #     try:
-    #         # DO: Decide apt chunk size and overlap. start small(128/256) for granular semnatic info to large(512/1024) chunks for broad context.
-    #         text_splitter = RecursiveCharacterTextSplitter(
-    #             chunk_size=chunk_size, 
-    #             chunk_overlap=chunk_overlap,
-    #             length_function=len
-    #         )
-    #         chunks = text_splitter.split_text(data)
-    #         return chunks
-    #     except Exception as e:
-    #         print(e)
-    #         return None
     
     # Define a function to perform similarity search between user and job description
     def find_similar_points(self, user_embeddings, job_embeddings):
@@ -110,18 +88,6 @@ class AutoApplyModel:
                 print(e)
                 return None
 
-        # similar_points = []
-        # for i, doc_embedding in enumerate(document_embeddings):
-        #     similarity_score = openai.Similarity(
-        #         documents=[query_embedding, doc_embedding],
-        #         model="text-davinci-003-001"
-        #     )
-        #     if similarity_score > 0.8:  # Adjust the threshold as per your requirement
-        #         similar_points.append(document[i])
-        # return similar_points
-            
-        # qa = RetrievalQA(vector_store=user_embeddings, query_vector_store=job_embeddings, k=3)
-
     def resume_to_json(self, pdf_path):
         """
         Converts a resume in PDF format to JSON format.
@@ -132,13 +98,39 @@ class AutoApplyModel:
         Returns:
             dict: The resume data in JSON format.
         """
-        system_prompt = get_prompt(
+        # TODO: Prompt Template
+        system_prompt = utils.get_prompt(
             os.path.join(prompt_path, "resume-extractor.txt")
         )
         llm = self.get_llm_instance(system_prompt)
         resume_text = extract_text(pdf_path)
         resume_json = llm.get_response(resume_text, need_json_output=True)
         return resume_json
+    
+    def read_data_from_url(self, urls):
+        try: 
+            # loader = UnstructuredURLLoader(urls=urls, ssl_verify=False, remove_selectors=["header", "footer"])
+            url_content = ""
+            loader = PlaywrightURLLoader(urls=urls, remove_selectors=["header", "footer"])
+            pages = loader.load()
+
+            for page in pages:
+                if page.page_content.strip() != "":
+                    # text = page.extract_text().split("\n")
+                    text_list = page.page_content.split("\n")
+
+                    # Remove Unicode characters from each line
+                    cleaned_texts = [re.sub(r'[^\x00-\x7F]+', '', line) for line in text_list]
+                    cleaned_texts = [text.strip() for text in cleaned_texts if text.strip() not in ['', None]]
+
+                    # Join the lines into a single string
+                    cleaned_texts_string = '\n'.join(cleaned_texts)
+                    url_content += cleaned_texts_string
+                
+                return url_content
+        except Exception as e:
+            print(e)
+            return None
     
     def get_llm_instance(self, system_prompt):
         if self.provider == "openai":
@@ -150,7 +142,7 @@ class AutoApplyModel:
         else:
             raise Exception("Invalid LLM Provider")
 
-    @measure_execution_time
+    @utils.measure_execution_time
     def user_data_extraction(self, user_data_path: str = demo_data_path, is_st=False):
         """
         Extracts user data from the given file path.
@@ -166,15 +158,22 @@ class AutoApplyModel:
         if user_data_path is None or (type(user_data_path) is str and user_data_path.strip() == ""):
             user_data_path = demo_data_path
 
+
         # Read user data
-        if os.path.splitext(user_data_path)[1] == ".pdf":
+        extension = os.path.splitext(user_data_path)[1]
+        if extension == ".pdf":
             user_data = self.resume_to_json(user_data_path)
+        elif extension == ".json":
+            user_data = utils.read_json(user_data_path)
+        elif validators.url(user_data_path):
+            user_data = self.read_data_from_url([user_data_path])
+            pass
         else:
-            user_data = read_json(user_data_path)
+            raise Exception("Invalid file format. Please provide a PDF, JSON file or url.")
         
         return user_data
 
-    @measure_execution_time
+    @utils.measure_execution_time
     def job_details_extraction(self, url: str=None, job_site_content: str=None, is_st=False):
         """
         Extracts job details from the specified job URL.
@@ -190,9 +189,9 @@ class AutoApplyModel:
         print("\nExtracting job details...")
 
         try:
-            system_prompt = get_prompt(
+            system_prompt = utils.get_prompt(
                 os.path.join(prompt_path, "persona-job-llm.txt")
-            ) + get_prompt(
+            ) + utils.get_prompt(
                 os.path.join(prompt_path, "extract-job-detail.txt")
             )
 
@@ -206,9 +205,9 @@ class AutoApplyModel:
             job_details = llm.get_response(job_site_content, need_json_output=True)
             if url is not None and url.strip() != "":
                 job_details["url"] = url
-            jd_path = job_doc_name(job_details, self.downloads_dir, "jd")
+            jd_path = utils.job_doc_name(job_details, self.downloads_dir, "jd")
 
-            write_json(jd_path, job_details)
+            utils.write_json(jd_path, job_details)
             print(f"Job Details JSON generated at: {jd_path}")
 
             if url is not None and url.strip() != "":
@@ -222,7 +221,7 @@ class AutoApplyModel:
             st.error(f"Error in Job Details Parsing, {e}")
             return None, None
  
-    @measure_execution_time
+    @utils.measure_execution_time
     def cover_letter_generator(self, job_details: dict, user_data: dict, need_pdf: bool = True, is_st=False):
         """
         Generates a cover letter based on the provided job details and user data.
@@ -240,9 +239,9 @@ class AutoApplyModel:
         print("\nGenerating Cover Letter...")
 
         try:
-            system_prompt = get_prompt(
+            system_prompt = utils.get_prompt(
                 os.path.join(prompt_path, "persona-job-llm.txt")
-            ) + get_prompt(
+            ) + utils.get_prompt(
                 os.path.join(prompt_path, "generate-cover-letter.txt")
             )
             query = f"""Provided Job description delimited by triple backticks(```) and \
@@ -258,11 +257,11 @@ class AutoApplyModel:
 
             llm = self.get_llm_instance(system_prompt)
             cover_letter = llm.get_response(query, expecting_longer_output=True)
-            cv_path = job_doc_name(job_details, self.downloads_dir, "cv")
-            write_file(cv_path, cover_letter)
+            cv_path = utils.job_doc_name(job_details, self.downloads_dir, "cv")
+            utils.write_file(cv_path, cover_letter)
             print("Cover Letter generated at: ", cv_path)
             if need_pdf:
-                text_to_pdf(cover_letter, cv_path.replace(".txt", ".pdf"))
+                utils.text_to_pdf(cover_letter, cv_path.replace(".txt", ".pdf"))
                 print("Cover Letter PDF generated at: ", cv_path.replace(".txt", ".pdf"))
             
             return cover_letter, cv_path.replace(".txt", ".pdf")
@@ -272,7 +271,7 @@ class AutoApplyModel:
             return None, None
 
 
-    @measure_execution_time
+    @utils.measure_execution_time
     def resume_builder(self, job_details: dict, user_data: dict, is_st=False):
         """
         Builds a resume based on the provided job details and user data.
@@ -292,7 +291,7 @@ class AutoApplyModel:
             if is_st: st.toast("Generating Resume Details...")
 
             resume_details = dict()
-            system_prompt = get_prompt(os.path.join(prompt_path, "persona-job-llm.txt"))
+            system_prompt = utils.get_prompt(os.path.join(prompt_path, "persona-job-llm.txt"))
 
             # Personal Information Section
             if is_st: st.toast("Processing Resume's Personal Info Section...")
@@ -310,7 +309,7 @@ class AutoApplyModel:
             for section in ['work_experience', 'education', 'skill_section', 'projects', 'certifications', 'achievements']:
                 section_log = f"Processing Resume's {section.upper()} Section..."
                 if is_st: st.toast(section_log)
-                query = get_prompt(os.path.join(prompt_path, "sections", f"{section}.txt"))
+                query = utils.get_prompt(os.path.join(prompt_path, "sections", f"{section}.txt"))
                 query = query.replace("<SECTION_DATA>", json.dumps(user_data[section])).replace("<JOB_DESCRIPTION>", json.dumps(job_details))
 
                 llm = self.get_llm_instance(system_prompt)
@@ -330,9 +329,9 @@ class AutoApplyModel:
 
             resume_details['keywords'] = job_details['keywords']
             
-            resume_path = job_doc_name(job_details, self.downloads_dir, "resume")
+            resume_path = utils.job_doc_name(job_details, self.downloads_dir, "resume")
 
-            write_json(resume_path, resume_details)
+            utils.write_json(resume_path, resume_details)
             resume_path = resume_path.replace(".json", ".pdf")
             # st.write(f"resume_path: {resume_path}")
 

@@ -44,6 +44,7 @@ def get_url_content(url: str):
 
 def extract_text(pdf_path: str):
     resume_text = ""
+
     with open(pdf_path, 'rb') as file:
         pdf_reader = PyPDF2.PdfReader(file)
         num_pages = len(pdf_reader.pages)

@@ -21,6 +21,9 @@ scikit-learn = "^1.4.0"
 langchain = "^0.1.6"
 pdf2image = "^1.17.0"
 poppler-utils = "^0.1.0"
+pypdf = "^4.2.0"
+validators = "^0.28.3"
+playwright = "^1.44.0"
 
 
 [build-system]

@@ -109,7 +109,7 @@ cd job-llm
     --master_data="JSON_USER_MASTER_DATA" /
     --api_key="YOUR_LLM_PROVIDER_API_KEY" / # put api_key considering provider
     --downloads_dir="DOWNLOAD_LOCATION_FOR_RESUME_CV" /
-    --provider="openai" # openai, gemini, together, g4f
+    --provider="openai" # openai, gemini
 ```
 
 ## 3. Citations
