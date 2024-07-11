@@ -1,5 +1,4 @@
 __pycache__
 .env
-.vscode
 output
 *.DS_Store
