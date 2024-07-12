@@ -38,6 +38,9 @@ Because, Solving a task using machine learning methods requires a series of step
 
 We're aiming to create a automated system that makes applying for jobs a breeze. Job hunting has many stages, and we see a chance to automate things and use LLM (Language Model) to make it even smoother. We're looking at different ways, both the usual and some new ideas, to integrate LLM into the job application process. The goal is to reduce how much you have to do and let LLM do its thing, making the whole process easier for you.
 
+### 1.3. References
+- [40+ AWESOME RESUME STATISTICS [2023]: WHAT JOB SEEKERS NEED TO KNOW](https://www.zippia.com/advice/resume-statistics/)
+
 ### 1.3. Refer to this [Paper](https://arxiv.org/abs/2402.06221) for more details.
 
 ## 2. Setup, Installation and Usage
