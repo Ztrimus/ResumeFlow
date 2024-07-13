@@ -33,7 +33,7 @@ if os.path.exists("output"):
 
 def encode_tex_file(file_path):
     try:
-        file_paths = [file_path.replace('.pdf', '.tex'), os.path.join(os.getcwd(), 'zlm/templates/resume.cls')]
+        file_paths = [file_path.replace('.pdf', '.tex'), os.path.join(os.getcwd(), 'resume.cls')]
         zip_file_path = file_path.replace('.pdf', '.zip')
 
         # Create a zip file
@@ -209,17 +209,17 @@ try:
                     job_match = globals()[metric](json.dumps(user_data), json.dumps(job_details))
 
                     if metric == "overlap_coefficient":
-                        title = "Overlap Coefficient"
-                        help_text = "The overlap coefficient is a measure of the overlap between two sets, and is defined as the size of the intersection divided by the smaller of the size of the two sets."
+                        title = "Token Space"
+                        help_text = "Token space compares texts by looking at the exact token (words part of a word) they use. It's like a word-for-word matching game. This method is great for spotting specific terms or skills, making it especially useful for technical resumes. However, it might miss similarities when different words are used to express the same idea. For example, \"manage\" and \"supervise\" would be seen as different in token space, even though they often mean the same thing in job descriptions."
                     elif metric == "cosine_similarity":
-                        title = "Cosine Similarity"
-                        help_text = "The cosine similarity is a measure of the similarity between two non-zero vectors of an inner product space that measures the cosine of the angle between them."
+                        title = "Latent Space"
+                        help_text = "Latent space looks at the meaning behind the words, not just the words themselves. It's like comparing the overall flavor of dishes rather than their ingredient lists. In this space, words with similar meanings are grouped together, even if they're spelled differently. For example, \"innovate\" and \"create\" would be close in latent space because they convey similar ideas. This method is particularly good at understanding context and themes, which is how AI language models actually process text. It's done by calculating cosine similarity between vector embeddings of two texts. By using latent space, we can see if the AI-generated resume captures the essence of the job description, even if it uses different wording."
 
                     st.caption(f"## **:rainbow[{title}]**", help=help_text)
                     col_m_1, col_m_2, col_m_3 = st.columns(3)
-                    col_m_1.metric(label=":green[User Personlization Score]", value=f"{user_personlization:.3f}", delta="[resume,master_data]", delta_color="off")
-                    col_m_2.metric(label=":blue[Job Alignment Score]", value=f"{job_alignment:.3f}", delta="[resume,JD]", delta_color="off")
-                    col_m_3.metric(label=":violet[Job Match Score]", value=f"{job_match:.3f}", delta="[master_data,JD]", delta_color="off")
+                    col_m_1.metric(label=":green[User Personlization Score]", value=f"{user_personlization:.3f}", delta="(new resume, old resume)", delta_color="off")
+                    col_m_2.metric(label=":blue[Job Alignment Score]", value=f"{job_alignment:.3f}", delta="(new resume, job details)", delta_color="off")
+                    col_m_3.metric(label=":violet[Job Match Score]", value=f"{job_match:.3f}", delta="[old resume, job details]", delta_color="off")
                 st.markdown("---")
 
             # Build Cover Letter
