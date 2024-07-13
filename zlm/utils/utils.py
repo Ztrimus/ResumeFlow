@@ -191,42 +191,51 @@ def display_pdf(file, type="pdf"):
         st.markdown(pdf_display, unsafe_allow_html=True)
 
 def save_latex_as_pdf(tex_file_path: str, dst_path: str):
-    # Call pdflatex to convert LaTeX to PDF
-    prev_loc = os.getcwd()
-    os.chdir(os.path.dirname(tex_file_path))
-    result = subprocess.run(
-        ["pdflatex", tex_file_path, "&>/dev/null"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-    )
-
-    os.chdir(prev_loc)
-    resulted_pdf_path = tex_file_path.replace(".tex", ".pdf")
-    dst_tex_path = dst_path.replace(".pdf", ".tex")
-
-    os.rename(resulted_pdf_path, dst_path)
-    os.rename(tex_file_path, dst_tex_path)
-
-    if result.returncode != 0:
-        print("Exit-code not 0, check result!")
     try:
-        pass
-        # open_file(dst_path)
+        # Call pdflatex to convert LaTeX to PDF
+        prev_loc = os.getcwd()
+        os.chdir(os.path.dirname(tex_file_path))
+        try:
+            result = subprocess.run(
+                ["pdflatex", tex_file_path, "&>/dev/null"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+        except Exception as e:
+            print("Pdflatex failed to convert tex file to pdf.")
+            print(e)
+
+
+        os.chdir(prev_loc)
+        resulted_pdf_path = tex_file_path.replace(".tex", ".pdf")
+        dst_tex_path = dst_path.replace(".pdf", ".tex")
+
+        os.rename(resulted_pdf_path, dst_path)
+        os.rename(tex_file_path, dst_tex_path)
+
+        if result.returncode != 0:
+            print("Exit-code not 0, check result!")
+        try:
+            pass
+            # open_file(dst_path)
+        except Exception as e:
+            print("Unable to open the PDF file.")
+            st.write("Unable to open the PDF file.")
+
+        filename_without_ext = os.path.basename(tex_file_path).split(".")[0]
+        unnessary_files = [
+            file
+            for file in os.listdir(os.path.dirname(os.path.realpath(tex_file_path)))
+            if file.startswith(filename_without_ext)
+        ]
+
+        for file in unnessary_files:
+            file_path = os.path.join(os.path.dirname(tex_file_path), file)
+            if os.path.exists(file_path):
+                os.remove(file_path)
     except Exception as e:
-        print("Unable to open the PDF file.")
-        st.write("Unable to open the PDF file.")
-
-    filename_without_ext = os.path.basename(tex_file_path).split(".")[0]
-    unnessary_files = [
-        file
-        for file in os.listdir(os.path.dirname(os.path.realpath(tex_file_path)))
-        if file.startswith(filename_without_ext)
-    ]
-
-    for file in unnessary_files:
-        file_path = os.path.join(os.path.dirname(tex_file_path), file)
-        if os.path.exists(file_path):
-            os.remove(file_path)
+        print(e)
+        return None
 
 def get_default_download_folder():
     """Get the default download folder for the current operating system."""
