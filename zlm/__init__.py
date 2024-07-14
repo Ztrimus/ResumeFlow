@@ -66,6 +66,7 @@ class AutoApplyModel:
                 self.api_key = os.environ.get("OPENAI_API_KEY")
             elif provider == "gemini":
                 self.api_key = os.environ.get("GEMINI_API_KEY")
+                print("===== GOT GEMINI API KEY ======")
         else:
             self.api_key = api_key
 
