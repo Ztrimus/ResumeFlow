@@ -34,6 +34,7 @@ if os.path.exists("output"):
 def encode_tex_file(file_path):
     try:
         current_loc = os.path.dirname(__file__)
+        print(f"current_loc: {current_loc}")
         file_paths = [file_path.replace('.pdf', '.tex'), os.path.join(current_loc, 'zlm', 'templates', 'resume.cls')]
         zip_file_path = file_path.replace('.pdf', '.zip')
 
