@@ -206,7 +206,7 @@ try:
                 # Calculate metrics
                 st.subheader("Resume Metrics")
                 for metric in ['overlap_coefficient', 'cosine_similarity']:
-                    user_personlization = globals()[metric](json.dumps(resume_details), json.dumps(user_data))
+                    user_personalization = globals()[metric](json.dumps(resume_details), json.dumps(user_data))
                     job_alignment = globals()[metric](json.dumps(resume_details), json.dumps(job_details))
                     job_match = globals()[metric](json.dumps(user_data), json.dumps(job_details))
 
@@ -219,7 +219,7 @@ try:
 
                     st.caption(f"## **:rainbow[{title}]**", help=help_text)
                     col_m_1, col_m_2, col_m_3 = st.columns(3)
-                    col_m_1.metric(label=":green[User Personlization Score]", value=f"{user_personlization:.3f}", delta="(new resume, old resume)", delta_color="off")
+                    col_m_1.metric(label=":green[User Personalization Score]", value=f"{user_personalization:.3f}", delta="(new resume, old resume)", delta_color="off")
                     col_m_2.metric(label=":blue[Job Alignment Score]", value=f"{job_alignment:.3f}", delta="(new resume, job details)", delta_color="off")
                     col_m_3.metric(label=":violet[Job Match Score]", value=f"{job_match:.3f}", delta="[old resume, job details]", delta_color="off")
                 st.markdown("---")
