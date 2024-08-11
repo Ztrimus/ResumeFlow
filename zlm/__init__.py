@@ -307,7 +307,7 @@ class AutoApplyModel:
             st.write(resume_details)
 
             # Other Sections
-            for section in ['work_experience', 'education', 'skill_section', 'projects', 'certifications', 'achievements']:
+            for section in ['work_experience', 'skill_section', 'projects', 'education', 'certifications', 'achievements']:
                 section_log = f"Processing Resume's {section.upper()} Section..."
                 if is_st: st.toast(section_log)
                 query = utils.get_prompt(os.path.join(prompt_path, "sections", f"{section}.txt"))
