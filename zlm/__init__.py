@@ -10,9 +10,12 @@ Copyright (c) 2023-2024 Saurabh Zinjad. All rights reserved | https://github.com
 import os
 import json
 import re
+import aiohttp
+import asyncio
 import validators
 import numpy as np
 import streamlit as st
+from typing import Dict, Any
 
 
 from zlm.utils import utils
@@ -273,7 +276,7 @@ class AutoApplyModel:
 
 
     @utils.measure_execution_time
-    def resume_builder(self, job_details: dict, user_data: dict, is_st=False):
+    async def resume_builder(self, job_details: dict, user_data: dict, is_st=False):
         """
         Builds a resume based on the provided job details and user data.
 
@@ -306,27 +309,14 @@ class AutoApplyModel:
             st.markdown("**Personal Info Section**")
             st.write(resume_details)
 
-            # Other Sections
-            for section in ['work_experience', 'skill_section', 'projects', 'education', 'certifications', 'achievements']:
-                section_log = f"Processing Resume's {section.upper()} Section..."
-                if is_st: st.toast(section_log)
-                query = utils.get_prompt(os.path.join(prompt_path, "sections", f"{section}.txt"))
-                query = query.replace("<SECTION_DATA>", json.dumps(user_data[section])).replace("<JOB_DESCRIPTION>", json.dumps(job_details))
+            sections = ['work_experience', 'skill_section', 'projects', 'education', 'certifications', 'achievements']
+            async with aiohttp.ClientSession() as self.session:
+                tasks = [self.process_section(section, user_data, job_details) for section in sections]
+                results = await asyncio.gather(*tasks)
 
-                llm = self.get_llm_instance(system_prompt)
-                response = llm.get_response(query, expecting_longer_output=True, need_json_output=True)
-
-                if response is not None and isinstance(response, dict):
-                    if section in response:
-                        if response[section]:
-                            if section == "skill_section":
-                                resume_details[section] = [i for i in response['skill_section'] if len(i['skills'])]
-                            else:
-                                resume_details[section] = response[section]
-                
-                if is_st:
-                    st.markdown(f"**{section.upper()} Section**")
-                    st.write(response)
+            resume_details = {}
+            for result in results:
+                resume_details.update(result)
 
             resume_details['keywords'] = job_details['keywords']
             
@@ -372,12 +362,12 @@ class AutoApplyModel:
             job_details, jd_path = self.job_details_extraction(url=job_url)
             # job_details = read_json("/Users/saurabh/Downloads/JobLLM_Resume_CV/Netflix/Netflix_MachineLearning_JD.json")
 
-            # Generate cover letter
-            cv_details, cv_path = self.cover_letter_generator(job_details, user_data)
-
             # Build resume
             resume_path, resume_details = self.resume_builder(job_details, user_data)
             # resume_details = read_json("/Users/saurabh/Downloads/JobLLM_Resume_CV/Netflix/Netflix_MachineLearning_resume.json")
+            
+            # Generate cover letter
+            cv_details, cv_path = self.cover_letter_generator(job_details, user_data)
 
             # Calculate metrics
             for metric in ['jaccard_similarity', 'overlap_coefficient', 'cosine_similarity']:
@@ -401,3 +391,39 @@ class AutoApplyModel:
         except Exception as e:
             print(e)
             return None
+
+class AsyncResumeProcessor:
+    def __init__(self, llm, utils, prompt_path, system_prompt, is_st):
+        self.llm = llm
+        self.utils = utils
+        self.prompt_path = prompt_path
+        self.system_prompt = system_prompt
+        self.is_st = is_st
+        self.session = None
+
+    async def process_section(self, section: str, user_data: Dict[str, Any], job_details: Dict[str, Any]) -> Dict[str, Any]:
+        section_log = f"Processing Resume's {section.upper()} Section..."
+        if self.is_st:
+            import streamlit as st
+            st.toast(section_log)
+
+        query = self.utils.get_prompt(os.path.join(self.prompt_path, "sections", f"{section}.txt"))
+        query = query.replace("<SECTION_DATA>", json.dumps(user_data[section])).replace("<JOB_DESCRIPTION>", json.dumps(job_details))
+
+        response = await self.llm.get_response_async(self.session, query, expecting_longer_output=True, need_json_output=True)
+
+        result = {}
+        if response is not None and isinstance(response, dict):
+            if section in response:
+                if response[section]:
+                    if section == "skill_section":
+                        result[section] = [i for i in response['skill_section'] if len(i['skills'])]
+                    else:
+                        result[section] = response[section]
+
+        if self.is_st:
+            import streamlit as st
+            st.markdown(f"**{section.upper()} Section**")
+            st.write(response)
+
+        return {section: result.get(section, [])}

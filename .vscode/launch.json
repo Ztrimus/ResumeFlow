@@ -8,20 +8,19 @@
             "name": "Python: Current File",
             "type": "debugpy",
             "request": "launch",
-            // "program": "main.py",
-            "program": "/Users/saurabh/AA/convergent/projects/job-llm/.venv/bin/streamlit",
+            "program": "main.py",
+            // "program": "/Users/saurabh/AA/convergent/projects/job-llm/.venv/bin/streamlit",
             "console": "integratedTerminal",
             "justMyCode": true,
-            // "args": [
-            //     "-u",
-            //     "https://www.linkedin.com/jobs/view/3970870027",
-            //     "-p",
-            //     "openai",
-            //     "-m",
-            //     "https://www.linkedin.com/in/keval-shah14/"
-            // //     "/Users/saurabh/AA/convergent/projects/job-llm/zlm/demo_data/user_resume.pdf"
-            // ],
-            "args": ["run", "web_app.py"]
+            "args": [
+                "-u",
+                "https://www.linkedin.com/jobs/view/3970870027",
+                "-p",
+                "openai",
+                "-m",
+                "/Users/saurabh/AA/convergent/projects/job-llm/zlm/demo_data/user_profile.json"
+            ],
+            // "args": ["run", "web_app.py"]
         }
     ]
 }
