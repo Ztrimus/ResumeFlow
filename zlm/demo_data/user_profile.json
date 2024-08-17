@@ -1,276 +1,307 @@
 {
-  "name": "John Doe",
-  "summary": "Versatile and self-driven professional with 4+ years of industrial experience in crafting production-ready AI Architecture and full-stack softwares through coherent analysis, and relentless focus on efficient solutions with meticulous execution.",
-  "phone": "+1 444 555 6666",
-  "email": "john.doe@gmail.com",
+  "name": "Saurabh Zinjad",
+  "title": "I build AI systems that solve real-world problems.",
+  "summary": "Versatile and self-driven professional with 4.5+ years of industrial experience in crafting production-ready AI system and full-stack softwares through coherent analysis, and relentless focus on efficient solutions with meticulous execution.",
+  "phone": "+1 480 913 5544",
+  "email": "saurabhzinjad@gmail.com",
   "media": {
-    "linkedin": "linkedin.com/in/johndoe",
-    "github": "github.com/johndoe",
-    "devpost": "devpost.com/johndoe",
-    "medium": "ztrimus.medium.com",
-    "leetcode": "leetcode.com/johndoe",
-    "dagshub": "https://dagshub.com/johndoe",
-    "kaggle": "https://www.kaggle.com/johndoe",
-    "instagram": "https://www.instagram.com/johndoe/"
+      "linkedin": "linkedin.com/in/saurabhzinjad",
+      "github": "github.com/Ztrimus",
+      "medium": "ztrimus.medium.com",
+      "devpost": "devpost.com/Ztrimus"
   },
+  "projects": [
+      {
+          "name": "ResumeFlow: An LLM-facilitated Pipeline for Personalized Resume Generation and Refinement",
+          "type": "Publication",
+          "link": "https://dl.acm.org/doi/10.1145/3626772.3657680",
+          "resources": [
+              {
+                  "name": "Website",
+                  "link": "https://job-aligned-resume.streamlit.app/"
+              },
+              {
+                  "name": "Code Repo",
+                  "link": "https://github.com/Ztrimus/ResumeFlow"
+              }
+          ],
+          "description": [
+              "Led as First Author in developing \"ResumeFlow,\" an innovative tool leveraging Large Language Models (LLMs) like GPT-4 and Google's Gemini, enabling users to generate personalized resumes tailored to specific job postings within seconds.",
+              "Engineered a sophisticated pipeline integrating advanced LLM capabilities for information extraction and language understanding, employing prompt engineering and web scraping techniques to extract job and resume details efficiently.",
+              "Designed and implemented novel evaluation metrics (job_alignment and user_personalization) to quantify resume customization effectiveness and prevent potential hallucinations, enhancing the ethical use of AI in resume generation.",
+              "Presented short paper at ACM SIGIR 2024 Conference, showcasing the tool's capabilities and potential impact on the recruitment industry."
+          ]
+      },
+      {
+          "name": "Search Engine for All file types - Sunhack Hackathon - Meta & Amazon Sponsored",
+          "type": "Hackathon",
+          "link": "https://devpost.com/software/team-soul-1fjgwo",
+          "from": "Nov 2023",
+          "to": "Nov 2023",
+          "description": [
+              "Big Data Awards in Python FAST API and angular development, providing efficient data access and retrieval.",
+              "Converted and stored every file type data as vector embeddings, ensuring low-latency search capabilities.",
+              "Used Machine Learning techniques such as BERT, OCR, ResNet50, and Image Captioning to parse Image features.",
+              "Contributed to Elasticsearch implementation for blazing-fast search responses, with millisecond response times."
+          ]
+      },
+      {
+          "name": "GenAI’s Capabilities and Boundaries Exploration - Prompt Engineering Hackathon for Humanities",
+          "type": "Hackathon",
+          "link": "https://www.linkedin.com/pulse/exploring-depths-ai-story-writing-prompt-engineering-hackathon-wbqwc",
+          "from": "Oct 2023",
+          "to": "Oct 2023",
+          "description": [
+              "1st runner up prize in crafted AI persona, to explore LLM's subtle contextual understanding and create innovative collaborations between humans and machines.",
+              "Addressed limitations in narrative flow, simplicity, emotional depth, and hallucinations through innovative approaches.",
+              "Demonstrated creative mindset and ability to navigate complex tasks and adapt to evolving requirements during hackathon."
+          ]
+      },
+      {
+          "name": "Forest Fire Detection using IoT Sensor Data",
+          "type": "Industrial Project",
+          "link": "https://github.com/OmdenaAI/Dryad",
+          "from": "Sept 2021",
+          "to": "Jan 2022",
+          "description": [
+              "Devised a TabNet Classifier Model having 98.7% accuracy in detecting forest fire through IoT sensor data, deployed on AWS and edge devices 'Silvanet Wildfire Sensors' using technologies TinyML, Docker, Redis, and celery.",
+              "Examine and utilize many performance metrics (Recall, F2 score, sensitivity, specificity. etc.) to reduce high type II error.",
+              "Performed Model Exploration, Analysis, and Optimization."
+          ]
+      },
+      {
+          "name": "Stock Market Analysis",
+          "type": "Intern Project",
+          "link": "https://github.com/Ztrimus/Stock-Market-Analysis",
+          "from": "Dec 2018",
+          "to": "Feb 2019",
+          "description": [
+              "Conducted in-depth Exploratory Data Analysis (EDA) and utilized data visualization techniques for comprehensive stock market analysis. Implemented a range of statistical and ML models on diverse time-series stocks to extract insights and predictions. Improved performance by 27% on the “clustering and diversification analysis”."
+          ]
+      },
+      {
+          "name": "Autonomous Surveillance Monitoring System",
+          "type": "Project",
+          "link": "",
+          "from": "Feb 2019",
+          "to": "Jun 2019",
+          "description": [
+              "At a college-sponsored project, I Built a surveillance engine to detect and alert about suspicious behaviors on campus by constructing a computer vision pipeline of CCTV footage data processing, face detection, poses & action recognition using OpenCV, MediaPipe, Tensorflow, MLFlow, and Flask. Finally, We deployed it on college premises."
+          ]
+      },
+      {
+          "name": "Speech Emotion Recognition",
+          "type": "Project",
+          "link": "https://github.com/Ztrimus/speech-emotion-recognition",
+          "from": "Nov 2018",
+          "to": "Feb 2019",
+          "description": [
+              "Researched and optimized existing emotion detection approaches by combining CNN and LSTM networks. Discovered emotion-affecting attributes in voice by analyzing audio signal features-MFCC, ZCR, Pitch, and Chroma.",
+              "Compressed audio data using an Autoencoder technique to avoid data loss. Due to this, we were able to boost the accuracy of the speech model by 31%. Used tools like PyTorch, Librosa, puAudioAnalysis, and Tensorboard."
+          ]
+      },
+      {
+          "name": "Homecoming: Animal Habitat Organization",
+          "type": "Project",
+          "link": "",
+          "from": "Aug 2018",
+          "to": "Jan 2019",
+          "description": [
+              "Developed a Custom Animal Identification and Classification model using Faster R-CNN architecture to identify animals and their habitats in a simulated environment, which Integrated it into the Firebird V ATMEGA2560 Robot (we tailored it to put animals into a habitat). Optimized the \"Region Proposal Network\" component resulting in 35% decrease in processing time."
+          ]
+      }
+  ],
   "education": [
-    {
-      "degree": "Masters of Science - Computer Science - Thesis Advised by Dr. Huan Liu, Amrita Bhattacharjee",
-      "university": "Arizona State University, Tempe, USA",
-      "from": "Aug 2023",
-      "to": "May 2025",
-      "grade": "3.8/4",
-      "coursework": [
-        "Operationalizing Deep Learning",
-        "AI Safety and Assessment",
-        "Social Media Mining",
-        "Statistical Machine Learning",
-        "Software verification, Validation and Testing",
-        "Knowledge Representation and Reasoning Algorithms"
-      ]
-    },
-    {
-      "degree": "Bachelor of Engineering",
-      "university": "Pune Institute of Computer Technology(PICT), Savitribai Phule Pune University, India",
-      "from": "Jul 2015",
-      "to": "Jun 2019",
-      "grade": "8.53/10",
-      "classes": [
-        "DSA",
-        "OOP",
-        "OS",
-        "System Programming",
-        "Computer Networks",
-        "AI",
-        "ML",
-        "Digital Video & Image Processing"
-      ]
-    }
+      {
+          "degree": "Masters of Science - Computer Science (Thesis)",
+          "university": "Arizona State University, Tempe, USA",
+          "from": "Aug 2023",
+          "to": "May 2025",
+          "coursework": [
+              "Statistical Machine Learning",
+              "Operational Deep Learning",
+              "Software verification, Validation and Testing",
+              "AI Safety and Assessment",
+              "Social Media Mining",
+              "Knowledge Representation and Reasoning Algorithms"
+          ]
+      },
+      {
+          "degree": "Bachelor of Engineering",
+          "university": "Pune Institute of Computer Technology(PICT), Savitribai Phule Pune University, India",
+          "from": "Jul 2015",
+          "to": "Jun 2019",
+          "grade": "8.53/10",
+          "classes": [
+              "DSA",
+              "OOP",
+              "OS",
+              "System Programming",
+              "Computer Networks",
+              "AI",
+              "ML",
+              "Digital Video & Image Processing"
+          ]
+      }
   ],
   "skill_section": [
-    {
-      "name": "Programming Languages",
-      "skills": [
-        "Python",
-        "JavaScript",
-        "C#",
-        "C++",
-        "SQL",
-        "R",
-        "Java",
-        "Shell Scripting"
-      ]
-    },
-    {
-      "name": "Data Science",
-      "skills": [
-        "Databricks",
-        "PySpark",
-        "TensorFlow",
-        "PyTorch",
-        "MXNet",
-        "OpenCV",
-        "Scikit Learn",
-        "Pandas",
-        "Matplotlib",
-        "Keras"
-      ]
-    },
-    {
-      "name": "Cloud and DevOps",
-      "skills": [
-        "Azure",
-        "AWS",
-        "Docker",
-        "Kubernetes",
-        "MLFlow",
-        "Jupyter Notebook",
-        "Git"
-      ]
-    },
-    {
-      "name": "Full-Stack Tech",
-      "skills": [
-        "Angular",
-        "React",
-        ".Net Core",
-        "NodeJs",
-        "Django",
-        "Flask",
-        "FastAPI",
-        "MongoDB",
-        "SQL Server",
-        "MySQL",
-        "Postman"
-      ]
-    }
+      {
+          "name": "Programming Languages",
+          "skills": [
+              "Python",
+              "JavaScript",
+              "C#",
+              "C++",
+              "SQL",
+              "R",
+              "Java",
+              "Shell Scripting"
+          ]
+      },
+      {
+          "name": "Data Science",
+          "skills": [
+              "Databricks",
+              "PySpark",
+              "TensorFlow",
+              "PyTorch",
+              "MXNet",
+              "OpenCV",
+              "Scikit Learn",
+              "Pandas",
+              "Matplotlib",
+              "Keras"
+          ]
+      },
+      {
+          "name": "Cloud and DevOps",
+          "skills": [
+              "Azure",
+              "AWS",
+              "Docker",
+              "Kubernetes",
+              "MLFlow",
+              "Jupyter Notebook",
+              "Git"
+          ]
+      },
+      {
+          "name": "Full-Stack Tech",
+          "skills": [
+              "Angular",
+              "React",
+              ".Net Core",
+              "NodeJs",
+              "Django",
+              "Flask",
+              "FastAPI",
+              "MongoDB",
+              "SQL Server",
+              "MySQL",
+              "Postman"
+          ]
+      }
   ],
   "work_experience": [
-    {
-      "role": "Senior Machine Learning Engineer",
-      "company": "Tiger Analytics, Bangalore, India",
-      "from": "Jun 2022",
-      "to": "Jul 2023",
-      "description": [
-        "Spearheaded development of Data & CI/CD pipelines, Interactive Dashboards, Constraint-based ML Models, Web App, and Comprehensive Documentation for MSP Value Optimization in Petcare sector with a team of 8 analysts. (Team Leadership)",
-        "Developed MLCORE product (end-to-end MLOps platform) by implementing research ideas, organizing through prototyping, and Integrating it with numerous cloud services, attracting an additional four significant clients. (Interpersonal Skills)" 
-      ]
-    },
-    {
-      "role": "Software Engineer",
-      "company": "Winjit Technologies, Pune, India",
-      "from": "Jan 2020",
-      "to": "Jun 2022",
-      "description": [
-        "Engineered 10+ RESTful APIs Architecture and Distributed services; Designed 30+ low-latency responsive UI/UX application features with high-quality web architecture; Managed and optimized large-scale Databases. (Systems Design)",  
-        "Initiated and Designed a standardized solution for dynamic forms generation, with customizable CSS capabilities feature, which reduces development time by 8x; Led and collaborated with a 12 member cross-functional team. (Idea Generation)"  
-      ]
-    },
-    {
-      "role": "Deep Learning Engineer",
-      "company": "Automation Teknix, Pune, India",
-      "from": "Sept 2019",
-      "to": "Jan 2020",
-      "description": [
-        "Devised a Lightweight Object Recognition Engine with a low computational cost by leveraging an SSD algorithm with MobilenetV2 architecture, which decreased survey error by 22%. (Problem Identification)",
-        "Conducted thorough Initial research; prototyped neural network flow; conceptualized POC, training, and monitoring of models. This resulted in a 7% increase in accuracy and reduced inference time by 2x. (Experiment Design)"
-      ]
-    },
-    {
-      "role": "Research Intern",
-      "company": "IMATMI, Robbinsville, New Jersey (Remote)",
-      "from": "Mar 2019",
-      "to": "Aug 2019",
-      "description": [
-        "Conducted research and developed a range of ML and statistical models to design analytical tools and streamline HR processes, optimizing talent management systems for increased efficiency.",
-        "Created 'goals and action plan generation' tool for employees, considering their weaknesses to facilitate professional growth.",
-        "Implemented an automated system to identify 'best-fit employees' for upcoming projects, improving project outcomes and resource allocation for managers."
-      ]
-    }
-  ],
-  "projects": [
-    {
-      "name": "LLM-facilitated Pipeline for Personalized Resume Generation",
-      "type": "Project",
-      "link": "https://github.com/Ztrimus/job-llm",
-      "from": "Nov 2023",
-      "to": "Feb 2024",
-      "description": [
-        "As the First Author, Led the proposal and development of \"ResumeFlow,\" a pioneering tool powered by Large Language Models (LLMs), enabling users to generate personalized resumes tailored to specific job postings in seconds.",
-        "Designed an innovative pipeline utilizing the advanced capabilities of LLMs (e.g., GPT-4, Google's Gemini) for information extraction and language understanding, applying prompt engineering and web scraping to extract job and resume details, and generate tailored resumes.",
-        "Developed Python library to enable seamless integration and optimized with any job application workflow and system."
-      ]
-    },
-    {
-      "name": "Search Engine for All file types - Sunhack Hackathon - Meta & Amazon Sponsored",
-      "type": "Hackathon",
-      "link": "https://devpost.com/software/team-soul-1fjgwo",
-      "from": "Nov 2023",
-      "to": "Nov 2023",
-      "description": [
-        "Big Data Awards in providing efficient data access and retrieval using FAST APIs and angular development.",
-        "Converted and stored every file type data as vector embeddings, ensuring low-latency search capabilities.",
-        "Used Machine Learning techniques such as BERT, OCR, ResNet50, and Image Captioning to parse Image features.",
-        "Contributed to Elasticsearch implementation for blazing-fast search responses, with millisecond response times."
-      ]
-    },
-    {
-      "name": "GenAI’s Capabilities and Boundaries Exploration - Prompt Engineering Hackathon for Humanities",
-      "type": "Hackathon",
-      "link": "https://www.linkedin.com/pulse/exploring-depths-ai-story-writing-prompt-engineering-hackathon-wbqwc",
-      "from": "Oct 2023",
-      "to": "Oct 2023",
-      "description": [
-        "1st runner up prize in crafted AI persona, to explore LLM's subtle contextual understanding and create innovative collaborations between humans and machines.",
-        "Addressed limitations in narrative flow, simplicity, emotional depth, and hallucinations through innovative approaches.",
-        "Demonstrated creative mindset and ability to navigate complex tasks and adapt to evolving requirements during hackathon."
-      ]
-    },
-    {
-      "name": "Forest Fire Detection using IoT Sensor Data",
-      "type": "Industrial Project",
-      "link": "https://github.com/OmdenaAI/Dryad",
-      "from": "Sept 2021",
-      "to": "Jan 2022",
-      "description": [
-        "Devised a TabNet Classifier Model having 98.7% accuracy in detecting forest fire through IoT sensor data, deployed on AWS and edge devices 'Silvanet Wildfire Sensors' using technologies TinyML, Docker, Redis, and celery.",
-        "Examine and utilize many performance metrics (Recall, F2 score, sensitivity, specificity. etc.) to reduce high type II error.",
-        "Performed Model Exploration, Analysis, and Optimization."
-      ]
-    },
-    {
-      "name": "Stock Market Analysis",
-      "type": "Intern Project",
-      "link": "https://github.com/Ztrimus/Stock-Market-Analysis",
-      "from": "Dec 2018",
-      "to": "Feb 2019",
-      "description": [
-        "Conducted in-depth Exploratory Data Analysis (EDA) and utilized data visualization techniques for comprehensive stock market analysis. Implemented a range of statistical and ML models on diverse time-series stocks to extract insights and predictions. Improved performance by 27% on the “clustering and diversification analysis”."  
-      ]
-    },
-    {
-      "name": "Autonomous Surveillance Monitoring System",
-      "type": "Project",
-      "link": "",
-      "from": "Feb 2019",
-      "to": "Jun 2019",
-      "description": [
-        "At a college-sponsored project, I Built a surveillance engine to detect and alert about suspicious behaviors on campus by constructing a computer vision pipeline of CCTV footage data processing, face detection, poses & action recognition using OpenCV, MediaPipe, Tensorflow, MLFlow, and Flask. Finally, We deployed it on college premises."
-      ]
-    },
-    {
-      "name": "Speech Emotion Recognition",
-      "type": "Project",
-      "link": "https://github.com/Ztrimus/speech-emotion-recognition",
-      "from": "Nov 2018",
-      "to": "Feb 2019",
-      "description": [
-        "Researched and optimized existing emotion detection approaches by combining CNN and LSTM networks. Discovered emotion-affecting attributes in voice by analyzing audio signal features-MFCC, ZCR, Pitch, and Chroma.",
-        "Compressed audio data using an Autoencoder technique to avoid data loss. Due to this, we were able to boost the accuracy of the speech model by 31%. Used tools like PyTorch, Librosa, puAudioAnalysis, and Tensorboard."  
-      ]
-    },
-    {
-      "name": "Homecoming: Animal Habitat Organization",
-      "type": "Project",
-      "link": "",
-      "from": "Aug 2018",
-      "to": "Jan 2019",
-      "description": [
-        "Developed a Custom Animal Identification and Classification model using Faster R-CNN architecture to identify animals and their habitats in a simulated environment, which Integrated it into the Firebird V ATMEGA2560 Robot (we tailored it to put animals into a habitat). Optimized the \"Region Proposal Network\" component resulting in 35% decrease in processing time."    
-      ]
-    }
+      {
+          "role": "AI Summer Intern",
+          "company": "University of Phoenix AZ USA",
+          "from": "May 2024",
+          "to": "Present",
+          "description": [
+              "Led development of an AI-powered student note summarization tool in a winning hackathon, significantly improving advisor efficiency and enhancing student experience.",
+              "Developed an innovative AI-based complex calculation explanation system, integrating multiple data sources (like log files and code repositories) and APIs to improve student support resolution speed by 6x. (Innovative Approach)",
+              "Implemented critical Salesforce backend logic for tracking future out-of-pocket payments in excess funds cases, streamlining financial processes and improving data accuracy.",
+              "Key Technologies: Python, Salesforce, Amazon Bedrock, LangChain, GPT4o, Claude Sonnet, Llama 3"
+          ]
+      },
+      {
+          "role": "Data Analyst",
+          "company": "Decision Theater at Arizona State University, Tempe, USA",
+          "from": "Jan 2024",
+          "to": "Present",
+          "description": [
+              "Developed and implemented advanced data downscaling techniques, increasing resolution from PUMS to block level, and utilized clustering algorithms (k-means, DBSCAN, hierarchical) to analyze high-resolution patterns, enhancing granularity of policy insights by 40%.",
+              "Engineered custom Python libraries for synthetic data generation and analysis, integrating machine learning models for data block property prediction and classification, resulting in a 30% improvement in data processing efficiency.",
+              "Conducted comprehensive statistical analyses, including correlation studies (Pearson, cosine similarity) and property extraction, creating impactful visualizations and reports that directly informed policymaker decisions and stakeholder communications."
+          ]
+      },
+      {
+          "role": "Senior Machine Learning Engineer",
+          "company": "Tiger Analytics, Bangalore, India",
+          "from": "Jun 2022",
+          "to": "Jul 2023",
+          "description": [
+              "Spearheaded development of Data & CI/CD pipelines, Interactive Dashboards, Constraint-based ML Models, Web App, and Comprehensive Documentation for MSP Value Optimization in Petcare sector with a team of 8 analysts. (Team Leadership)",
+              "Developed MLCORE product (end-to-end MLOps platform) by implementing research ideas, organizing through prototyping, and Integrating it with numerous cloud services, attracting an additional four significant clients. (Interpersonal Skills)"
+          ]
+      },
+      {
+          "role": "Software Engineer",
+          "company": "Winjit Technologies, Pune, India",
+          "from": "Jan 2020",
+          "to": "Jun 2022",
+          "description": [
+              "Engineered 10+ RESTful APIs Architecture and Distributed services; Designed 30+ low-latency responsive UI/UX application features with high-quality web architecture; Managed and optimized large-scale Databases. (Systems Design)",
+              "Initiated and Designed a standardized solution for dynamic forms generation, with customizable CSS capabilities feature, which reduces development time by 8x; Led and collaborated with a 12 member cross-functional team. (Idea Generation)"
+          ]
+      },
+      {
+          "role": "Deep Learning Engineer",
+          "company": "Automation Teknix, Pune, India",
+          "from": "Sept 2019",
+          "to": "Jan 2020",
+          "description": [
+              "Devised a Lightweight Object Recognition Engine with a low computational cost by leveraging an SSD algorithm with MobilenetV2 architecture, which decreased survey error by 22%. (Problem Identification)",
+              "Conducted thorough Initial research; prototyped neural network flow; conceptualized POC, training, and monitoring of models. This resulted in a 7% increase in accuracy and reduced inference time by 2x. (Experiment Design)"
+          ]
+      },
+      {
+          "role": "Research Intern",
+          "company": "IMATMI, Robbinsville, New Jersey (Remote)",
+          "from": "Mar 2019",
+          "to": "Aug 2019",
+          "description": [
+              "Conducted research and developed a range of ML and statistical models to design analytical tools and streamline HR processes, optimizing talent management systems for increased efficiency.",
+              "Created 'goals and action plan generation' tool for employees, considering their weaknesses to facilitate professional growth.",
+              "Implemented an automated system to identify 'best-fit employees' for upcoming projects, improving project outcomes and resource allocation for managers."
+          ]
+      }
   ],
   "certifications": [
-    {
-      "name": "Deep Learning Specialization",
-      "by": "DeepLearning.AI, Coursera Inc.",
-      "link": "https://www.coursera.org/account/accomplishments/specialization/G3WPNWRYX628"
-    },
-    {
-      "name": "MLOps for AI Engineers and Data Scientists",
-      "by": "Omdena Inc.",
-      "link": "https://drive.google.com/file/d/1fh4AEscb0P82nfoaA-muWMzmFngzyk2g/view"
-    },
-    { "name": "Microsoft Azure Fundamentals", "by": "Udemy.",
-    "link": "https://www.udemy.com/certificate/UC-37e943d1-e7f7-4d27-a1e4-e799aef7013b/" },
-    {
-      "name": "Server-side Backend Development",
-      "by": "The Hong Kong University of Science and Technology.",
-      "link": "https://www.coursera.org/account/accomplishments/verify/TYMQX23D4HRQ"
-    },
-    {
-      "name": "Front-End Web UI Frameworks and Tools",
-      "by": "The Hong Kong University of Science and Technology.",
-      "link": "https://www.coursera.org/account/accomplishments/verify/TW8MA6MEXSCZ"
-    }
+      {
+          "name": "Deep Learning Specialization",
+          "by": "DeepLearning.AI, Coursera Inc.",
+          "link": "https://www.coursera.org/account/accomplishments/specialization/G3WPNWRYX628"
+      },
+      {
+          "name": "MLOps for AI Engineers and Data Scientists",
+          "by": "Omdena Inc.",
+          "link": "https://drive.google.com/file/d/1fh4AEscb0P82nfoaA-muWMzmFngzyk2g/view"
+      },
+      {
+          "name": "Microsoft Azure Fundamentals",
+          "by": "Udemy.",
+          "link": "https://www.udemy.com/certificate/UC-37e943d1-e7f7-4d27-a1e4-e799aef7013b/"
+      },
+      {
+          "name": "Server-side Backend Development",
+          "by": "The Hong Kong University of Science and Technology.",
+          "link": "https://www.coursera.org/account/accomplishments/verify/TYMQX23D4HRQ"
+      },
+      {
+          "name": "Front-End Web UI Frameworks and Tools",
+          "by": "The Hong Kong University of Science and Technology.",
+          "link": "https://www.coursera.org/account/accomplishments/verify/TW8MA6MEXSCZ"
+      }
   ],
   "achievements": [
-    "1st runner-up in “Prompt Engineering Hackathon 2023 for Humanities”",
-    "Received the 'Extra Miller - 2021' award at Winjit Technologies for outstanding performance. ",
-    "President of Machine Learning Club: Led a team of 20 people in a project and was awarded \"Best Project of the Year.\"",
-    "Finalist in E-yantra Robotics Competition 2018 - IITB.",
-    "Dance Section's Head of PICT Art Circle: Best dance choreography for Winning \"Firodiya theater competition 2019.\"",
-    "Performed in multiple award-winning state-level drama competitions and received the best-organized team prize thrice.",
-    "An active member of the NSS (National Community Service Group in PICT) in 2016."
+      "1st runner-up in “Prompt Engineering Hackathon 2023 for Humanities”",
+      "Received the 'Extra Miller - 2021' award at Winjit Technologies for outstanding performance. ",
+      "President of Machine Learning Club: Led a team of 20 people in a project and was awarded \"Best Project of the Year.\"",
+      "Finalist in E-yantra Robotics Competition 2018 - IITB.",
+      "Dance Section's Head of PICT Art Circle: Best dance choreography for Winning \"Firodiya theater competition 2019.\"",
+      "Performed in multiple award-winning state-level drama competitions and received the best-organized team prize thrice.",
+      "An active member of the NSS (National Community Service Group in PICT) in 2016."
   ]
 }
