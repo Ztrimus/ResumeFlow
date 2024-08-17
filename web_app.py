@@ -134,7 +134,7 @@ try:
             st.toast(":red[Please enter a job posting URL or paste the job description to get started]", icon="⚠️") 
             st.stop()
         
-        if api_key == "" and provider is not "gemini-pro":
+        if api_key == "" and provider != "gemini-pro":
             st.toast(":red[Please enter the API key to get started]", icon="⚠️")
             st.stop()
         
