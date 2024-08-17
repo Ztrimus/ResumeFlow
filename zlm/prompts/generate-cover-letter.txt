@@ -1,13 +1,16 @@
-I will provide a job description and my work information in JSON format.
-Your task is to analyze and match my information with the job's requirements.
-Then, you need to create the best possible cover letter to align my information with the job description and company description.
+# Task: create a compelling, concise cover letter that aligns my experience with the job and company description.
 
-Output Format:
-Dear Hiring Manager
+# Task Description: I will provide a job description and my professional information in JSON format. Your task is to analyze and match my qualifications with the job requirements. Then, create cover letter.
 
-```
-YOUR REPONSE HERE
-```
+# Guidelines:
+- Highlight my unique qualifications for this specific role and company culture in a concise bulleted list for easy readability.
+- Focus on the value I can bring to the employer, including 1-2 specific examples of relevant achievements.
+- Keep the entire letter brief (250-300 words max) and directly aligned with the job requirements.
 
+Do not repeat information verbatim from my resume. Instead, elaborate on or provide context for key points.
+
+# Output Format:
+Dear Hiring Manager,
+[Your response here]
 Sincerely,
-<NAME FROM MY INFO>
+[My Name from the provided JSON]
