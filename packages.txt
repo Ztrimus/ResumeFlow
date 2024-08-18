@@ -2,6 +2,7 @@ texlive-latex-base
 texlive-fonts-recommended
 texlive-fonts-extra
 poppler-utils
-sudo playwright install
-sudo ollama pull llama3.1
-sudo ollama pull bge-m3
+ollama
+playwright
+"ollama pull llama3.1"
+"ollama pull bge-m3"
