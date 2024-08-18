@@ -14,12 +14,9 @@
             "justMyCode": true,
             // "args": [
             //     "-u",
-            //     "https://www.linkedin.com/jobs/view/3970870027",
-            //     "-p",
-            //     "openai",
+            //     "https://www.linkedin.com/jobs/view/4003781804",
             //     "-m",
-            //     "https://www.linkedin.com/in/keval-shah14/"
-            // //     "/Users/saurabh/AA/convergent/projects/job-llm/zlm/demo_data/user_resume.pdf"
+            //     "/Users/saurabh/AA/convergent/projects/job-llm/zlm/demo_data/user_profile.json"
             // ],
             "args": ["run", "web_app.py"]
         }
