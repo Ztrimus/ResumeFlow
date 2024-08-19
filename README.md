@@ -153,6 +153,15 @@ address = {New York, NY, USA},
 ## 4. License
 JobLLM is under the MIT License and is supported for commercial usage.
 
+## 5. TODO
+Need to find way to install following command in streamlit
+```sh
+ollama
+playwright
+"ollama pull llama3.1"
+"ollama pull bge-m3"
+```
+
 ## 4. References
  - [Prompt engineering Guidelines](https://platform.openai.com/docs/guides/prompt-engineering)
  - [Overleaf LaTex Resume Template](https://www.overleaf.com/latex/templates/jakes-resume-anonymous/cstpnrbkhndn)
