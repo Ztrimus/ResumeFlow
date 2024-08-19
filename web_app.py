@@ -19,6 +19,8 @@ from zlm.utils.utils import display_pdf, download_pdf, read_file, read_json
 from zlm.utils.metrics import jaccard_similarity, overlap_coefficient, cosine_similarity
 from zlm.variables import LLM_MAPPING
 
+os.system("playwright install")
+
 st.set_page_config(
     page_title="Resume Generator",
     page_icon="📑",
