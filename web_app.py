@@ -13,14 +13,14 @@ import base64
 import shutil
 import zipfile
 import streamlit as st
-import subprocess
 
 from zlm import AutoApplyModel
 from zlm.utils.utils import display_pdf, download_pdf, read_file, read_json
 from zlm.utils.metrics import jaccard_similarity, overlap_coefficient, cosine_similarity
 from zlm.variables import LLM_MAPPING
 
-subprocess.run(["playwright", "install", "--with-deps"])
+print("Installing playwright...")
+os.system("playwright install")
 
 st.set_page_config(
     page_title="Resume Generator",
