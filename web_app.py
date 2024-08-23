@@ -21,6 +21,7 @@ from zlm.variables import LLM_MAPPING
 
 print("Installing playwright...")
 os.system("playwright install")
+os.system("sudo playwright install-deps")
 
 st.set_page_config(
     page_title="Resume Generator",
