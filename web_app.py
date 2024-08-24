@@ -17,6 +17,11 @@ import streamlit as st
 from zlm import AutoApplyModel
 from zlm.utils.utils import display_pdf, download_pdf, read_file, read_json
 from zlm.utils.metrics import jaccard_similarity, overlap_coefficient, cosine_similarity
+from zlm.variables import LLM_MAPPING
+
+print("Installing playwright...")
+os.system("playwright install")
+os.system("sudo playwright install-deps")
 
 st.set_page_config(
     page_title="Resume Generator",
@@ -104,11 +109,16 @@ try:
 
     file = st.file_uploader("Upload your resume or any work-related data(PDF, JSON). [Recommended templates](https://github.com/Ztrimus/job-llm/tree/main/zlm/demo_data)", type=["json", "pdf"])
 
-    col_1, col_2 = st.columns(2)
+    col_1, col_2, col_3 = st.columns(3)
     with col_1:
-        provider = st.selectbox("Select LLM provider([OpenAI](https://openai.com/blog/openai-api), [Gemini Pro](https://ai.google.dev/)):", ["gemini-pro", "gpt-4"])
+        provider = st.selectbox("Select provider([OpenAI](https://openai.com/blog/openai-api), [Gemini Pro](https://ai.google.dev/)):", LLM_MAPPING.keys())
     with col_2:
-        api_key = st.text_input("Enter API key:", type="password")
+        model = st.selectbox("Select model:", LLM_MAPPING[provider]['model'])
+    with col_3:
+        if provider != "Ollama":
+            api_key = st.text_input("Enter API key:", type="password", value="")
+        else:
+            api_key = None
     st.markdown("<sub><sup>💡 GPT-4 is recommended for better results.</sup></sub>", unsafe_allow_html=True)
 
     # Buttons side-by-side with styling
@@ -134,18 +144,14 @@ try:
             st.toast(":red[Please enter a job posting URL or paste the job description to get started]", icon="⚠️") 
             st.stop()
         
-        if api_key == "" and provider is not "gemini-pro":
+        if api_key == "" and provider != "Llama":
             st.toast(":red[Please enter the API key to get started]", icon="⚠️")
             st.stop()
         
         if file is not None and (url != "" or text != ""):
             download_resume_path = os.path.join(os.path.dirname(__file__), "output")
 
-            # st.write(f"download_resume_path: {download_resume_path}")
-
-            llm_mapping = {'gpt-4':'openai', 'gemini-pro':'gemini'}
-
-            resume_llm = AutoApplyModel(api_key=api_key, provider=llm_mapping[provider], downloads_dir=download_resume_path)
+            resume_llm = AutoApplyModel(api_key=api_key, provider=provider, model = model, downloads_dir=download_resume_path)
             
             # Save the uploaded file
             os.makedirs("uploads", exist_ok=True)
@@ -256,7 +262,7 @@ try:
         
 except Exception as e:
     st.error(f"An error occurred: {e}")
-    st.markdown("<h3 style='text-align: center;'>Please try again!</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center;'>Please try again! Check the log in the dropdown for more details.</h3>", unsafe_allow_html=True)
     st.stop()
 
 st.link_button("Report Feedback, Issues, or Contribute!", "https://github.com/Ztrimus/job-llm/issues", use_container_width=True)

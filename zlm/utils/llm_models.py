@@ -12,14 +12,20 @@ import textwrap
 import pandas as pd
 import streamlit as st
 from openai import OpenAI
+from langchain_community.llms.ollama import Ollama
+from langchain_ollama import OllamaEmbeddings
 import google.generativeai as genai
+from google.generativeai.types.generation_types import GenerationConfig
+
 from zlm.utils.utils import parse_json_markdown
+from zlm.variables import GEMINI_EMBEDDING_MODEL, GPT_EMBEDDING_MODEL, OLLAMA_EMBEDDING_MODEL
 
 class ChatGPT:
-    def __init__(self, api_key, system_prompt):
+    def __init__(self, api_key, model, system_prompt):
         if system_prompt.strip():
             self.system_prompt = {"role": "system", "content": system_prompt}
         self.client = OpenAI(api_key=api_key)
+        self.model = model
     
     def get_response(self, prompt, expecting_longer_output=False, need_json_output=False):
         user_prompt = {"role": "user", "content": prompt}
@@ -27,7 +33,7 @@ class ChatGPT:
         try:
             # TODO: Decide value(temperature, top_p, max_tokens, stop) to get apt response
             completion = self.client.chat.completions.create(
-                model="gpt-4-1106-preview",
+                model=self.model,
                 messages = [self.system_prompt, user_prompt],
                 temperature=0,
                 max_tokens = 4000 if expecting_longer_output else None,
@@ -45,9 +51,9 @@ class ChatGPT:
         except Exception as e:
             print(e)
             st.error(f"Error in OpenAI API, {e}")
-            st.markdown("<h3 style='text-align: center;'>Please try again!</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='text-align: center;'>Please try again! Check the log in the dropdown for more details.</h3>", unsafe_allow_html=True)
     
-    def get_embedding(self, text, model="text-embedding-ada-002", task_type="retrieval_document"):
+    def get_embedding(self, text, model=GPT_EMBEDDING_MODEL, task_type="retrieval_document"):
         try:
             text = text.replace("\n", " ")
             return self.client.embeddings.create(input = [text], model=model).data[0].embedding
@@ -56,22 +62,25 @@ class ChatGPT:
 
 class Gemini:
     # TODO: Test and Improve support for Gemini API
-    def __init__(self, api_key, system_prompt):
+    def __init__(self, api_key, model, system_prompt):
         genai.configure(api_key=api_key)
-        self.system_prompt = "System Prompt\n======\n" + system_prompt if system_prompt.strip() else ""
+        self.system_prompt = system_prompt
+        self.model = model
     
     def get_response(self, prompt, expecting_longer_output=False, need_json_output=False):
         try:
-            user_prompt = "\n\nUser Prompt\n======\n" + prompt
-            entire_prompt = self.system_prompt + user_prompt
+            model = genai.GenerativeModel(
+                model_name=self.model,
+                system_instruction=self.system_prompt
+                )
             
-            model = genai.GenerativeModel('gemini-pro')
             content = model.generate_content(
-                entire_prompt,
-                generation_config={
-                    "temperature": 0.7,
-                    "max_output_tokens": 4000 if expecting_longer_output else None,
-                    }
+                contents=prompt,
+                generation_config=GenerationConfig(
+                    temperature=0.7,
+                    max_output_tokens = 4000 if expecting_longer_output else None,
+                    response_mime_type = "application/json" if need_json_output else None
+                    )
                 )
 
             if need_json_output:
@@ -88,10 +97,10 @@ class Gemini:
         except Exception as e:
             print(e)
             st.error(f"Error in Gemini API, {e}")
-            st.markdown("<h3 style='text-align: center;'>Please try again!</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='text-align: center;'>Please try again! Check the log in the dropdown for more details.</h3>", unsafe_allow_html=True)
             return None
     
-    def get_embedding(self, content, model="models/embedding-001", task_type="retrieval_document"):
+    def get_embedding(self, content, model=GEMINI_EMBEDDING_MODEL, task_type="retrieval_document"):
         try:
             def embed_fn(data):
                 result = genai.embed_content(
@@ -111,100 +120,53 @@ class Gemini:
         except Exception as e:
             print(e)
 
-
-class TogetherAI:
-    def __init__(self, api_key, system_prompt):
-        self.system_prompt = {"role": "system", "content": system_prompt}
-        self.client = OpenAI(
-            api_key=api_key,
-            base_url='https://api.together.xyz',
-        )
+class OllamaModel:
+    def __init__(self, model, system_prompt):
+        self.model = model
+        self.system_prompt = system_prompt
     
     def get_response(self, prompt, expecting_longer_output=False, need_json_output=False):
-        user_prompt = {"role": "user", "content": prompt}
-
         try:
-            if expecting_longer_output:
-                completion = self.client.chat.completions.create(
-                    model="mistralai/Mistral-7B-Instruct-v0.2",
-                    messages = [self.system_prompt, user_prompt],
-                    max_tokens = 7000,
+            llm = Ollama(
+                model=self.model, 
+                system=self.system_prompt,
+                temperature=0.8, 
+                top_p=0.999, 
+                top_k=250,
+                num_predict=4000 if expecting_longer_output else None,
+                # format='json' if need_json_output else None,
                 )
-            else:
-                completion = self.client.chat.completions.create(
-                    model="mistralai/Mistral-7B-Instruct-v0.2",
-                    messages = [self.system_prompt, user_prompt],
-                )
-
-            response = completion.choices[0].message
-            content = response.content.strip()
+            content = llm.invoke(prompt)
 
             if need_json_output:
-                return parse_json_markdown(content)
+                result = parse_json_markdown(content)
             else:
-                return content
+                result = content
+            
+            if result is None:
+                st.write("LLM Response")
+                st.markdown(f"```json\n{content.text}\n```")
+
+            return result
         
         except Exception as e:
             print(e)
-
-class Llama2:
-    def __init__(self, hf_token, system_prompt):
-        # !pip install sentencepiece==0.1.99
-        # !pip install transformers==4.31.0
-        # !pip install accelerate==0.21.0
-        # !pip install bitsandbytes==0.41.1
-        # https://github.com/facebookresearch/llama/blob/main/llama/generation.py#L212
+            st.error(f"Error in Ollama model - {self.model}, {e}")
+            st.markdown("<h3 style='text-align: center;'>Please try again! Check the log in the dropdown for more details.</h3>", unsafe_allow_html=True)
+            return None
+    
+    def get_embedding(self, content, model=OLLAMA_EMBEDDING_MODEL, task_type="retrieval_document"):
+        try:
+            def embed_fn(data):
+                embedding = OllamaEmbeddings(model=model)
+                result = embedding.embed_query(data)
+                return result
+            
+            df = pd.DataFrame(content)
+            df.columns = ['chunk']
+            df['embedding'] = df.apply(lambda row: embed_fn(row['chunk']), axis=1)
+            
+            return df
         
-        from transformers import LlamaForCausalLM, LlamaTokenizer
-
-        self.system_prompt = system_prompt
-        self.tokenizer = LlamaTokenizer.from_pretrained("meta-llama/Llama-2-7b-chat-hf", token=hf_token)
-        self.model = LlamaForCausalLM.from_pretrained("meta-llama/Llama-2-7b-chat-hf", load_in_8bit=True, device_map="auto", token=hf_access_token)
-        self.generation_kwargs = {
-            "max_new_tokens": 512,
-            "top_p": 0.9,
-            "temperature": 0.6,
-            "repetition_penalty": 1.2,
-            "do_sample": True,
-        }
-
-    def get_response(self, prompt_text, need_json_output=False):
-        B_INST, E_INST = "[INST]", "[/INST]"
-        B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
-
-        # Special format required by the Llama2 Chat Model where we can use system messages to provide more context about the task
-        prompt = f"{B_INST} {B_SYS} {self.system_prompt} {E_SYS} {prompt_text} {E_INST}"
-
-        prompt_ids = tokenizer(prompt, return_tensors="pt")
-        prompt_size = prompt_ids['input_ids'].size()[1]
-
-        generate_ids = self.model.generate(prompt_ids.input_ids.to(self.model.device), **self.generation_kwargs)
-        generate_ids = generate_ids.squeeze()
-
-        response = tokenizer.decode(generate_ids.squeeze()[prompt_size+1:], skip_special_tokens=True).strip()
-
-        if need_json_output:
-                return parse_json_markdown(response)
-        else:
-            return response
-
-        return response
-
-# DO: https://ai.google.dev/tutorials/python_quickstart#use_embeddings
-# def compute_embedding(self, chunks):
-#     try:
-#         embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-#         vector_embedding = FAISS.from_texts( texts = chunks, embedding=embeddings)
-#         return vector_embedding
-#     except Exception as e:
-#         print(e)
-#         return None
-
-# Define a function to compute embeddings for the text   
-# def compute_embedding(self, text):
-#     response = openai.Embed(
-#         input=text,
-#         model="text-davinci-003-001",
-#         max_tokens=50
-#     )
-#     return response['embedding']
+        except Exception as e:
+            print(e)

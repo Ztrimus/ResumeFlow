@@ -106,7 +106,11 @@ cd job-llm
         brew install basictex
         sudo tlmgr install enumitem fontawesome
         ```
-5. Run following script to get result
+5. If you want to run ollama models
+    ```sh
+    ollama pull llama3.1
+    ```
+6. Run following script to get result
 ```bash
 >>> python main.py /
     --url "JOB_POSTING_URL" /
@@ -118,6 +122,22 @@ cd job-llm
 
 ## 3. Citations
 If you find JobLLM useful in your research or applications, please consider giving us a star 🌟 and citing it.
+
+```bibtex
+@inproceedings{10.1145/3626772.3657680,
+author = {Zinjad, Saurabh Bhausaheb and Bhattacharjee, Amrita and Bhilegaonkar, Amey and Liu, Huan},
+title = {ResumeFlow: An LLM-facilitated Pipeline for Personalized Resume Generation and Refinement},
+series = {SIGIR '24},
+booktitle = {Proceedings of the 47th International ACM SIGIR Conference on Research and Development in Information Retrieval},
+publisher = {Association for Computing Machinery},
+doi = {10.1145/3626772.3657680},
+url = {https://doi.org/10.1145/3626772.3657680},
+year = {2024},
+isbn = {9798400704314},
+location = {Washington DC, USA},
+address = {New York, NY, USA},
+}
+```
 
 ```bibtex
 @misc{zinjad2024resumeflow,
@@ -132,6 +152,15 @@ If you find JobLLM useful in your research or applications, please consider givi
 
 ## 4. License
 JobLLM is under the MIT License and is supported for commercial usage.
+
+## 5. TODO
+Need to find way to install following command in streamlit
+```sh
+ollama
+playwright
+"ollama pull llama3.1"
+"ollama pull bge-m3"
+```
 
 ## 4. References
  - [Prompt engineering Guidelines](https://platform.openai.com/docs/guides/prompt-engineering)

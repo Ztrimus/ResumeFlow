@@ -47,7 +47,7 @@ def read_json(file_path: str):
 
 def job_doc_name(job_details: dict, output_dir: str = "output", type: str = ""):
     company_name = clean_string(job_details["company_name"])
-    job_title = clean_string(job_details["title"])[:15]
+    job_title = clean_string(job_details["job_title"])[:15]
     doc_name = "_".join([company_name, job_title])
     doc_dir = os.path.join(output_dir, company_name)
     os.makedirs(doc_dir, exist_ok=True)
@@ -255,24 +255,7 @@ def parse_json_markdown(json_string: str) -> dict:
         
         if json_string[3:7].lower() == "json":
             json_string = json_string.replace(json_string[3:7], "",1)
-        
-
-        # match = re.search(r"""```*
-        #                     (?:json)?
-        #                     (.*)```""", json_string, flags=re.DOTALL|re.VERBOSE)
-
-        # # If no match found, assume the entire string is a JSON string
-        # if match is None:
-        #     json_str = json_string
-        # else:
-        #     # If match found, use the content within the backticks
-        #     json_str = match.group(1)
-
-        # # Strip whitespace and newlines from the start and end
-        # json_str = json_str.strip()
-
-        # # Parse the JSON string into a Python dictionary while allowing control characters by setting strict to False
-        # parsed = json.loads(json_str)
+    
         parser = JsonOutputParser()
         parsed = parser.parse(json_string)
 
