@@ -67,7 +67,7 @@ class AutoApplyModel:
                 else:
                     self.api_key = None
         else:
-            self.api_key = None
+            self.api_key = api_key
 
         self.llm = self.get_llm_instance()
     
