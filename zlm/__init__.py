@@ -53,7 +53,7 @@ class AutoApplyModel:
     """
 
     def __init__(
-        self, api_key: str, provider: str, model: str, downloads_dir: str = utils.get_default_download_folder(), system_prompt: str = RESUME_WRITER_PERSONA
+        self, api_key: str = None, provider: str = None, model: str = None, downloads_dir: str = utils.get_default_download_folder(), system_prompt: str = RESUME_WRITER_PERSONA
     ):
         self.system_prompt = system_prompt
         self.provider = DEFAULT_LLM_PROVIDER if provider is None or provider.strip() == "" else provider
