@@ -1,6 +1,6 @@
 # ResumeFlow: An LLM-facilitated Pipeline for Personalized Resume Generation and Refinement 
 
-[![Demo Page](https://img.shields.io/badge/Project-Demo-FF4B4B?logo=streamlit)](https://job-aligned-resume.streamlit.app/)
+[![Demo Page](https://img.shields.io/badge/Project-Demo-FF4B4B?logo=streamlit)](https://resumeflow.streamlit.app/)
 [![ACM Digital Library](https://img.shields.io/badge/ACM-0085CA?logo=acm&logoColor=fff&style=flat)](https://dl.acm.org/doi/10.1145/3626772.3657680)
 [![arxiv paper](https://img.shields.io/badge/arXiv-Paper-B31B1B?logo=arxiv)](https://arxiv.org/abs/2402.06221)
 [![PyPI Latest Release](https://img.shields.io/pypi/v/zlm.svg?label=PyPI&color=3775A9&logo=pypi)](https://pypi.org/project/zlm/)
@@ -12,9 +12,9 @@
 <br>For **Video Demonstration** visit the YouTube link: https://youtu.be/Agl7ugyu1N4
 
 Project can be:
- - Access as a **Web Tool** from https://job-aligned-resume.streamlit.app/
+ - Access as a **Web Tool** from https://resumeflow.streamlit.app/
  - Install as a **Python Package** from https://pypi.org/project/zlm/
- - download as **Source Code** from https://github.com/Ztrimus/job-llm.git
+ - Download as **Source Code** from https://github.com/Ztrimus/job-llm.git
  
 All other known bugs, fixes, feedbacks, and feature requests can be reported on the [GitHub issues](https://github.com/Ztrimus/job-llm/issues) page.
 
@@ -27,26 +27,14 @@ All other known bugs, fixes, feedbacks, and feature requests can be reported on 
  - [Amrita Bhattacharjee](https://www.linkedin.com/in/amritabh) | [Amritabh](https://github.com/Amritabh) | abhatt43@asu.edu
 
 ## 1. Introduction:
-
-### 1.1. Motivation: LLMs as Components in an ML Pipeline
-
-In this project, we will investigate how to effectively use Large Language Models (LLMs) to automate various aspects of this pipeline.
-
-Because, Solving a task using machine learning methods requires a series of steps that often require large amounts of human effort or labor. Furthermore there might be more steps after the training the ML model, such as evaluation, explaining the behavior of the model, interpreting model outputs, etc. Many of these steps are also often human labor intensive.
-
-### 1.2. Our Proposal
-
+### 1.1. Our Proposal
 We're aiming to create a automated system that makes applying for jobs a breeze. Job hunting has many stages, and we see a chance to automate things and use LLM (Language Model) to make it even smoother. We're looking at different ways, both the usual and some new ideas, to integrate LLM into the job application process. The goal is to reduce how much you have to do and let LLM do its thing, making the whole process easier for you.
-
-### 1.3. References
+### 1.2. References
 - [40+ AWESOME RESUME STATISTICS [2023]: WHAT JOB SEEKERS NEED TO KNOW](https://www.zippia.com/advice/resume-statistics/)
-
 ### 1.3. Refer to this [Paper](https://arxiv.org/abs/2402.06221) for more details.
 
 ## 2. Setup, Installation and Usage
-
 ### 2.1. Prerequisites
-
  - OS : Linux, Mac
  - Python : 3.11.6 and above
  - LLM API key: [OpenAI](https://platform.openai.com/account/api-keys) OR [Gemini Pro](https://ai.google.dev/)
