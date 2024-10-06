@@ -18,6 +18,7 @@ import subprocess
 import streamlit as st
 import streamlit.components.v1 as components
 from fpdf import FPDF
+from markdown_pdf import MarkdownPdf, Section
 from pathlib import Path
 from datetime import datetime
 from langchain_core.output_parsers import JsonOutputParser
@@ -117,13 +118,27 @@ def text_to_pdf(text: str, file_path: str):
         text (str): The text to be converted to PDF.
         file_path (str): The file path where the PDF will be saved.
     """
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", size=11)
+    # from mistletoe import markdown
+    # pdf = FPDF()
+    # pdf.add_page()
+    # pdf.set_font("Arial", size=11)
+    # # Encode the text explicitly using 'latin-1' encoding
+    # encoded_text = text.encode('utf-8').decode('latin-1')
+    # html_text = markdown(encoded_text)
+    # pdf.write_html(html_text)
+    # # pdf.multi_cell(0, 5, txt=encoded_text)
+    # pdf.output(file_path)
+
+    pdf = MarkdownPdf(toc_level=2)
+    # pdf.set_font("Arial", size=11)
     # Encode the text explicitly using 'latin-1' encoding
     encoded_text = text.encode('utf-8').decode('latin-1')
-    pdf.multi_cell(0, 5, txt=encoded_text)
-    pdf.output(file_path)
+    pdf.add_section(Section(encoded_text), user_css="body {font-size: 11pt; font-family: Arial;}")
+    pdf.meta["title"] = "Cover Letter"
+    pdf.meta["author"] = "Saurabh Zinjad"
+    pdf.save(file_path)
+
+
     # try:
     #     open_file(file_path)
     # except Exception as e:
