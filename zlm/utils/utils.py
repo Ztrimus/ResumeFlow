@@ -133,7 +133,7 @@ def text_to_pdf(text: str, file_path: str):
     # pdf.set_font("Arial", size=11)
     # Encode the text explicitly using 'latin-1' encoding
     encoded_text = text.encode('utf-8').decode('latin-1')
-    pdf.add_section(Section(encoded_text), user_css="body {font-size: 12pt; font-family: Calibri; text-align: justify; text-indent: 1em;}")
+    pdf.add_section(Section(encoded_text), user_css="body {font-size: 12pt; font-family: Calibri; text-align: justify;}")
     pdf.meta["title"] = "Cover Letter"
     pdf.meta["author"] = "Saurabh Zinjad"
     pdf.save(file_path)
