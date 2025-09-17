@@ -131,7 +131,6 @@
           "university": "Pune Institute of Computer Technology(PICT), Savitribai Phule Pune University, India",
           "from": "Jul 2015",
           "to": "Jun 2019",
-          "grade": "8.53/10",
           "classes": [
               "DSA",
               "OOP",
@@ -162,6 +161,8 @@
           "name": "Data Science",
           "skills": [
               "Databricks",
+              "LangChain",
+              "LangGraph",
               "PySpark",
               "TensorFlow",
               "PyTorch",
