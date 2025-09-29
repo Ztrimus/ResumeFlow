@@ -1,4 +1,4 @@
-'''
+"""
 -----------------------------------------------------------------------
 File: utils.py
 Creation Time: Dec 6th 2023, 7:09 pm
@@ -6,7 +6,7 @@ Author: Saurabh Zinjad
 Developer Email: zinjadsaurabh1997@gmail.com
 Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 -----------------------------------------------------------------------
-'''
+"""
 
 import os
 import re
@@ -22,6 +22,7 @@ from markdown_pdf import MarkdownPdf, Section
 from pathlib import Path
 from datetime import datetime
 from langchain_core.output_parsers import JsonOutputParser
+
 OS_SYSTEM = platform.system().lower()
 
 
@@ -68,6 +69,7 @@ def clean_string(text: str):
     text = re.sub(r"[^a-zA-Z0-9]+", "", text)
     return text
 
+
 def open_file(file: str):
     if OS_SYSTEM == "darwin":  # macOS
         os.system(f"open {file}")
@@ -86,7 +88,9 @@ def open_file(file: str):
         try:
             os.system(f"xdg-open {file}")
         except FileNotFoundError:
-            print(f"Error: xdg-open command not found. Please install xdg-utils. Alternatively, open the file manually.")
+            print(
+                f"Error: xdg-open command not found. Please install xdg-utils. Alternatively, open the file manually."
+            )
 
 
 def save_log(content: any, file_name: str):
@@ -101,7 +105,9 @@ def measure_execution_time(func):
         result = func(*args, **kwargs)
         end_time = time.time()
         execution_time = end_time - start_time
-        func_run_log = f"Function {func.__name__} took {execution_time:.4f} seconds to execute"
+        func_run_log = (
+            f"Function {func.__name__} took {execution_time:.4f} seconds to execute"
+        )
         print(func_run_log)
         # if 'is_st' in kwargs and kwargs['is_st']:
         #     st.write(func_run_log)
@@ -132,21 +138,24 @@ def text_to_pdf(text: str, file_path: str):
     pdf = MarkdownPdf(toc_level=2)
     # pdf.set_font("Arial", size=11)
     # Encode the text explicitly using 'latin-1' encoding
-    encoded_text = text.encode('utf-8').decode('latin-1')
-    pdf.add_section(Section(encoded_text), user_css="body {font-size: 12pt; font-family: Calibri; text-align: justify;}")
+    encoded_text = text.encode("utf-8").decode("latin-1")
+    pdf.add_section(
+        Section(encoded_text),
+        user_css="body {font-size: 12pt; font-family: Calibri; text-align: justify;}",
+    )
     pdf.meta["title"] = "Cover Letter"
     pdf.meta["author"] = "Saurabh Zinjad"
     pdf.save(file_path)
-
 
     # try:
     #     open_file(file_path)
     # except Exception as e:
     #     print("Unable to open the PDF file.")
 
+
 def download_pdf(pdf_path: str):
     bytes_data = read_file(pdf_path, "rb")
-    base64_pdf = base64.b64encode(bytes_data).decode('utf-8')
+    base64_pdf = base64.b64encode(bytes_data).decode("utf-8")
 
     dl_link = f"""
     <html>
@@ -172,10 +181,12 @@ def download_pdf(pdf_path: str):
     #                     mime="application/pdf")
     # pass
 
+
 from pdf2image import convert_from_path
 
+
 def display_pdf(file, type="pdf"):
-    if type == 'image':
+    if type == "image":
         # Store Pdf with convert_from_path function
         pages = convert_from_path(file)
         for page in pages:
@@ -187,13 +198,13 @@ def display_pdf(file, type="pdf"):
 
         # Convert to utf-8
         try:
-            base64_pdf = base64.b64encode(bytes_data).decode('utf-8')
+            base64_pdf = base64.b64encode(bytes_data).decode("utf-8")
         except Exception as e:
             base64_pdf = base64.b64encode(bytes_data)
 
         # Iframe Embedding of PDF in HTML
-        pdf_display = F'<iframe src="data:application/pdf;base64,{base64_pdf}" type="application/pdf" style="width:100%; height:100vh;"></iframe>'
-        
+        pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" type="application/pdf" style="width:100%; height:100vh;"></iframe>'
+
         # # Embedding PDF in HTML
         # pdf_display =  f"""<embed
         # class="pdfobject"
@@ -205,21 +216,28 @@ def display_pdf(file, type="pdf"):
         # Display file
         st.markdown(pdf_display, unsafe_allow_html=True)
 
+
 def save_latex_as_pdf(tex_file_path: str, dst_path: str):
     try:
         # Call pdflatex to convert LaTeX to PDF
         prev_loc = os.getcwd()
         os.chdir(os.path.dirname(tex_file_path))
         try:
+            # Run pdflatex in non-interactive mode and suppress output
             result = subprocess.run(
-                ["pdflatex", tex_file_path, "&>/dev/null"],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
+                [
+                    "pdflatex",
+                    "-interaction=nonstopmode",
+                    "-halt-on-error",
+                    tex_file_path,
+                ],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=False,
             )
         except Exception as e:
             print("Pdflatex failed to convert tex file to pdf.")
             print(e)
-
 
         os.chdir(prev_loc)
         resulted_pdf_path = tex_file_path.replace(".tex", ".pdf")
@@ -252,45 +270,87 @@ def save_latex_as_pdf(tex_file_path: str, dst_path: str):
         print(e)
         return None
 
+
 def get_default_download_folder():
     """Get the default download folder for the current operating system."""
-    downlaod_folder_path = os.path.join(str(Path.home()), "Downloads", "JobLLM_Resume_CV")
+    downlaod_folder_path = os.path.join(
+        str(Path.home()), "Downloads", "JobLLM_Resume_CV"
+    )
     print(f"downlaod_folder_path: {downlaod_folder_path}")
     os.makedirs(downlaod_folder_path, exist_ok=True)
     return downlaod_folder_path
 
+
 def parse_json_markdown(json_string: str) -> dict:
     try:
-        # Try to find JSON string within first and last triple backticks
-        if json_string[3:13].lower() == "typescript":
-            json_string = json_string.replace(json_string[3:13], "",1)
-        
-        if 'JSON_OUTPUT_ACCORDING_TO_RESUME_DATA_SCHEMA' in json_string:
-            json_string = json_string.replace("JSON_OUTPUT_ACCORDING_TO_RESUME_DATA_SCHEMA", "",1)
-        
-        if json_string[3:7].lower() == "json":
-            json_string = json_string.replace(json_string[3:7], "",1)
-    
-        parser = JsonOutputParser()
-        parsed = parser.parse(json_string)
+        if not isinstance(json_string, str):
+            return None
 
-        return parsed
+        s = json_string.strip()
+
+        # Remove special marker if present anywhere
+        if "JSON_OUTPUT_ACCORDING_TO_RESUME_DATA_SCHEMA" in s:
+            s = s.replace("JSON_OUTPUT_ACCORDING_TO_RESUME_DATA_SCHEMA", "")
+
+        # If fenced code block, extract inner and drop language tag if present
+        if s.startswith("```"):
+            end = s.find("```", 3)
+            if end != -1:
+                inner = s[3:end]
+                # Split first line as potential language id
+                if "\n" in inner:
+                    first, rest = inner.split("\n", 1)
+                    if first.strip().lower() in {
+                        "json",
+                        "typescript",
+                        "js",
+                        "javascript",
+                        "python",
+                    }:
+                        s = rest.strip()
+                    else:
+                        s = inner.strip()
+                else:
+                    # Edge case: ```json{...}``` (no newline)
+                    lang_candidates = (
+                        "json",
+                        "typescript",
+                        "js",
+                        "javascript",
+                        "python",
+                    )
+                    lowered = inner.strip().lower()
+                    if any(lowered.startswith(lc) for lc in lang_candidates):
+                        for lc in lang_candidates:
+                            if lowered.startswith(lc):
+                                s = inner[len(lc) :].strip()
+                                break
+                    else:
+                        s = inner.strip()
+
+        parser = JsonOutputParser()
+        return parser.parse(s)
     except Exception as e:
-        print(e)
-        return None
+        # Fallback to raw json.loads if parser fails
+        try:
+            return json.loads(s)
+        except Exception:
+            print(e)
+            return None
+
 
 def get_prompt(system_prompt_path: str) -> str:
-        """
-        Reads the content of the file at the given system_prompt_path and returns it as a string.
+    """
+    Reads the content of the file at the given system_prompt_path and returns it as a string.
 
-        Args:
-            system_prompt_path (str): The path to the system prompt file.
+    Args:
+        system_prompt_path (str): The path to the system prompt file.
 
-        Returns:
-            str: The content of the file as a string.
-        """
-        with open(system_prompt_path, encoding="utf-8") as file:
-            return file.read().strip() + "\n"
+    Returns:
+        str: The content of the file as a string.
+    """
+    with open(system_prompt_path, encoding="utf-8") as file:
+        return file.read().strip() + "\n"
 
 
 def key_value_chunking(data, prefix=""):
@@ -304,18 +364,28 @@ def key_value_chunking(data, prefix=""):
         A list of strings representing the chunked key-value pairs.
     """
     chunks = []
-    stop_needed = lambda value: '.' if not isinstance(value, (str, int, float, bool, list)) else ''
-    
+    stop_needed = lambda value: (
+        "." if not isinstance(value, (str, int, float, bool, list)) else ""
+    )
+
     if isinstance(data, dict):
         for key, value in data.items():
             if value is not None:
-                chunks.extend(key_value_chunking(value, prefix=f"{prefix}{key}{stop_needed(value)}"))
+                chunks.extend(
+                    key_value_chunking(
+                        value, prefix=f"{prefix}{key}{stop_needed(value)}"
+                    )
+                )
     elif isinstance(data, list):
         for index, value in enumerate(data):
             if value is not None:
-                chunks.extend(key_value_chunking(value, prefix=f"{prefix}_{index}{stop_needed(value)}"))
+                chunks.extend(
+                    key_value_chunking(
+                        value, prefix=f"{prefix}_{index}{stop_needed(value)}"
+                    )
+                )
     else:
         if data is not None:
             chunks.append(f"{prefix}: {data}")
-    
+
     return chunks

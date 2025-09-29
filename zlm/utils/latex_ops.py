@@ -10,7 +10,6 @@ Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus
 
 import os
 import jinja2
-import streamlit as st
 from zlm.utils.utils import write_file, save_latex_as_pdf
 
 def escape_for_latex(data):
@@ -50,12 +49,12 @@ def latex_to_pdf(json_resume, dst_path):
         templates_path = os.path.join(os.path.dirname(module_dir), 'templates')
 
         latex_jinja_env = jinja2.Environment(
-            block_start_string="\BLOCK{",
-            block_end_string="}",
-            variable_start_string="\VAR{",
-            variable_end_string="}",
-            comment_start_string="\#{",
-            comment_end_string="}",
+            block_start_string=r"\BLOCK{",
+            block_end_string=r"}",
+            variable_start_string=r"\VAR{",
+            variable_end_string=r"}",
+            comment_start_string=r"\#{",
+            comment_end_string=r"}",
             line_statement_prefix="%-",
             line_comment_prefix="%#",
             trim_blocks=True,
@@ -78,7 +77,7 @@ def latex_to_pdf(json_resume, dst_path):
 
 def use_template(jinja_env, json_resume):
     try:
-        resume_template = jinja_env.get_template(f"resume.tex.jinja")
+        resume_template = jinja_env.get_template("resume.tex.jinja")
         resume = resume_template.render(json_resume)
 
         return resume
