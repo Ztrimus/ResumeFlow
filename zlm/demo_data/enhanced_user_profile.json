@@ -1,0 +1,464 @@
+{
+    "name": "SAURABH BHAUSAHEB ZINJAD",
+    "title": "I build AI systems that solve real-world problems.",
+    "summary": "Versatile engineer with 6 years of experience developing production-ready ML solutions and full stack applications. Managing end-to-end pipelines, from design to deployment and optimization in cloud environments. Passionate about advancing AI infrastructure, fine-tuning foundation models, and delivering scalable, cost-effective solutions globally.",
+    "phone": "480-913-5544",
+    "email": "saurabhzinjad@gmail.com",
+    "media": {
+        "linkedin": "https://linkedin.com/in/saurabhzinjad",
+        "github": "https://github.com/Ztrimus",
+        "medium": "https://ztrimus.medium.com",
+        "devpost": "https://devpost.com/Ztrimus"
+    },
+    "work_experience": [
+        {
+            "role": "AI/ML Engineer II",
+            "company": "University of Phoenix",
+            "location": "AZ, USA",
+            "from_date": "Feb 2025",
+            "to_date": "Present",
+            "description": [
+                "Built GenAI + explainability tools (LangGraph + OpenAI) to process unstructured data and auto-explain complex academic/financial calcs, enhance advisor support capacity by 6x",
+                "Integrated organizational knowledge base with LLMs, building pipelines to extract code logic into step-by-step explanations, accelerating onboarding and improving developer productivity",
+                "Improved advisor support capacity by 6x by building GenAI + explainability tools using LangGraph and OpenAI to process unstructured data and auto-explain complex academic/financial calculations."
+            ]
+        },
+        {
+            "role": "AI Research Intern",
+            "company": "University of Phoenix",
+            "location": "AZ, USA",
+            "from_date": "May 2024",
+            "to_date": "Aug 2024",
+            "description": [
+                "Developed an LLM summary dashboard with chain-of-thought reasoning, integrated with Salesforce via Kafka, resulting in a 40% increase in advisor efficiency",
+                "Created a Text-to-Visual API service that converts text to interactive diagrams and integrated it with Slack/Teams/CRMs, significantly improving documentation speed",
+                "Increased advisor efficiency by 40% by developing an LLM summary dashboard with chain-of-thought reasoning and integrating it with Salesforce via Kafka.",
+                "Led development of an AI-powered student note summarization tool in a winning hackathon, significantly improving advisor efficiency and enhancing student experience.",
+                "Developed an innovative AI-based complex calculation explanation system, integrating multiple data sources (like log files and code repositories) and APIs to improve student support resolution speed by 6x. (Innovative Approach)",
+                "Implemented critical Salesforce backend logic for tracking future out-of-pocket payments in excess funds cases, streamlining financial processes and improving data accuracy.",
+                "Key Technologies: Python, Salesforce, Amazon Bedrock, LangChain, GPT4o, Claude Sonnet, Llama 3"
+            ]
+        },
+        {
+            "role": "Data Analyst",
+            "company": "Decision Theater at Arizona State University, Tempe, USA",
+            "from": "Jan 2024",
+            "to": "Present",
+            "description": [
+                "Developed and implemented advanced data downscaling techniques, increasing resolution from PUMS to block level, and utilized clustering algorithms (k-means, DBSCAN, hierarchical) to analyze high-resolution patterns, enhancing granularity of policy insights by 40%.",
+                "Engineered custom Python libraries for synthetic data generation and analysis, integrating machine learning models for data block property prediction and classification, resulting in a 30% improvement in data processing efficiency.",
+                "Conducted comprehensive statistical analyses, including correlation studies (Pearson, cosine similarity) and property extraction, creating impactful visualizations and reports that directly informed policymaker decisions and stakeholder communications."
+            ]
+        },
+        {
+            "role": "Senior Machine Learning Engineer",
+            "company": "Tiger Analytics",
+            "location": "Bangalore, India",
+            "from_date": "June 2022",
+            "to_date": "July 2023",
+            "description": [
+                "Trained and tuned predictive ML models and scalable Data pipelines (Python, PySpark, Databricks), achieving an 18% increase in client revenue",
+                "Architected a multi-cloud model monitoring platform for lifecycle tracking/alerts, supporting 10+ client adoptions",
+                "Improved client revenue by 18% by training and tuning predictive ML models and building scalable data pipelines using Python, PySpark, and Databricks.",
+                "Spearheaded development of Data & CI/CD pipelines, Interactive Dashboards, Constraint-based ML Models, Web App, and Comprehensive Documentation for MSP Value Optimization in Petcare sector with a team of 8 analysts. (Team Leadership)",
+                "Developed MLCORE product (end-to-end MLOps platform) by implementing research ideas, organizing through prototyping, and Integrating it with numerous cloud services, attracting an additional four significant clients. (Interpersonal Skills)"
+            ]
+        },
+        {
+            "role": "Software Engineer",
+            "company": "Winjit Technologies",
+            "location": "Nashik, India",
+            "from_date": "January 2020",
+            "to_date": "June 2022",
+            "description": [
+                "Engineered 10+ RESTful APIs for real-time AI data processing and built 30+ low latency responsive UI React features",
+                "Optimized large-scale MySQL, PostgreSQL databases, accelerating data access for AI model training and real-time inference",
+                "Improved development efficiency by 8x by innovating a data-driven UI framework with dynamic form reconfiguration and customizable CSS.",
+                "Engineered 10+ RESTful APIs Architecture and Distributed services; Designed 30+ low-latency responsive UI/UX application features with high-quality web architecture; Managed and optimized large-scale Databases. (Systems Design)",
+                "Initiated and Designed a standardized solution for dynamic forms generation, with customizable CSS capabilities feature, which reduces development time by 8x; Led and collaborated with a 12 member cross-functional team. (Idea Generation)"
+            ]
+        },
+        {
+            "role": "Deep Learning Engineer",
+            "company": "Automation Teknix",
+            "location": "Pune, India",
+            "from_date": "September 2019",
+            "to_date": "January 2020",
+            "description": [
+                "Developed a lightweight object recognition engine with SSD & MobileNetV2, reducing computational cost by 30% for mobile use",
+                "Streamlined CNN model using TensorFlow, OpenCV to improve image processing, reducing survey error in production by 22%",
+                "Reduced survey error in production by 22% by streamlining a CNN model using TensorFlow and OpenCV to improve image processing.",
+                "Devised a Lightweight Object Recognition Engine with a low computational cost by leveraging an SSD algorithm with MobilenetV2 architecture, which decreased survey error by 22%. (Problem Identification)",
+                "Conducted thorough Initial research; prototyped neural network flow; conceptualized POC, training, and monitoring of models. This resulted in a 7% increase in accuracy and reduced inference time by 2x. (Experiment Design)"
+            ]
+        },
+        {
+            "role": "Research Intern",
+            "company": "IMATMI, Robbinsville, New Jersey (Remote)",
+            "from": "Mar 2019",
+            "to": "Aug 2019",
+            "description": [
+                "Conducted research and developed a range of ML and statistical models to design analytical tools and streamline HR processes, optimizing talent management systems for increased efficiency.",
+                "Created 'goals and action plan generation' tool for employees, considering their weaknesses to facilitate professional growth.",
+                "Implemented an automated system to identify 'best-fit employees' for upcoming projects, improving project outcomes and resource allocation for managers."
+            ]
+        }
+    ],
+    "education": [
+        {
+            "degree": "Masters of Science in Computer Science - Thesis",
+            "university": "Arizona State University, Tempe, USA",
+            "from_date": "August 2023",
+            "to_date": "May 2025",
+            "courses": [
+                "Statistical Machine Learning",
+                "Operational Deep Learning",
+                "Software verification, Validation and Testing",
+                "AI Safety and Assessment",
+                "Social Media Mining",
+                "Knowledge Representation and Reasoning Algorithms",
+                "Software Security"
+            ]
+        },
+        {
+            "degree": "Bachelor of Engineering in Electronics and Telecommunications",
+            "university": "Pune Institute of Computer Technology, Pune, India",
+            "from_date": "July 2015",
+            "to_date": "June 2019",
+            "courses": [
+                "Data Structures and Algorithms",
+                "Object Oriented Programming",
+                "Operating Systems",
+                "System Programming",
+                "Computer Networks",
+                "Artificial Intelligence",
+                "Machine Learning",
+                "Digital Video & Image Processing"
+            ]
+        }
+    ],
+    "skill_section": [
+        {
+            "name": "Languages",
+            "skills": [
+                "Python",
+                "JavaScript/TypeScript",
+                "C#",
+                "C++",
+                "SQL",
+                "Java",
+                "Bash",
+                "HTML",
+                "CSS"
+            ]
+        },
+        {
+            "name": "ML/AI",
+            "skills": [
+                "PyTorch",
+                "TensorFlow",
+                "scikit-learn",
+                "LangChain",
+                "LangGraph",
+                "OpenCV",
+                "Pandas",
+                "MLflow",
+                "Databricks"
+            ]
+        },
+        {
+            "name": "GenAI & Systems",
+            "skills": [
+                "RAG",
+                "LLM evaluation",
+                "fine-tuning",
+                "prompt engineering",
+                "agentic AI design",
+                "MLOps",
+                "observability",
+                "Kafka"
+            ]
+        },
+        {
+            "name": "Cloud/DevOps",
+            "skills": [
+                "AWS (Bedrock, Lambda, S3, CloudWatch API Gateway, Cognito)",
+                "GCP",
+                "Azure",
+                "Docker",
+                "Kubernetes",
+                "Git"
+            ]
+        },
+        {
+            "name": "Full-Stack",
+            "skills": [
+                "React",
+                "Node.js",
+                "Flask",
+                "FastAPI",
+                ".NET",
+                "PostgreSQL",
+                "MySQL",
+                "MongoDB",
+                "Terraform"
+            ]
+        }
+    ],
+    "publications": [
+        {
+            "title": "Can Typos Cause Harm? The Impact of Imperfect Input on LLM Safety",
+            "venue": "SBP-BRiMS 2025",
+            "from_date": "Sep 2024",
+            "to_date": "Aug 2025",
+            "link": null,
+            "description": [
+                "Systematic study of LLM safety under prompt perturbations; introduced safety flip rate and evaluated 5 models across 14 perturbation types & 11 harm categories—minor typos/paraphrases flip safety in 30% of cases",
+                "Released open-source framework & augmentation pipeline for perturbation-aware safety evaluation and robust alignment tools"
+            ]
+        },
+        {
+            "title": "LLM-facilitated Pipeline for Personalized Resume Generation",
+            "venue": "ACM SIGIR 2024",
+            "from_date": "Aug 2023",
+            "to_date": "Jul 2024",
+            "link": "https://dl.acm.org/doi/10.1145/3626772.3657680",
+            "description": [
+                "Authored and published research on an ML pipeline optimized for user personalization using LLMs.",
+                "Formulated novel user personalization metrics, setting benchmarks for AI-enhanced resume evaluation.",
+                "Released an open-source Python library integrating information retrieval and web scraping; used by 1000+ users."
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "name": "Multimodal AI System for Media Search",
+            "type": "Hackathon",
+            "link": "https://devpost.com/software/team-soul-1fjgwo",
+            "resources": [],
+            "from_date": "October 2024",
+            "to_date": "October 2024",
+            "description": [
+                "Won Big Data Prize for content-based search across video/audio/images; stored in Postgres delivered 92% faster media search",
+                "Implemented a content-based search system across video/audio/images, using Postgres database, resulting in a 92% faster media search",
+                "Developed a multimodal AI system for media search that uses AWS, CLIP, and a vector database to achieve a 92% increase in search speed.",
+                "Big Data Awards in Python FAST API and angular development, providing efficient data access and retrieval.",
+                "Converted and stored every file type data as vector embeddings, ensuring low-latency search capabilities.",
+                "Used Machine Learning techniques such as BERT, OCR, ResNet50, and Image Captioning to parse Image features.",
+                "Contributed to Elasticsearch implementation for blazing-fast search responses, with millisecond response times."
+            ]
+        },
+        {
+            "name": "Forest fire Detection using IoT Sensor Data",
+            "type": "Industrial Project",
+            "link": "https://github.com/OmdenaAI/Dryad",
+            "resources": [],
+            "from_date": "September 2021",
+            "to_date": "January 2022",
+            "description": [
+                "Implemented a TabNet classifier model with 98.7% accuracy on edge devices using AWS, TinyML, Docker, Redis, and Celery",
+                "Utilized SMOTE and hyperparameter tuning to balance data and optimize recall, reducing errors detecting fire in 7 mins",
+                "Reduced errors in detecting forest fires by 7 minutes using SMOTE and hyperparameter tuning to balance data and optimize recall.",
+                "Devised a TabNet Classifier Model having 98.7% accuracy in detecting forest fire through IoT sensor data, deployed on AWS and edge devices 'Silvanet Wildfire Sensors' using technologies TinyML, Docker, Redis, and celery.",
+                "Examine and utilize many performance metrics (Recall, F2 score, sensitivity, specificity. etc.) to reduce high type II error.",
+                "Performed Model Exploration, Analysis, and Optimization."
+            ]
+        },
+        {
+            "name": "GenAI's Capabilities and Boundaries Exploration - Prompt Engineering Hackathon for Humanities",
+            "type": "Hackathon",
+            "link": "https://www.linkedin.com/pulse/exploring-depths-ai-story-writing-prompt-engineering-hackathon-wbqwc",
+            "from": "Oct 2023",
+            "to": "Oct 2023",
+            "description": [
+                "1st runner up prize in crafted AI persona, to explore LLM's subtle contextual understanding and create innovative collaborations between humans and machines.",
+                "Addressed limitations in narrative flow, simplicity, emotional depth, and hallucinations through innovative approaches.",
+                "Demonstrated creative mindset and ability to navigate complex tasks and adapt to evolving requirements during hackathon."
+            ]
+        },
+        {
+            "name": "Stock Market Analysis",
+            "type": "Intern Project",
+            "link": "https://github.com/Ztrimus/Stock-Market-Analysis",
+            "from": "Dec 2018",
+            "to": "Feb 2019",
+            "description": [
+                "Conducted in-depth Exploratory Data Analysis (EDA) and utilized data visualization techniques for comprehensive stock market analysis. Implemented a range of statistical and ML models on diverse time-series stocks to extract insights and predictions. Improved performance by 27% on the \"clustering and diversification analysis\"."
+            ]
+        },
+        {
+            "name": "Autonomous Surveillance Monitoring System",
+            "type": "Project",
+            "link": "",
+            "from": "Feb 2019",
+            "to": "Jun 2019",
+            "description": [
+                "At a college-sponsored project, I Built a surveillance engine to detect and alert about suspicious behaviors on campus by constructing a computer vision pipeline of CCTV footage data processing, face detection, poses & action recognition using OpenCV, MediaPipe, Tensorflow, MLFlow, and Flask. Finally, We deployed it on college premises."
+            ]
+        },
+        {
+            "name": "Speech Emotion Recognition",
+            "type": "Project",
+            "link": "https://github.com/Ztrimus/speech-emotion-recognition",
+            "from": "Nov 2018",
+            "to": "Feb 2019",
+            "description": [
+                "Researched and optimized existing emotion detection approaches by combining CNN and LSTM networks. Discovered emotion-affecting attributes in voice by analyzing audio signal features-MFCC, ZCR, Pitch, and Chroma.",
+                "Compressed audio data using an Autoencoder technique to avoid data loss. Due to this, we were able to boost the accuracy of the speech model by 31%. Used tools like PyTorch, Librosa, puAudioAnalysis, and Tensorboard."
+            ]
+        },
+        {
+            "name": "Homecoming: Animal Habitat Organization",
+            "type": "Project",
+            "link": "",
+            "from": "Aug 2018",
+            "to": "Jan 2019",
+            "description": [
+                "Developed a Custom Animal Identification and Classification model using Faster R-CNN architecture to identify animals and their habitats in a simulated environment, which Integrated it into the Firebird V ATMEGA2560 Robot (we tailored it to put animals into a habitat). Optimized the \"Region Proposal Network\" component resulting in 35% decrease in processing time."
+            ]
+        }
+    ],
+    "certifications": [
+        {
+            "name": "Deep Learning Specialization",
+            "by": "DeepLearning.AI, Coursera Inc.",
+            "link": "https://www.coursera.org/account/accomplishments/specialization/G3WPNWRYX628"
+        },
+        {
+            "name": "MLOps for AI Engineers and Data Scientists",
+            "by": "Omdena Inc.",
+            "link": "https://drive.google.com/file/d/1fh4AEscb0P82nfoaA-muWMzmFngzyk2g/view"
+        },
+        {
+            "name": "Microsoft Azure Fundamentals",
+            "by": "Udemy.",
+            "link": "https://www.udemy.com/certificate/UC-37e943d1-e7f7-4d27-a1e4-e799aef7013b/"
+        },
+        {
+            "name": "Server-side Backend Development",
+            "by": "The Hong Kong University of Science and Technology.",
+            "link": "https://www.coursera.org/account/accomplishments/verify/TYMQX23D4HRQ"
+        },
+        {
+            "name": "Front-End Web UI Frameworks and Tools",
+            "by": "The Hong Kong University of Science and Technology.",
+            "link": "https://www.coursera.org/account/accomplishments/verify/TW8MA6MEXSCZ"
+        }
+    ],
+    "achievements": [
+        "Won 10+ Hackathons and coding competitions at university and professional levels.",
+        "1st runner-up in \"Prompt Engineering Hackathon 2023 for Humanities\"",
+        "Received the 'Extra Miller - 2021' award at Winjit Technologies for outstanding performance. ",
+        "President of Machine Learning Club: Led a team of 20 people in a project and was awarded \"Best Project of the Year.\"",
+        "Finalist in E-yantra Robotics Competition 2018 - IITB.",
+        "Dance Section's Head of PICT Art Circle: Best dance choreography for Winning \"Firodiya theater competition 2019.\"",
+        "Performed in multiple award-winning state-level drama competitions and received the best-organized team prize thrice.",
+        "An active member of the NSS (National Community Service Group in PICT) in 2016."
+    ],
+    "easy_apply_answers": {
+        "What is your phone number?": "480-913-5544",
+        "What is your email address?": "saurabhzinjad@gmail.com",
+        "What is your current location?": "United States",
+        "How many years of experience do you have?": "6",
+        "How many years of experience do you have in [specific field]?": "6",
+        "Are you authorized to work in the United States?": "Yes",
+        "Do you require visa sponsorship?": "No",
+        "Are you willing to relocate?": "Yes",
+        "Are you open to remote work?": "Yes",
+        "How many years of experience do you have in Python?": "8",
+        "How many years of experience do you have in Machine Learning?": "5",
+        "How many years of experience do you have in AI?": "5",
+        "How many years of experience do you have in Software Development?": "6",
+        "How many years of experience do you have in Data Science?": "5",
+        "How many years of experience do you have in Cloud Computing?": "4",
+        "How many years of experience do you have in DevOps?": "4",
+        "When can you start?": "Immediate",
+        "What is your notice period?": "2 weeks",
+        "Are you available for full-time work?": "Yes",
+        "Are you available for contract work?": "No",
+        "Are you available for part-time work?": "No",
+        "Do you have experience with Python?": "Yes",
+        "Do you have experience with Machine Learning?": "Yes",
+        "Do you have experience with AI?": "Yes",
+        "Do you have experience with Deep Learning?": "Yes",
+        "Do you have experience with TensorFlow?": "Yes",
+        "Do you have experience with PyTorch?": "Yes",
+        "Do you have experience with AWS?": "Yes",
+        "Do you have experience with Docker?": "Yes",
+        "Do you have experience with Git?": "Yes",
+        "Do you have experience with React?": "Yes",
+        "Do you have experience with Node.js?": "Yes",
+        "Do you have experience with PostgreSQL?": "Yes",
+        "Do you have experience with MongoDB?": "Yes",
+        "Do you have experience with Kubernetes?": "Yes",
+        "Do you have experience with LangChain?": "Yes",
+        "Do you have experience with MLOps?": "Yes",
+        "What is your highest level of education?": "Masters of Science in Computer Science",
+        "What is your GPA?": "3.8",
+        "When did you graduate?": "2025",
+        "What university did you attend?": "Arizona State University",
+        "What is your salary expectation?": "Competitive",
+        "What is your current salary?": "Confidential",
+        "What benefits are you looking for?": "Standard benefits package",
+        "What is your expected salary range?": "Competitive based on role and location",
+        "Why do you want to work at this company?": "I am excited about the opportunity to contribute to innovative AI projects and grow with a dynamic team that values cutting-edge technology.",
+        "What interests you about this role?": "The opportunity to work on cutting-edge AI/ML technology and solve complex problems that have real-world impact.",
+        "How did you hear about this position?": "LinkedIn",
+        "Do you have any questions for us?": "I would like to learn more about the team structure, growth opportunities, and the company's AI/ML roadmap.",
+        "What makes you a good fit for this role?": "I bring 6 years of experience in AI/ML with expertise in Python, TensorFlow, PyTorch, AWS, and Docker and a proven track record of delivering production-ready solutions.",
+        "Describe your experience with [technology]": "I have 6 years of experience with Python, TensorFlow, PyTorch and have worked on various AI/ML projects including research publications and production systems.",
+        "What is your experience with cloud platforms?": "I have experience with AWS, GCP, and Azure, having deployed and managed AI/ML models and data pipelines in cloud environments.",
+        "Describe a challenging project you worked on": "I developed a multimodal AI system for media search that achieved 92% faster search speeds using AWS, CLIP, and vector databases, winning the Big Data Prize.",
+        "What is your experience with MLOps?": "I have extensive experience with MLOps including model monitoring, CI/CD pipelines, and deployment strategies using tools like MLflow, Docker, and Kubernetes.",
+        "Describe your experience with LLMs": "I have worked extensively with LLMs including fine-tuning, RAG systems, and prompt engineering, with published research on LLM safety and personalized resume generation.",
+        "Tell me about yourself": "I am a AI/ML Engineer II with 6 years of experience in AI/ML and software development. I am passionate about building production-ready AI systems and have published research in top-tier conferences.",
+        "What are your strengths?": "Strong problem-solving skills, expertise in AI/ML frameworks, and ability to work in fast-paced environments. I have a proven track record of delivering impactful solutions.",
+        "What are your weaknesses?": "I sometimes spend too much time perfecting details, but I'm working on balancing perfectionism with efficiency to deliver faster results.",
+        "Where do you see yourself in 5 years?": "I see myself as a senior AI/ML engineer or AI team lead, contributing to innovative AI products and mentoring junior developers while continuing to advance the field through research.",
+        "What motivates you?": "I am motivated by the opportunity to solve complex problems using AI/ML and create solutions that have real-world impact. I enjoy the challenge of building production-ready systems.",
+        "Are you willing to work overtime?": "Yes",
+        "Are you willing to travel?": "Yes",
+        "Do you have a valid driver's license?": "Yes",
+        "Are you comfortable with public speaking?": "Yes",
+        "Do you have any criminal convictions?": "No",
+        "Are you currently employed?": "Yes",
+        "Are you looking for a new opportunity?": "Yes",
+        "Do you have any conflicts of interest?": "No",
+        "Do you have experience with team leadership?": "Yes",
+        "Are you comfortable with mentoring?": "Yes"
+    },
+    "question_patterns": {
+        "phone": ["phone", "contact", "number", "mobile"],
+        "email": ["email", "e-mail", "contact"],
+        "experience": ["experience", "years", "how long", "background"],
+        "location": ["location", "where", "city", "state"],
+        "authorization": ["authorized", "work permit", "visa", "sponsorship"],
+        "relocation": ["relocate", "move", "location", "remote"],
+        "availability": ["start", "available", "when", "notice"],
+        "salary": ["salary", "compensation", "pay", "rate", "expectation"],
+        "education": ["education", "degree", "university", "college", "gpa"],
+        "skills": ["experience with", "familiar with", "knowledge of", "proficient in"]
+    },
+    "default_answers": {
+        "text": "Please see my resume for details.",
+        "yes_no": "Yes",
+        "multiple_choice": "Other",
+        "number": "1",
+        "date": "10/20/2025"
+    },
+    "documents": {
+        "resume_path": "zlm/demo_data/user_resume.pdf",
+        "cover_letter_path": "resources/cover_letter.pdf",
+        "portfolio_url": "https://github.com/Ztrimus",
+        "github_url": "https://github.com/Ztrimus"
+    },
+    "application_preferences": {
+        "max_applications_per_day": 50,
+        "preferred_job_types": ["Full-time"],
+        "avoid_companies": [],
+        "preferred_companies": [],
+        "minimum_salary": 150000,
+        "maximum_commute_time": 60,
+        "remote_work_preference": "Hybrid"
+    }
+}

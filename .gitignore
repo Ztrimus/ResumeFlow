@@ -5,3 +5,4 @@ output
 dist
 .venv
 .anima
+linkedin_config.py

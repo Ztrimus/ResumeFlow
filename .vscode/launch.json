@@ -19,6 +19,32 @@
             //     "/Users/saurabh/AA/convergent/projects/job-llm/zlm/demo_data/user_profile.json"
             // ],
             "args": ["run", "web_app.py"]
+        },
+        {
+            "name": "LinkedIn Easy Apply Automation",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/zlm/workflow/linkedin_auto_apply.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "args": []
+        },
+        {
+            "name": "LinkedIn Easy Apply (Module)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "zlm.workflow.linkedin_auto_apply",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "args": []
         }
     ]
 }

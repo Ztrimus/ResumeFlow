@@ -1,0 +1,59 @@
+'''
+-----------------------------------------------------------------------
+File: linkedin_config.py
+Creation Time: Oct 20th 2025
+Author: Saurabh Zinjad
+Developer Email: saurabhzinjad@gmail.com
+Copyright (c) 2025 Saurabh Zinjad. All rights reserved | https://github.com/Ztrimus
+-----------------------------------------------------------------------
+'''
+
+# LinkedIn credentials - REQUIRED: Fill in your LinkedIn login details
+LINKEDIN_EMAIL = ""  # Your LinkedIn email address
+LINKEDIN_PASSWORD = ""  # Your LinkedIn password
+
+# Job search parameters
+SEARCH_TERMS = ["Software Engineer", "Python Developer"]  # List of job titles to search for
+SEARCH_LOCATION = "United States"  # Location for job search (e.g., "United States", "India", "Chicago, Illinois")
+MAX_APPLICATIONS = 5  # Maximum number of applications to submit (for MVP testing)
+
+# Personal information for Easy Apply forms
+PHONE_NUMBER = ""  # Your phone number (e.g., "+1234567890")
+YEARS_OF_EXPERIENCE = "5"  # Your years of experience (e.g., "3", "5", "10+")
+REQUIRE_VISA = "No"  # Do you require visa sponsorship? ("Yes" or "No")
+DEFAULT_RESUME_PATH = "path/to/resume.pdf"  # Path to your resume file
+
+# Browser settings
+HEADLESS = False  # Set True to run browser in background (headless mode)
+BROWSER_TIMEOUT = 10000  # Browser timeout in milliseconds (30 seconds)
+PAGE_LOAD_TIMEOUT = 10000  # Page load timeout in milliseconds (10 seconds)
+
+# Output settings
+OUTPUT_DIR = "output/linkedin_applications"  # Directory to save output files
+CSV_FILE = "applied_jobs.csv"  # CSV file for successful applications
+FAILED_CSV = "failed_jobs.csv"  # CSV file for failed applications
+SCREENSHOTS_DIR = "screenshots"  # Directory to save error screenshots
+
+# LinkedIn specific settings
+LINKEDIN_BASE_URL = "https://www.linkedin.com"
+LINKEDIN_JOBS_URL = "https://www.linkedin.com/jobs/search/"
+EASY_APPLY_BUTTON_SELECTOR = "button[aria-label*='Easy Apply']"
+JOB_CARD_SELECTOR = ".jobs-search-results__list-item"
+
+# Form field mappings for common Easy Apply questions
+FORM_FIELD_MAPPINGS = {
+    "phone": PHONE_NUMBER,
+    "experience": YEARS_OF_EXPERIENCE,
+    "visa": REQUIRE_VISA,
+    "resume": DEFAULT_RESUME_PATH
+}
+
+# Common question patterns and their answers
+QUESTION_ANSWERS = {
+    "phone": PHONE_NUMBER,
+    "experience": YEARS_OF_EXPERIENCE,
+    "visa": REQUIRE_VISA,
+    "authorized": "Yes",  # Are you authorized to work in the US?
+    "relocation": "No",  # Are you willing to relocate?
+    "remote": "Yes"  # Are you open to remote work?
+}
