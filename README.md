@@ -155,3 +155,4 @@ playwright
  - [Overleaf LaTex Resume Template](https://www.overleaf.com/latex/templates/jakes-resume-anonymous/cstpnrbkhndn)
  - [Combining LaTeX with Python](https://tug.org/tug2019/slides/slides-ziegenhagen-python.pdf)
  - [OpenAI Documentation](https://platform.openai.com/docs/api-reference/chat/create)
+"." 
