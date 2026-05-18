@@ -239,6 +239,7 @@ class AutoApplyModel:
             FileNotFoundError: If the system prompt files are not found.
         """
         try:
+            resume_path = None
             print("\nGenerating Resume Details...")
             if is_st: st.toast("Generating Resume Details...")
 
@@ -246,15 +247,16 @@ class AutoApplyModel:
 
             # Personal Information Section
             if is_st: st.toast("Processing Resume's Personal Info Section...")
-            resume_details["personal"] = { 
-                "name": user_data["name"], 
-                "phone": user_data["phone"], 
-                "email": user_data["email"],
-                "github": user_data["media"]["github"], 
-                "linkedin": user_data["media"]["linkedin"]
-                }
-            st.markdown("**Personal Info Section**")
-            st.write(resume_details)
+            resume_details["personal"] = {
+                "name": user_data.get("name", ""),
+                "phone": user_data.get("phone", ""),
+                "email": user_data.get("email", ""),
+                "github": user_data.get("media", {}).get("github", ""),
+                "linkedin": user_data.get("media", {}).get("linkedin", ""),
+            }
+            if is_st:
+                st.markdown("**Personal Info Section**")
+                st.write(resume_details)
 
             # Other Sections
             for section in ['work_experience', 'projects', 'skill_section', 'education', 'certifications', 'achievements']:
@@ -297,7 +299,7 @@ class AutoApplyModel:
             return resume_path, resume_details
         except Exception as e:
             print(e)
-            st.write("Error: \n\n",e)
+            if is_st: st.write("Error: \n\n", e)
             return resume_path, resume_details
 
     def resume_cv_pipeline(self, job_url: str, user_data_path: str = demo_data_path):
