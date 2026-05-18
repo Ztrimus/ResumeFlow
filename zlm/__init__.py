@@ -316,7 +316,7 @@ class AutoApplyModel:
                 user_data_path = demo_data_path
 
             print("Starting Auto Resume and CV Pipeline")
-            if job_url is None and len(job_url.strip()) == "":
+            if not job_url or not job_url.strip():
                 print("Job URL is required.")
                 return
             
