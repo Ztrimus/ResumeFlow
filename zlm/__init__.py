@@ -302,13 +302,16 @@ class AutoApplyModel:
             if is_st: st.write("Error: \n\n", e)
             return resume_path, resume_details
 
-    def resume_cv_pipeline(self, job_url: str, user_data_path: str = demo_data_path):
+    def resume_cv_pipeline(self, job_url: str, user_data_path: str = demo_data_path, generate_cover_letter: bool = True):
         """Run the Auto Apply Pipeline.
 
         Args:
             job_url (str): The URL of the job to apply for.
             user_data_path (str, optional): The path to the user profile data file.
                 Defaults to os.path.join(module_dir, "master_data','user_profile.json").
+            generate_cover_letter (bool, optional): Whether to generate a cover letter.
+                Defaults to True. Set to False to skip the cover letter LLM call and
+                PDF write (e.g. when only a tailored resume is needed).
 
         Returns:
             None: The function prints the progress and results to the console.
@@ -334,7 +337,8 @@ class AutoApplyModel:
             # resume_details = read_json("/Users/saurabh/Downloads/JobLLM_Resume_CV/Netflix/Netflix_MachineLearning_resume.json")
 
             # Generate cover letter
-            cv_details, cv_path = self.cover_letter_generator(job_details, user_data)
+            if generate_cover_letter:
+                cv_details, cv_path = self.cover_letter_generator(job_details, user_data)
 
             # Calculate metrics
             for metric in ['jaccard_similarity', 'overlap_coefficient', 'cosine_similarity']:
