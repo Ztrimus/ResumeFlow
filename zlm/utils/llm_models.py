@@ -12,8 +12,7 @@ import textwrap
 import pandas as pd
 import streamlit as st
 from openai import OpenAI
-from langchain_community.llms.ollama import Ollama
-from langchain_ollama import OllamaEmbeddings
+from langchain_ollama import OllamaLLM, OllamaEmbeddings
 import google.generativeai as genai
 from google.generativeai.types.generation_types import GenerationConfig
 
@@ -127,7 +126,7 @@ class OllamaModel:
     
     def get_response(self, prompt, expecting_longer_output=False, need_json_output=False):
         try:
-            llm = Ollama(
+            llm = OllamaLLM(
                 model=self.model, 
                 system=self.system_prompt,
                 temperature=0.8, 
