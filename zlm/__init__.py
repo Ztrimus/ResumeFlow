@@ -15,7 +15,6 @@ import numpy as np
 import streamlit as st
 
 from langchain.prompts import PromptTemplate
-from langchain_core.output_parsers import JsonOutputParser
 
 from zlm.schemas.sections_schemas import ResumeSchema
 from zlm.utils import utils
@@ -93,16 +92,13 @@ class AutoApplyModel:
         """
         resume_text = extract_text(pdf_path)
 
-        json_parser = JsonOutputParser(pydantic_object=ResumeSchema)
-
         prompt = PromptTemplate(
             template=RESUME_DETAILS_EXTRACTOR,
             input_variables=["resume_text"],
-            partial_variables={"format_instructions": json_parser.get_format_instructions()}
             ).format(resume_text=resume_text)
 
-        resume_json = self.llm.get_response(prompt=prompt, need_json_output=True)
-        return resume_json
+        result = self.llm.get_response(prompt=prompt, response_model=ResumeSchema)
+        return result.model_dump() if result is not None else None
 
     @utils.measure_execution_time
     def user_data_extraction(self, user_data_path: str = demo_data_path, is_st=False):
@@ -154,15 +150,13 @@ class AutoApplyModel:
             if url is not None and url.strip() != "":
                 job_site_content = read_data_from_url(url)
             if job_site_content:
-                json_parser = JsonOutputParser(pydantic_object=JobDetails)
-                
                 prompt = PromptTemplate(
                     template=JOB_DETAILS_EXTRACTOR,
                     input_variables=["job_description"],
-                    partial_variables={"format_instructions": json_parser.get_format_instructions()}
                     ).format(job_description=job_site_content)
 
-                job_details = self.llm.get_response(prompt=prompt, need_json_output=True)
+                result = self.llm.get_response(prompt=prompt, response_model=JobDetails)
+                job_details = result.model_dump() if result is not None else None
 
                 if url is not None and url.strip() != "":
                     job_details["url"] = url
@@ -263,14 +257,14 @@ class AutoApplyModel:
                 section_log = f"Processing Resume's {section.upper()} Section..."
                 if is_st: st.toast(section_log)
 
-                json_parser = JsonOutputParser(pydantic_object=section_mapping[section]["schema"])
-                
                 prompt = PromptTemplate(
                     template=section_mapping[section]["prompt"],
-                    partial_variables={"format_instructions": json_parser.get_format_instructions()}
-                    ).format(section_data = json.dumps(user_data[section]), job_description = json.dumps(job_details))
+                    input_variables=["section_data", "job_description"],
+                    ).format(section_data=json.dumps(user_data[section]), job_description=json.dumps(job_details))
 
-                response = self.llm.get_response(prompt=prompt, expecting_longer_output=True, need_json_output=True)
+                section_schema = section_mapping[section]["schema"]
+                result = self.llm.get_response(prompt=prompt, expecting_longer_output=True, response_model=section_schema)
+                response = result.model_dump() if result is not None else None
 
                 # Check for empty sections
                 if response is not None and isinstance(response, dict):
