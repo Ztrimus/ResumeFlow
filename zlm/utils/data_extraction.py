@@ -8,61 +8,26 @@ Copyright (c) 2023 Saurabh Zinjad. All rights reserved | GitHub: Ztrimus, ameygo
 -----------------------------------------------------------------------
 '''
 import re
-import json
 import PyPDF2
 import requests
 from bs4 import BeautifulSoup
-import streamlit as st
-from langchain_community.document_loaders import UnstructuredURLLoader, WebBaseLoader
 
-try:
-    from langchain_community.document_loaders import PlaywrightURLLoader
-    _playwright_available = True
-except ImportError:
-    _playwright_available = False
+from zlm.utils.scraper import scrape_url
 
-def read_data_from_url(url):
-        try: 
-            url_content = ""
 
-            basic_selectors = ["header", "footer"]
-            linkedin_selectors = ["#main-content > section.right-rail",
-                                  ".job-alert-redirect-section", ".similar-jobs"]
-            
-            # TODO: Filter out selectors bassed on the website
-            all_selectors = basic_selectors
+def read_data_from_url(url: str) -> str | None:
+    """Extract text content from a web page.
 
-            unstr_loader = UnstructuredURLLoader(urls=[url], ssl_verify=False, remove_selectors=all_selectors)
-            web_loader = WebBaseLoader(url)
+    Uses Firecrawl (if ``FIRECRAWL_API_KEY`` is set) with Jina Reader as
+    fallback.  Returns ``None`` if all strategies fail.
 
-            loaders = []
-            if _playwright_available:
-                loaders.append(PlaywrightURLLoader(urls=[url], remove_selectors=all_selectors))
-            loaders.extend([unstr_loader, web_loader])
+    Args:
+        url: The job posting or web page URL.
 
-            pages = []
-            for loader in loaders:
-                pages = loader.load()
-                if pages != []:
-                    break
-
-            for page in pages:
-                if page.page_content.strip() != "":
-                    # text = page.extract_text().split("\n")
-                    text_list = page.page_content.split("\n")
-
-                    # Remove Unicode characters from each line
-                    cleaned_texts = [re.sub(r'[^\x00-\x7F]+', '', line) for line in text_list]
-                    cleaned_texts = [text.strip() for text in cleaned_texts if text.strip() not in ['', None]]
-
-                    # Join the lines into a single string
-                    cleaned_texts_string = '\n'.join(cleaned_texts)
-                    url_content += cleaned_texts_string
-                
-                return url_content
-        except Exception as e:
-            print(e)
-            return None
+    Returns:
+        Scraped text/markdown, or ``None``.
+    """
+    return scrape_url(url)
 
 def extract_text(pdf_path: str):
     resume_text = ""
