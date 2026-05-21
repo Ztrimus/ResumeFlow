@@ -13,7 +13,13 @@ import PyPDF2
 import requests
 from bs4 import BeautifulSoup
 import streamlit as st
-from langchain_community.document_loaders import PlaywrightURLLoader, UnstructuredURLLoader, WebBaseLoader
+from langchain_community.document_loaders import UnstructuredURLLoader, WebBaseLoader
+
+try:
+    from langchain_community.document_loaders import PlaywrightURLLoader
+    _playwright_available = True
+except ImportError:
+    _playwright_available = False
 
 def read_data_from_url(url):
         try: 
@@ -27,11 +33,15 @@ def read_data_from_url(url):
             all_selectors = basic_selectors
 
             unstr_loader = UnstructuredURLLoader(urls=[url], ssl_verify=False, remove_selectors=all_selectors)
-            playwright_loader = PlaywrightURLLoader(urls=[url], remove_selectors=all_selectors)
             web_loader = WebBaseLoader(url)
 
+            loaders = []
+            if _playwright_available:
+                loaders.append(PlaywrightURLLoader(urls=[url], remove_selectors=all_selectors))
+            loaders.extend([unstr_loader, web_loader])
+
             pages = []
-            for loader in [playwright_loader, unstr_loader, web_loader]:
+            for loader in loaders:
                 pages = loader.load()
                 if pages != []:
                     break

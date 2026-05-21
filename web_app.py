@@ -19,10 +19,6 @@ from zlm.utils.utils import display_pdf, download_pdf, read_file, read_json
 from zlm.utils.metrics import jaccard_similarity, overlap_coefficient, cosine_similarity
 from zlm.variables import LLM_MAPPING
 
-print("Installing playwright...")
-os.system("playwright install")
-os.system("sudo playwright install-deps")
-
 st.set_page_config(
     page_title="Resume Generator",
     page_icon="📑",
@@ -262,7 +258,7 @@ try:
             refresh = st.button("Refresh")
 
             if refresh:
-                st.caching.clear_cache()
+                st.cache_data.clear()
                 st.rerun()
         
 except Exception as e:
