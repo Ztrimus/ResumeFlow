@@ -144,12 +144,17 @@ try:
             st.toast(":red[Please enter a job posting URL or paste the job description to get started]", icon="⚠️") 
             st.stop()
         
-        if api_key == "" and provider != "Llama":
+        if not api_key and LLM_MAPPING[provider].get("api_env"):
             st.toast(":red[Please enter the API key to get started]", icon="⚠️")
             st.stop()
-        
+
         if file is not None and (url != "" or text != ""):
             download_resume_path = os.path.join(os.path.dirname(__file__), "output")
+
+            # Propagate UI-entered key to os.environ so all downstream
+            # code and SDKs that read env vars directly will find it.
+            if api_key and LLM_MAPPING[provider].get("api_env"):
+                os.environ[LLM_MAPPING[provider]["api_env"]] = api_key
 
             resume_llm = AutoApplyModel(api_key=api_key, provider=provider, model = model, downloads_dir=download_resume_path)
             
