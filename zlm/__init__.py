@@ -60,7 +60,7 @@ class AutoApplyModel:
         self.model = DEFAULT_LLM_MODEL if model is None or model.strip() == "" else model
         self.downloads_dir = utils.get_default_download_folder() if downloads_dir is None or downloads_dir.strip() == "" else downloads_dir
 
-        if api_key is None or api_key.strip() == "os":
+        if not api_key or api_key.strip() == "os":
                 api_env = LLM_MAPPING[self.provider]["api_env"]
                 if api_env != None and api_env.strip() != "":
                     self.api_key = os.environ.get(LLM_MAPPING[self.provider]["api_env"]) 
