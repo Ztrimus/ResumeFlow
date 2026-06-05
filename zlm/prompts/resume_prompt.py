@@ -55,8 +55,13 @@ Think step by step before producing the final output:
 </reasoning>
 
 <instructions>
-- The "keywords" field is the most important for resume tailoring — be exhaustive and precise.
-- Preserve the exact terminology used in the job description (e.g., "PostgreSQL" not "SQL database").
+- Populate both `keywords` (flat exhaustive list) AND `keyword_tiers` (tiered classification):
+    • Tier 1 (tier1_must_have): Hard skills, tools, technologies, certifications explicitly required.
+      Use the exact terminology from the JD. Aim for 4-5 items.
+    • Tier 2 (tier2_high_priority): Soft skills, methodologies, experience types listed as preferred.
+      Aim for 3-4 items.
+    • Tier 3 (tier3_bonus): Culture language, nice-to-haves, domain jargon. Aim for 2-3 items.
+- Preserve exact JD terminology in all keyword fields (e.g., "PostgreSQL" not "SQL database").
 - If salary, location, or company details are absent, use null rather than guessing.
 </instructions>"""
 

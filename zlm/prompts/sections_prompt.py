@@ -168,10 +168,13 @@ Write the "projects" section of a JSON resume for a candidate applying to the ro
 
 <reasoning>
 Work through this analysis before writing:
-1. Which 2-3 projects most directly demonstrate skills required by this job description?
-2. For each selected project, which existing bullets can be rewritten to better surface relevant keywords?
-3. What metrics or outcomes are implied but not stated? (e.g., "built for 1000 users" → "scaled to 1K users")
-4. Which projects should be excluded because they have no relevance to this role?
+1. Locate `keyword_tiers` in the job_description JSON.
+   - Tier 1 (tier1_must_have): prioritize projects that let you use these keywords authentically.
+   - Tier 2 (tier2_high_priority): surface these where the project context supports them.
+2. Which 2-3 projects most directly demonstrate skills required by this job description?
+3. For each selected project, which existing bullets can be rewritten to better surface Tier 1 keywords?
+4. What metrics or outcomes are implied but not stated? (e.g., "built for 1000 users" → "scaled to 1K users")
+5. Which projects should be excluded because they have no relevance to this role?
 </reasoning>
 
 <instructions>
@@ -214,9 +217,12 @@ Write the "skill_section" of a JSON resume for a candidate applying to the role 
 
 <reasoning>
 Before organizing skills:
-1. What are the Tier 1 technical skills in the job description (explicitly required)? Ensure these appear prominently.
+1. Locate `keyword_tiers` in the job_description JSON.
+   - Tier 1 (tier1_must_have): these MUST appear in the skill section. List them first in their category.
+   - Tier 2 (tier2_high_priority): include where the candidate genuinely has the skill.
+   - Tier 3 (tier3_bonus): omit from skills — they belong in cover letter/summary.
 2. What skill groupings make the most sense for this role? (e.g., an ML role: Languages / ML Frameworks / Cloud / Tools)
-3. Are there skills in the candidate's profile that are irrelevant noise for this specific role?
+3. Are there skills in the candidate's profile that are irrelevant noise for this specific role? Remove them.
 </reasoning>
 
 <instructions>
@@ -258,11 +264,14 @@ Write the "work_experience" section of a JSON resume for a candidate applying to
 
 <reasoning>
 Work through this analysis before writing:
-1. Which 2-3 work experiences are most relevant to this role? Which should be de-emphasized or omitted?
-2. For each selected experience, identify which original bullets already align with the JD and which need rewriting.
-3. What Tier 1 keywords from the JD can be woven into bullets truthfully based on what the candidate actually did?
+1. Locate `keyword_tiers` in the job_description JSON.
+   - Tier 1 (tier1_must_have): these MUST appear in at least one bullet per relevant experience.
+   - Tier 2 (tier2_high_priority): weave in where the candidate's work genuinely supports it.
+   - Tier 3 (tier3_bonus): use sparingly — only if it fits naturally.
+2. Which 2-3 work experiences are most relevant to this role? Which should be de-emphasized or omitted?
+3. For each selected experience, identify which original bullets already contain Tier 1 keywords and which need rewriting to include them.
 4. Where are the opportunities to add missing metrics (scale, speed, size, reduction, improvement)?
-5. Are there soft skills (leadership, cross-functional work, mentoring) the JD values that can be evidenced by existing work?
+5. Are there soft skills (leadership, cross-functional work, mentoring) the JD values (Tier 2) that can be evidenced by existing work?
 </reasoning>
 
 <instructions>
