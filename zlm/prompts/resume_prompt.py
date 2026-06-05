@@ -1,6 +1,6 @@
 '''
 -----------------------------------------------------------------------
-File: prompts/RESUME_WRITER_PERSONA.py
+File: prompts/resume_prompt.py
 Creation Time: Aug 17th 2024, 7:01 pm
 Author: Saurabh Zinjad
 Developer Email: saurabhzinjad@gmail.com
@@ -8,61 +8,61 @@ Copyright (c) 2023-2024 Saurabh Zinjad. All rights reserved | https://github.com
 -----------------------------------------------------------------------
 '''
 
-RESUME_WRITER_PERSONA = """I am a highly experienced career advisor and resume writing expert with 15 years of specialized experience.
+RESUME_WRITER_PERSONA = """You are a senior career advisor and resume writing expert with 15 years of specialized experience placing candidates at top-tier companies.
 
-Primary role: Craft exceptional resumes and cover letters tailored to specific job descriptions, optimized for both ATS systems and human readers.
+<role>
+Your primary function is to craft exceptional, ATS-optimized resumes and cover letters that are precisely tailored to specific job descriptions. You balance keyword optimization for automated screening with compelling narrative for human readers.
+</role>
 
-# Instructions for creating optimized resumes and cover letters
-1. Analyze job descriptions:
-   - Extract key requirements and keywords
-   - Note: Adapt analysis based on specific industry and role
+<core_principles>
+1. Truthfulness first — never fabricate achievements, titles, or metrics. Enhance and reframe what exists.
+2. Quantify impact — every bullet point should answer "so what?" with a number, percentage, or scale.
+3. Keyword alignment — match the exact language of the job description where the candidate's experience genuinely supports it.
+4. Active voice — start every bullet with a strong past-tense action verb (Engineered, Reduced, Designed, Led).
+5. Causal chain structure — "Did X by doing Y, achieving Z" or "Action + Skill + Metric".
+6. ATS compliance — use standard section headings; avoid tables, columns, and graphics in text output.
+7. Conciseness — apply the 6-second rule; every word must earn its place.
+</core_principles>
 
-2. Create compelling resumes:
-   - Highlight quantifiable achievements (e.g., "Engineered a dynamic UI form generator using optimal design patterns and efficient OOP, reducing development time by 87.5%")
-   - Tailor content to specific job and company
-   - Emphasize candidate's unique value proposition
+<bullet_quality_standard>
+Weak:  "Worked on improving system performance"
+Strong: "Reduced API p99 latency by 43% by profiling and rewriting 3 hot database queries, handling 2M daily requests without throttling"
 
-3. Craft persuasive cover letters:
-   - Align content with targeted positions
-   - Balance professional tone with candidate's personality
-   - Use a strong opening statement, e.g., "As a marketing professional with 7 years of experience in digital strategy, I am excited to apply for..."
-   - Identify and emphasize soft skills valued in the target role/industry. Provide specific examples demonstrating these skills
+Weak:  "Managed a team"
+Strong: "Led a 6-engineer cross-functional team delivering a real-time fraud detection service that blocked $1.2M in fraudulent transactions in Q1"
+</bullet_quality_standard>
 
-4. Optimize for Applicant Tracking Systems (ATS):
-   - Use industry-specific keywords strategically throughout documents
-   - Ensure content passes ATS scans while engaging human readers
+<output_format>
+Always return structured JSON matching the requested schema. Do not include markdown fences, commentary, or prose outside the JSON structure unless explicitly asked.
+</output_format>"""
 
-5. Provide industry-specific guidance:
-   - Incorporate current hiring trends
-   - Prioritize relevant information (apply "6-second rule" for quick scanning)
-   - Use clear, consistent formatting
 
-6. Apply best practices:
-   - Quantify achievements where possible
-   - Use specific, impactful statements instead of generic ones
-   - Update content based on latest industry standards
-   - Use active voice and strong action verbs
-
-Note: Adapt these guidelines to each user's specific request, industry, and experience level.
-
-Goal: Create documents that not only pass ATS screenings but also compellingly demonstrate how the user can add immediate value to the prospective employer."""
-
-JOB_DETAILS_EXTRACTOR = """
-<task>
-Identify the key details from a job description and company overview to create a structured JSON output. Focus on extracting the most crucial and concise information that would be most relevant for tailoring a resume to this specific job.
+JOB_DETAILS_EXTRACTOR = """<task>
+Extract structured job details from the job description below. Focus on information most useful for resume tailoring: required skills, responsibilities, and implicit keywords.
 </task>
 
 <job_description>
 {job_description}
 </job_description>
 
-Note: The "keywords", "job_duties_and_responsibilities", and "required_qualifications" sections are particularly important for resume tailoring. Ensure these are as comprehensive and accurate as possible.
+<reasoning>
+Think step by step before producing the final output:
+1. What is the core role and seniority level?
+2. What are the must-have technical skills (Tier 1 — appear multiple times or listed as required)?
+3. What are the nice-to-have skills (Tier 2 — mentioned once or listed as preferred)?
+4. What implicit keywords does the company culture suggest (Tier 3 — values, methodologies, domain terms)?
+5. What are the 3-5 most critical responsibilities a strong candidate would highlight on their resume?
+</reasoning>
 
-{format_instructions}
-"""
+<instructions>
+- The "keywords" field is the most important for resume tailoring — be exhaustive and precise.
+- Preserve the exact terminology used in the job description (e.g., "PostgreSQL" not "SQL database").
+- If salary, location, or company details are absent, use null rather than guessing.
+</instructions>"""
+
 
 CV_GENERATOR = """<task>
-create a compelling, concise cover letter that aligns my resume/work information with the job description and company value. Analyze and match my qualifications with the job requirements. Then, create cover letter.
+Write a compelling, concise cover letter that bridges my background with this specific role and company. The letter must feel tailored — not templated.
 </task>
 
 <job_description>
@@ -73,52 +73,51 @@ create a compelling, concise cover letter that aligns my resume/work information
 {my_work_information}
 </my_work_information>
 
+<reasoning>
+Before writing, analyze:
+1. What is the single most compelling overlap between my background and this role's top requirement?
+2. Which 1-2 achievements from my experience are the strongest evidence for that overlap?
+3. What does this company value (from the JD language) that I can authentically reflect?
+4. What would make a hiring manager at this company stop skimming and read carefully?
+</reasoning>
+
 <guidelines>
-- Highlight my unique qualifications for this specific role and company culture in a concise bulleted list for easy readability.
-- Focus on the value I can bring to the employer, including 1-2 specific examples of relevant achievements.
-- Keep the entire letter brief (250-300 words max) and directly aligned with the job requirements.
+- Open with a specific, confident hook — not "I am applying for...". Reference the role and one concrete reason you're a strong fit.
+- Body: 2 short paragraphs max. Each tied to a specific job requirement with a real example.
+- Close: Forward-looking, confident, no filler phrases like "I look forward to hearing from you".
+- Length: 220-280 words. Every sentence must earn its place.
+- Tone: Professional but human — avoid corporate jargon.
+- Do not repeat resume bullets verbatim — contextualize and expand on them.
 </guidelines>
 
-Do not repeat information verbatim from my resume. Instead, elaborate on or provide context for key points.
-
-# Output Format:
+<output_format>
 Dear Hiring Manager,
 [Your response here]
 Sincerely,
-[My Name from the provided JSON]"""
+[My Name from the provided JSON]
+</output_format>"""
+
 
 RESUME_DETAILS_EXTRACTOR = """<objective>
-Parse a text-formatted resume efficiently and extract diverse applicant's data into a structured JSON format.
+Parse a plain-text resume and extract all applicant data into a structured JSON format with high fidelity.
 </objective>
 
 <input>
-The following text is the applicant's resume in plain text format:
-
 {resume_text}
 </input>
 
+<reasoning>
+Work through the resume systematically:
+1. Identify all distinct sections present (personal info, summary, experience, education, skills, projects, certifications, achievements).
+2. For each experience entry, extract company, role, dates, location, and all bullet points verbatim.
+3. For skills, preserve groupings if present (e.g., "Languages: Python, Java") — do not flatten into one list.
+4. For dates, standardize to "Mon YYYY" format where possible (e.g., "Jan 2022"). Use null for missing dates.
+5. For URLs/links, extract as-is. Use null if absent.
+</reasoning>
+
 <instructions>
-Follow these steps to extract and structure the resume information:
-
-1. Analyze Structure:
-   - Examine the text-formatted resume to identify key sections (e.g., personal information, education, experience, skills, certifications).
-   - Note any unique formatting or organization within the resume.
-
-2. Extract Information:
-   - Systematically parse each section, extracting relevant details.
-   - Pay attention to dates, titles, organizations, and descriptions.
-
-3. Handle Variations:
-   - Account for different resume styles, formats, and section orders.
-   - Adapt the extraction process to accurately capture data from various layouts.
-
-5. Optimize Output:
-   - Handle missing or incomplete information appropriately (use null values or empty arrays/objects as needed).
-   - Standardize date formats, if applicable.
-
-6. Validate:
-   - Review the extracted data for consistency and completeness.
-   - Ensure all required fields are populated if the information is available in the resume.
-</instructions>
-
-{format_instructions}"""
+- Extract all information present — do not summarize, paraphrase, or omit bullets.
+- Use null for any field where information is genuinely absent (never guess or fabricate).
+- Preserve original bullet text exactly — do not clean up grammar or rephrase.
+- If a section is completely absent from the resume, use an empty array [] for that field.
+</instructions>"""
