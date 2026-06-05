@@ -47,7 +47,9 @@ Extract structured job details from the job description below. Focus on informat
 
 <reasoning>
 Think step by step before producing the final output:
-1. What is the core role and seniority level?
+1. What is the core role and seniority level? Look for signals: years of experience required,
+   title modifiers (Senior, Lead, Principal, Staff), scope of ownership, people management,
+   IC vs. managerial track. Map to one of: junior / mid / senior / lead.
 2. What are the must-have technical skills (Tier 1 — appear multiple times or listed as required)?
 3. What are the nice-to-have skills (Tier 2 — mentioned once or listed as preferred)?
 4. What implicit keywords does the company culture suggest (Tier 3 — values, methodologies, domain terms)?
@@ -61,6 +63,10 @@ Think step by step before producing the final output:
     • Tier 2 (tier2_high_priority): Soft skills, methodologies, experience types listed as preferred.
       Aim for 3-4 items.
     • Tier 3 (tier3_bonus): Culture language, nice-to-haves, domain jargon. Aim for 2-3 items.
+- Set `seniority_level` to one of: junior / mid / senior / lead.
+  Use these signals: years required (0-2 → junior, 2-5 → mid, 5+ → senior),
+  title prefix (Senior/Staff/Principal → senior, Lead/Manager/Director → lead),
+  scope language ("owns", "drives", "leads team" → senior/lead).
 - Preserve exact JD terminology in all keyword fields (e.g., "PostgreSQL" not "SQL database").
 - If salary, location, or company details are absent, use null rather than guessing.
 </instructions>"""
