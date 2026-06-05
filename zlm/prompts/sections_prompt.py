@@ -178,12 +178,20 @@ Work through this analysis before writing:
 </reasoning>
 
 <instructions>
-- Select 2-3 most relevant projects. Drop irrelevant ones.
-- Each project: 2-3 bullet points using Action + Skill + Metric format.
-- Weave in job description keywords naturally — never keyword-stuff.
-- Quantify every bullet where possible. If no metric exists, add scale/context.
-- Do not fabricate project details, links, or outcomes.
-- Dates: "Mon YYYY" format.
+Bullet formula (apply to every bullet without exception):
+  [Strong Action Verb] + [Tier 1 Keyword / Relevant Skill] + [Quantified Impact or Scope]
+
+Rules:
+1. Prioritize projects that let Tier 1 keywords appear authentically in bullets.
+2. Every bullet MUST contain at least one Tier 1 keyword naturally.
+3. Metrics first — use numbers wherever original data supports them.
+4. Scope fallback — if no metric, include: user count, data scale, latency, or team size.
+5. NEVER fabricate project details, links, or outcomes.
+6. Seniority framing — locate `seniority_level` in job_description JSON:
+   - junior/mid : emphasize technical implementation, learning, and concrete outputs.
+   - senior/lead: emphasize architectural decisions, cross-team impact, and business outcomes.
+7. Select 2-3 most relevant projects. Drop anything with no relevance to the role.
+8. Dates: "Mon YYYY" format.
 </instructions>
 """ + _BULLET_EXAMPLES + """
 <output_schema>
@@ -195,8 +203,8 @@ Work through this analysis before writing:
     "from_date": "<Mon YYYY or null>",
     "to_date": "<Mon YYYY or null>",
     "description": [
-      "<bullet 1: Action + Skill + Metric>",
-      "<bullet 2: Action + Skill + Metric>"
+      "<bullet 1: Action + Tier1Keyword + Metric/Scope>",
+      "<bullet 2: Action + Tier1Keyword + Metric/Scope>"
     ]
   }}
 ]
@@ -275,13 +283,25 @@ Work through this analysis before writing:
 </reasoning>
 
 <instructions>
-- Include 2-3 most relevant experiences. Preserve all factual details (company, role, dates, location).
-- Each experience: 3 bullet points using Action + Skill + Metric format.
-- Start each bullet with a strong past-tense action verb.
-- Naturally incorporate Tier 1 job description keywords — no keyword stuffing.
-- Quantify every bullet (numbers, percentages, scale, time saved). If original has no metric, add reasonable context.
-- Do not change job titles, companies, or dates. Do not fabricate outcomes.
-- Order experiences reverse-chronologically.
+Bullet formula (apply to every bullet without exception):
+  [Strong Action Verb] + [Tier 1 Keyword / Relevant Skill] + [Quantified Impact or Scope]
+
+Rules:
+1. Every bullet MUST contain at least one Tier 1 keyword from `keyword_tiers.tier1_must_have` —
+   woven in naturally, not bolted on.
+2. Metrics first — use numbers, percentages, time saved, or error rates whenever the original
+   resume data supports them.
+3. Scope fallback — if no specific metric exists, include scope: team size, data volume,
+   user count, system scale, or time to delivery.
+4. NEVER fabricate metrics or outcomes not supported by the original resume data.
+5. Seniority framing — locate `seniority_level` in the job_description JSON and frame bullets accordingly:
+   - junior : emphasize learning velocity, initiative, direct contribution, and collaboration.
+   - mid    : emphasize technical wins, measurable outcomes, and independent ownership.
+   - senior : emphasize system-level scope, cross-team impact, and strategic decisions.
+   - lead   : emphasize people leadership, org-level outcomes, and directional influence.
+6. Select 2-3 most relevant experiences. Preserve all factual details (company, role, dates, location).
+   Do not change job titles, companies, or dates.
+7. Order experiences reverse-chronologically.
 </instructions>
 """ + _BULLET_EXAMPLES + """
 <output_schema>
@@ -293,9 +313,9 @@ Work through this analysis before writing:
     "from_date": "<Mon YYYY>",
     "to_date": "<Mon YYYY or Present>",
     "description": [
-      "<bullet 1: Action + Skill + Metric>",
-      "<bullet 2: Action + Skill + Metric>",
-      "<bullet 3: Action + Skill + Metric>"
+      "<bullet 1: Action + Tier1Keyword + Metric/Scope>",
+      "<bullet 2: Action + Tier1Keyword + Metric/Scope>",
+      "<bullet 3: Action + Tier1/Tier2Keyword + Metric/Scope>"
     ]
   }}
 ]

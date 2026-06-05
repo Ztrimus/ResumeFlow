@@ -8,7 +8,7 @@ Copyright (c) 2023-2024 Saurabh Zinjad. All rights reserved | https://github.com
 -----------------------------------------------------------------------
 '''
 
-from typing import List
+from typing import List, Literal
 from pydantic import BaseModel, Field
 
 
@@ -44,6 +44,15 @@ class JobDetails(BaseModel):
             "Keywords classified into three priority tiers for precise resume tailoring. "
             "Tier 1 = must-have hard skills, Tier 2 = preferred soft skills/methodologies, "
             "Tier 3 = culture/bonus language."
+        )
+    )
+    seniority_level: Literal["junior", "mid", "senior", "lead"] = Field(
+        description=(
+            "Seniority level of the target role inferred from the job description. "
+            "'junior' = 0-2 years, IC learning role; "
+            "'mid' = 2-5 years, independent contributor; "
+            "'senior' = 5+ years, owns outcomes; "
+            "'lead' = people/tech leadership, org-level impact."
         )
     )
     job_duties_and_responsibilities: List[str] = Field(description="Focus on essential functions, their frequency and importance, level of decision-making, areas of accountability, and any supervisory responsibilities.")
